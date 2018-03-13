@@ -18,6 +18,7 @@ namespace LiveFeedScreen.E2SHPackage_Scripts
     {
         private Coroutine _streamCoroutine;
         private RawImage rawImage;
+        public Texture DefaulTexture;
 
         public int RobotId;
 
@@ -43,7 +44,6 @@ namespace LiveFeedScreen.E2SHPackage_Scripts
         // Handles getting. 
         private IEnumerator GetTexture()
         {
-            //TODO Fix memory leak.
             while (true)
             {
                 // Instantiate a Texture2D, and gives the 
@@ -61,13 +61,11 @@ namespace LiveFeedScreen.E2SHPackage_Scripts
 
 
                 // Check shit
-                if (www.error != null)
+                if (www.error != null || tex == null)
                 {
-                    //Debug.Log(www.error);
+                    rawImage.texture = DefaulTexture;
                     continue;
                 }
-
-                if (tex == null) continue;
 
                 //Loads the ROSbridge video_websocket_server husky image into the Textture2D 'tex'
                 www.LoadImageIntoTexture(tex);
