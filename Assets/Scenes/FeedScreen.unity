@@ -285,7 +285,6 @@ GameObject:
   - component: {fileID: 489992201}
   - component: {fileID: 489992200}
   - component: {fileID: 489992206}
-  - component: {fileID: 489992204}
   - component: {fileID: 489992205}
   m_Layer: 5
   m_Name: Canvas
@@ -372,21 +371,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &489992204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 489992199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c03270c763639a4fbd6eeb769f738e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Isbot1: {fileID: 0}
-  Isbot2: {fileID: 0}
-  Isbot3: {fileID: 0}
-  Isbot4: {fileID: 0}
 --- !u!114 &489992205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,7 +626,7 @@ Prefab:
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -104.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
@@ -652,7 +636,7 @@ Prefab:
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 209
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
@@ -756,7 +740,7 @@ Prefab:
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -104.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
@@ -766,7 +750,7 @@ Prefab:
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 209
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
@@ -991,7 +975,7 @@ Prefab:
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -104.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
@@ -1001,7 +985,7 @@ Prefab:
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 209
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
@@ -1036,11 +1020,6 @@ Prefab:
     - target: {fileID: 1317526406877410, guid: c7f806f1c4988cd448b644d1a94c264c, type: 2}
       propertyPath: m_Name
       value: RobotFeed 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114819639126567466, guid: c7f806f1c4988cd448b644d1a94c264c,
-        type: 2}
-      propertyPath: RobotId
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7f806f1c4988cd448b644d1a94c264c, type: 2}
@@ -1168,7 +1147,7 @@ Prefab:
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -104.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
@@ -1178,7 +1157,7 @@ Prefab:
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 209
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224207370300682942, guid: c7f806f1c4988cd448b644d1a94c264c,
         type: 2}

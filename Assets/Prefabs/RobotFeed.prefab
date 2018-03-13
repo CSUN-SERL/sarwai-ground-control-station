@@ -432,7 +432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5556b960df8ef4727a2ae3ebd55d4023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RobotId: 2
+  DefaulTexture: {fileID: 2800000, guid: daebc90d8dbbb6147a0f5f15863f1e6b, type: 3}
+  RobotId: 1
 --- !u!222 &222086411569162118
 CanvasRenderer:
   m_ObjectHideFlags: 1
