@@ -29,6 +29,7 @@ namespace Mission
             Debug.Log("Query received event triggered.");
             var handler = QueryRecieved;
             if (handler != null)
+                query.ArrivalTime = MissionTimer.CurrentTime;
                 handler(null, new QueryEventArgs {Query = query});
         }
 

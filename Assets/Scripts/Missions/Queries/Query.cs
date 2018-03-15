@@ -19,9 +19,6 @@ namespace Mission
         public int RobotId { get; set; }
 
         [SerializeField]
-        public float ArrivalTime { get; set; }
-
-        [SerializeField]
         public int Response { get; set; }
 
         [SerializeField]
@@ -32,6 +29,24 @@ namespace Mission
 
         [SerializeField]
         public Guid MediaGuid { get; set; }
+
+        [SerializeField]
+        public float ArrivalTime { get; set; }
+
+        [SerializeField]
+        public float DepartureTime { get; set; }
+
+        [SerializeField]
+        public float TotTime { get; set; }
+
+        [SerializeField]
+        public float UIArrival { get; set; }
+
+        [SerializeField]
+        public float UIDeparture { get; set; }
+
+        [SerializeField]
+        public float TotUiTime { get; set; }
 
         public abstract void Display();
 

@@ -51,6 +51,11 @@ namespace Mission.Display.Queries
         {
             if (e.Query == query)
             {
+                //query.UIDeparture = query.UIDeparture + query.UIArrival;
+                //query.DepartureTime = MissionTimer.CurrentTime;
+                //query.UIDeparture = MissionTimer.CurrentTime;
+                //query.TotUiTime = query.UIArrival - query.UIDeparture;
+                //query.TotTime = query.ArrivalTime - query.DepartureTime;
                 query = null;
                 Destroy(gameObject);
             }
