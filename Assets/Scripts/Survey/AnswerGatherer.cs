@@ -35,7 +35,7 @@ namespace Survey
 
                 //Debug.Log(surveyQuestionList[int.Parse(g.name)].QuestionId +
                 //" is question id");
-                //Debug.Log(surveyQuestionList[int.Parse(g.name)].QuestionType +
+                //Debug.Log(surveyQuestionList[int.Parse(g.name)].Type +
                 //" is question type");
 
                 switch (temp.QuestionType)
@@ -134,14 +134,19 @@ namespace Survey
             //          " is in Multiple");
             var toggles = go.transform.GetChild(1).GetChild(0)
                 .GetComponentsInChildren<Toggle>().ToList();
+            Debug.Log("Toggle count = "+ toggles.Count);
             for (var i = 0; i < toggles.Count; ++i)
+            {
+                Debug.Log(i + " = i,good");
+
                 if (toggles[i].isOn)
                 {
-                    //Debug.Log(i + " = i");
+                    Debug.Log(i + " = i,good");
                     questionDetails.SelectedAnswer =
                         questionDetails.OfferedAnswerList[i];
                     return;
                 }
+            }
 
             questionDetails.SelectedAnswer = "Not Answered";
         }
