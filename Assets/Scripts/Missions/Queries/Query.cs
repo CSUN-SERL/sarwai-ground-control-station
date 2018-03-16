@@ -49,12 +49,6 @@ namespace Mission
         public Guid MediaGuid { get; set; }
 
         [SerializeField]
-        public float ArrivalTime { get; set; }
-
-        [SerializeField]
-        public float DepartureTime { get; set; }
-
-        [SerializeField]
         public float TotTime { get; set; }
 
         [SerializeField]

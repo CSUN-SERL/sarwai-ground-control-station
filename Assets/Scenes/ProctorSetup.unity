@@ -430,7 +430,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1924867136}
     - target: {fileID: 114134305498376370, guid: a38008a686b4771448b81eadb667b09c,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -557,7 +557,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1924867136}
     - target: {fileID: 114134305498376370, guid: a38008a686b4771448b81eadb667b09c,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1166,7 +1166,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1924867136}
     - target: {fileID: 114134305498376370, guid: a38008a686b4771448b81eadb667b09c,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1968,7 +1968,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1924867136}
     - target: {fileID: 1604151972080740, guid: a38008a686b4771448b81eadb667b09c, type: 2}
       propertyPath: m_Name
       value: Group Button (1)
@@ -1979,6 +1979,11 @@ Prefab:
       value: 'Group 4
 
         NANT'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114134305498376370, guid: a38008a686b4771448b81eadb667b09c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeNewParicipant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a38008a686b4771448b81eadb667b09c, type: 2}
@@ -2178,6 +2183,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1914179011}
+--- !u!114 &1924867136 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114427128177084504, guid: 129dcb2aac5426547b8c2c0485180d8d,
+    type: 2}
+  m_PrefabInternal: {fileID: 2114291910}
+  m_Script: {fileID: 11500000, guid: 6780d2d4153c3b84ab20aa0ef7318af2, type: 3}
 --- !u!1 &2030967041
 GameObject:
   m_ObjectHideFlags: 0

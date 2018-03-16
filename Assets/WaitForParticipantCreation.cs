@@ -13,10 +13,6 @@ public class WaitForParticipantCreation : MonoBehaviour {
     ///     from a coroutine, we will now wait until the coroutine has 
     /// </summary>
 	void Start () {
-        
-        //transform.GetChild(0).gameObject.SetActive(false);
-        
-        //Debug.Log("button  disabled");
     }
 	
     public void Awake()
@@ -35,7 +31,7 @@ public class WaitForParticipantCreation : MonoBehaviour {
     /// <param name="sender"></param>
     /// <param name="e"></param>
     public void OnNewParticipantMade(object sender, EventArgs e) {
-        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(true);
         Debug.Log("button enabled");
     }
 }
