@@ -22,6 +22,21 @@ namespace Mission
         public float ArrivalTime { get; set; }
 
         [SerializeField]
+        public float DepartureTime { get; set; }
+
+        [SerializeField]
+        public float TotalLifeTime { get; set; }
+
+        [SerializeField]
+        public float UIArrivalTime { get; set; }
+
+        [SerializeField]
+        public float UIDepartureTime { get; set; }
+
+        [SerializeField]
+        public float TotalUILifeTime { get; set; }
+
+        [SerializeField]
         public int Response { get; set; }
 
         [SerializeField]

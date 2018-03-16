@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SARWAI-GCS", "SARWAI-GCS.csproj", "{B496F39E-B4FA-F853-8880-99734F34B56A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SARWAI-GCS.Editor", "SARWAI-GCS.Editor.csproj", "{3E1976A8-153C-7D76-ADE1-95051CD3B48C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B496F39E-B4FA-F853-8880-99734F34B56A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B496F39E-B4FA-F853-8880-99734F34B56A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B496F39E-B4FA-F853-8880-99734F34B56A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B496F39E-B4FA-F853-8880-99734F34B56A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E1976A8-153C-7D76-ADE1-95051CD3B48C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E1976A8-153C-7D76-ADE1-95051CD3B48C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E1976A8-153C-7D76-ADE1-95051CD3B48C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E1976A8-153C-7D76-ADE1-95051CD3B48C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
