@@ -51,6 +51,10 @@ namespace Mission.Display.Queries
         {
             if (e.Query == query)
             {
+                query.TotalLifeTime = query.ArrivalTime - query.DepartureTime;
+                query.TotalUILifeTime = query.UIDepartureTime - query.UIArrivalTime;
+                
+
                 query = null;
                 Destroy(gameObject);
             }

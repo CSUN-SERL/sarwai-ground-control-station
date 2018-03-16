@@ -21,19 +21,24 @@ namespace Networking
         public static void UploadQueryAnswer(object sender, QueryEventArgs eventArgs)
         {
 
-            var answerTime = System.DateTime.Now;
+            //var answerTime = System.DateTime.Now;
+            eventArgs.Query.DepartureTime = MissionTimer.CurrentTime;
+            int departure = (int)eventArgs.Query.DepartureTime;
+            int answerTime = departure - (int)eventArgs.Query.ArrivalTime;
+            Debug.Log("THIS IS THE ANSWER TIME  " + answerTime);
 
-            Debug.Log(string.Format("Sending Query Answer: QID: {0} Answer: {1} Time answered: {2}", eventArgs.Query.QueryId, 
+            Debug.Log(string.Format("Sending Query Answer: QID: {0} Answer: {1} Time answered: {2}", eventArgs.Query.QueryId,
                 eventArgs.Query.Response, answerTime));
 
 
             // TODO Upload proper datetime.
+
             var responseDict =
                 new Dictionary<string, int>
                 {
                     {"query_id", eventArgs.Query.QueryId},
                     {"response", eventArgs.Query.Response},
-                    {"answerTime", answerTime.Minute}
+                    {"answerTime", answerTime}
                 };
 
 
