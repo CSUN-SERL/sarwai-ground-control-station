@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 114341115529866892}
   - component: {fileID: 114531019631271938}
   m_Layer: 5
-  m_Name: Scale
+  m_Name: TLX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

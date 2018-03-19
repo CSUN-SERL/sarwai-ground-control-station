@@ -15,28 +15,15 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-namespace Survey
+namespace NewSurveyArch
 {
     public class GenerateSurveyQuestionPrefab : MonoBehaviour
     {
-        private AnswerButton _backButton;
         private List<GameObject> _go;
-        private AnswerButton _nextButton;
 
         private int _questionIndex;
         private int _surveyNumber;
-        private List<QuestionDetails> _surveyQuestionList;
-
-        private string filePath = "";
-
-        public GameObject FreeResponsePrefab;
-        public GameObject MessegePrefab;
-        public GameObject MultiplePrefab;
-        public GameObject NumericPrefab;
-
-        public GameObject QueryImagePrefab;
-        public GameObject ScalarPrefab;
-        public GameObject ScalePrefab;
+        private List<SurveyQuestion> _surveyQuestionList;
 
         public IEnumerator StartUp(int tempSurveyNumber)
         {
@@ -52,14 +39,6 @@ namespace Survey
 
             StartCoroutine(downloadManager.LoadSurveyEnumerator(_surveyNumber));
 
-            _nextButton = gameObject.transform.parent.GetChild(1).GetChild(0)
-                .GetComponent<AnswerButton>();
-            _nextButton.BehaviorOfButton = 1;
-            _backButton = gameObject.transform.parent.GetChild(1).GetChild(1)
-                .GetComponent<AnswerButton>();
-            _backButton.BehaviorOfButton = -1;
-            _nextButton.BehaviorOfButton = 1;
-
             _questionIndex = -1;
 
             while (downloadManager.Loading)
@@ -70,22 +49,15 @@ namespace Survey
             if (_surveyQuestionList.Count == 0)
                 GoToNextScene();
 
-            //Debug.Log(HasNextQuestion());
-            _backButton.gameObject.SetActive(true);
-            _nextButton.gameObject.SetActive(true);
+
             NextQuestion();
         }
-
-        private void Start()
-        {
-            //Debug.Log("GenericSurvey Start");
-            ActivateSurveyWithNumber.CallListener();
-        }
+        
 
         private void OnEnable()
         {
-            EventManager.Load += OnLoad;
-            EventManager.ChangeQuestion += OnChangeQuestion;
+            Survey.EventManager.Load += OnLoad;
+            Survey.EventManager.ChangeQuestion += OnChangeQuestion;
             MediaDownload.EventManager.AudioClipDownloaded +=
                 OnAudioClipDownloaded;
             MediaDownload.EventManager.TextureDownloaded +=
@@ -94,8 +66,8 @@ namespace Survey
 
         private void OnDisable()
         {
-            EventManager.Load -= OnLoad;
-            EventManager.ChangeQuestion -= OnChangeQuestion;
+            Survey.EventManager.Load -= OnLoad;
+            Survey.EventManager.ChangeQuestion -= OnChangeQuestion;
             MediaDownload.EventManager.AudioClipDownloaded -=
                 OnAudioClipDownloaded;
             MediaDownload.EventManager.TextureDownloaded -=
@@ -277,7 +249,7 @@ namespace Survey
                 form))
             {
                 yield return www.SendWebRequest();
-                
+
                 if (www.isNetworkError || www.isHttpError)
                 {
                     Debug.Log(www.error);

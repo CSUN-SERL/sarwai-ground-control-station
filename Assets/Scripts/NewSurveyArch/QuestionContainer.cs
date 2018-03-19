@@ -1,21 +1,24 @@
-﻿using UnityEngine;
+﻿using Boo.Lang;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace NewSurveyArch
 {
     public abstract class QuestionContainer : MonoBehaviour
     {
-        public Question Question { get; private set; }
-
-        public abstract void Load(Question question);
-
-        public abstract void DisplayOn();
-
-        public abstract void DisplayOff();
-
-        protected abstract void Upload();
-
+        protected List<Question> QuestionList;
         
+    }
+
+    public class SurveyQuestionContainer : QuestionContainer
+    {
+        protected override void Download()
+        {
+        }
+
+        protected override void Upload()
+        {
+        }
     }
 
     public class MessegeContainer : QuestionContainer
