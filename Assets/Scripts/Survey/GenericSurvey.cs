@@ -626,6 +626,7 @@ namespace Survey
         ///     Date: 1/12/18
         ///     Reason now the survey will fork to the final screen if the participant is done with experiment.
         /// </remarks>
+        /*
         private void OnGUI()
         {
             var e = Event.current;
@@ -640,7 +641,7 @@ namespace Survey
                     }
                 }
         }
-
+        */
         private void GoToNextScene()
         {
             var ag = gameObject.AddComponent<AnswerGatherer>();
