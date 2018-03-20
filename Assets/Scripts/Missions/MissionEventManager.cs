@@ -31,7 +31,17 @@ namespace Mission
         public static void OnQueryAnswered(Query query)
         {
             if (QueryAnswered != null)
-                QueryAnswered(null, new QueryEventArgs {Query = query});
+                //query.UIDeparture = MissionTimer.CurrentTime;
+                //query.TotUiTime = query.UIArrival - query.UIDeparture; 
+
+                query.DepartureTime = MissionTimer.CurrentTime;
+                query.UIDeparture = MissionTimer.CurrentTime;
+                query.TotUiTime = query.UIArrival - query.UIDeparture;
+                query.TotTime = query.ArrivalTime - query.DepartureTime;
+                Console.Write("Total UI time for this query : " + query.TotUiTime);
+                Console.WriteLine("Total Time for this query : " + query.TotTime);
+
+            QueryAnswered(null, new QueryEventArgs {Query = query});
         }
 
         public static event EventHandler<AudioEventArgs> PlayAudioClip;

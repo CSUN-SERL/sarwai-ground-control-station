@@ -1181,6 +1181,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114819639126567466, guid: c7f806f1c4988cd448b644d1a94c264c,
+        type: 2}
+      propertyPath: RobotId
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a27aed68bd77cb74d86498585865fa18, type: 2}
   m_IsPrefabParent: 0
