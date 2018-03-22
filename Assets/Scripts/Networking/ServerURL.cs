@@ -2,14 +2,14 @@
 {
     public class ServerURL
     {
-        // Main URLs and Ports for servers.
-        //private const string URL =
-        //    "http://ec2-52-24-126-225.us-west-2.compute.amazonaws.com";
+		// Main URLs and Ports for servers.
+		//private const string URL =
+		//    "http://ec2-52-24-126-225.us-west-2.compute.amazonaws.com";
 
-        public const string URL = "http://192.168.1.11";
+		public const string URL = "http://192.168.1.11"; // "http://52.24.126.225";
 
-        //private const int PORT = 81;
-        public const int PORT = 8000;
+		//private const int PORT = 81;
+		public const int PORT = 8000;
 
 
         private const string STATION_1_URL = "192.168.1.161";
