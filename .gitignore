@@ -1,10 +1,12 @@
-<<<<<<< HEAD
-Library/*
-=======
 [Ll]ibrary/*
 GCS.exe
 SARWAI-GCS*
 GCS_Data/*
->>>>>>> 64985f80263c19b90d952aba77a46f72a887d398
 
 \.vs/*
+
+*.csproj
+*.sln
+Temp/
+obj/
+.vs/
