@@ -13,11 +13,5 @@ namespace Mission
             _button.onClick.AddListener(MissionLifeCycleController
                 .StartMission);
         }
-
-        private void Update()
-        {
-            _button.interactable =
-                MissionLifeCycleController.Instance.Initialized;
-        }
     }
 }

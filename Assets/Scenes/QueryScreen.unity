@@ -1299,7 +1299,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 96.49999, y: 0}
+  m_AnchoredPosition: {x: 96.5, y: 0}
   m_SizeDelta: {x: 193, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &348920416
@@ -1833,8 +1833,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1408732019}
   m_HandleRect: {fileID: 1408732018}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2299,8 +2299,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 536026348}
   m_HandleRect: {fileID: 536026347}
   m_Direction: 3
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2384,6 +2384,27 @@ Prefab:
     - {fileID: 114182562602418452, guid: 129dcb2aac5426547b8c2c0485180d8d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 129dcb2aac5426547b8c2c0485180d8d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &811039511 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1071328312501438, guid: 129dcb2aac5426547b8c2c0485180d8d,
+    type: 2}
+  m_PrefabInternal: {fileID: 760314414}
+--- !u!114 &811039520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 811039511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c65465c1af29558438b84dbd9b010efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroupNumber: 1
+  Id: 600
+  MissionNumber: 1
+  On: 0
+  ProctorName: 
 --- !u!1 &821884243
 GameObject:
   m_ObjectHideFlags: 0
@@ -2960,7 +2981,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1053300661}
   m_OnClick:
     m_PersistentCalls:
