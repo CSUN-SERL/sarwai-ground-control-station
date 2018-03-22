@@ -9,3 +9,4 @@ GCS_Data/*
 *.sln
 Temp/
 obj/
+.vs/
