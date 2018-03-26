@@ -8,23 +8,56 @@ namespace Mission.Display.Queries
     {
         private static QueryButton _activeButton;
 
-        private Image _image;
+	    private Button _yesButton;
+	    private Button _noButton;
 
-        // Keep this named this way
-        public Query query { get; set; }
+		private Image _image;
+	    private RectTransform _rectTransform;
+
+		// Keep this named this way
+		public Query query { get; set; }
 
         // Use this for initialization	
         private void Start()
         {
             _image = gameObject.GetComponent<Image>();
+	        _rectTransform = transform.GetComponent<RectTransform>();
 
-            transform.Find("Name").GetComponent<Text>().text =
+	        Transform tempGameObject;
+
+			if ((tempGameObject = transform.Find("YesButton")) !=
+			    null) {
+				_yesButton = tempGameObject.GetComponent<Button>();
+				_yesButton.onClick.AddListener(YesButtonOnClick);
+			}
+
+	        if ((tempGameObject = transform.Find("NoButton")) !=
+	            null) {
+		        _noButton = tempGameObject.GetComponent<Button>();
+		        _noButton.onClick.AddListener(NoButtonOnClick);
+	        }
+
+			transform.Find("Name").GetComponent<Text>().text =
                 string.Format("Robot {0}", query.RobotId);
             transform.Find("Type").GetComponent<Text>().text =
                 query.GetDisplayName();
         }
 
-        private void OnEnable()
+		private void YesButtonOnClick() {
+		    ButtonOnClick(1);
+	    }
+
+	    private void NoButtonOnClick() {
+		    ButtonOnClick(0);
+	    }
+
+	    private void ButtonOnClick(int answer) {
+		    query.Response = answer;
+		    MissionEventManager.OnQueryAnswered(query);
+		    DisplayEventManager.OnClearDisplay();
+	    }
+
+		private void OnEnable()
         {
             MissionEventManager.QueryAnswered += OnQueryAnswered;
         }
@@ -38,12 +71,18 @@ namespace Mission.Display.Queries
         {
             _image.color = new Color(32.0f / 255.0f, 32.0f / 255.0f,
                 32.0f / 255.0f);
-        }
+	        _rectTransform.sizeDelta = new Vector2(
+		        _rectTransform.sizeDelta.x,
+		        58.0f);
+		}
 
         public void Activate()
         {
             _image.color = new Color(238.0f / 255.0f, 80.0f / 255.0f,
                 33.0f / 255.0f);
+			_rectTransform.sizeDelta = new Vector2(
+				_rectTransform.sizeDelta.x,
+				116.0f);
             query.Display();
         }
 
@@ -51,11 +90,11 @@ namespace Mission.Display.Queries
         {
             if (e.Query == query)
             {
-                query.TotalLifeTime = query.ArrivalTime - query.DepartureTime;
-                query.TotalUILifeTime = query.UIDepartureTime - query.UIArrivalTime;
-                
+	            query.TotalLifeTime = query.ArrivalTime - query.DepartureTime;
+	            query.TotalUILifeTime = query.UIDepartureTime - query.UIArrivalTime;
 
-                query = null;
+
+	            query = null;
                 Destroy(gameObject);
             }
         }
