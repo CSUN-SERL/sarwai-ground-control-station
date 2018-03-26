@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Tests
 {
-    public class JsonStressTest : MonoBehaviour
+    public class JsonStressTest1 : MonoBehaviour
     {
         public bool On;
 

@@ -25,12 +25,20 @@ namespace NewSurveyArch
         {
             var list = e.QuestionsList;
             foreach (var surveyQuestion in list)
-                MakeQuestionGameObjectAsChild(surveyQuestion);
+            {
+                var tempObject = SurveyQuestionToGameObject(surveyQuestion);
+                tempObject.transform.SetParent(transform);
+            }
         }
 
+        /// <summary>
+        ///     Figures out which prefab needs to be instantiated. 
+        /// Asks the <see cref="GenerateSurveyQuestionPrefab"/> to instantiate given prefab
+        /// </summary>
+        /// <param name="currentDetails"></param>
+        /// <returns></returns>
         private GameObject SurveyQuestionToGameObject(SurveyQuestion currentDetails)
         {
-            //Debug.Log(currentDetails.Type);
             switch (currentDetails.Type)
             {
                 case "FreeResponse":
@@ -41,14 +49,12 @@ namespace NewSurveyArch
                     return GenerateSurveyQuestionPrefab.ScalarSetup(currentDetails);
                 case "Numerical":
                     return GenerateSurveyQuestionPrefab.NumericSetup(currentDetails);
-                //special cases bellow
 
+                //special cases bellow
                 case "Intro":
                     return GenerateSurveyQuestionPrefab.MessegeSetup(currentDetails);
                 case "Outro":
                     return GenerateSurveyQuestionPrefab.MessegeSetup(currentDetails);
-                case "Debrief":
-                    return GenerateSurveyQuestionPrefab.DebriefSetup(currentDetails);
                 case "IfYesRespond":
                     return GenerateSurveyQuestionPrefab.MultipleSetup(currentDetails);
                 case "IfNoRespond":
@@ -56,9 +62,9 @@ namespace NewSurveyArch
                 case "IfScalarLessThan3Respond":
                     return GenerateSurveyQuestionPrefab.MultipleSetup(currentDetails);
                 case "Scale":
-                    return GenerateSurveyQuestionPrefab.ScaleSetup(currentDetails);
+                    return GenerateSurveyQuestionPrefab.TLXSetup(currentDetails);
                 case "TLX":
-                    return GenerateSurveyQuestionPrefab.ScaleSetup(currentDetails);
+                    return GenerateSurveyQuestionPrefab.TLXSetup(currentDetails);
                 case "PickAll":
                     return GenerateSurveyQuestionPrefab.PickAllSetup(currentDetails);
             }
@@ -68,18 +74,6 @@ namespace NewSurveyArch
 
             return GenerateSurveyQuestionPrefab.FreeResponseSetUp(currentDetails);
         }
-
-        /// <summary>
-        ///     Adds a survey question to survey container and sets it as the child of this gameobject.
-        /// </summary>
-        /// <param name="question"></param>
-        public void MakeQuestionGameObjectAsChild(SurveyQuestion question)
-        {
-            var locationOfPrefab = location + question.Type;
-            var instance =
-                Instantiate(Resources.Load<GameObject>(locationOfPrefab));
-            instance.transform.SetParent(transform);
-            instance.GetComponent<MessegeContainer>().Init(question);
-        }
+        
     }
 }

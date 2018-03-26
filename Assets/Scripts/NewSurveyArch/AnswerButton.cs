@@ -11,18 +11,16 @@ namespace NewSurveyArch
     /// </summary>
     public class AnswerButton : MonoBehaviour
     {
-        private Button _button;
 
         private const string Begin = "Begin";
         private const string Next = "Next";
         private const string Continue = "Continue";
 
-        private void Awake()
+        private void Start()
         {
-            _button = gameObject.GetComponentInChildren<Button>();
             //hides the button image
-            _button.GetComponent<Text>().text = Begin;
-            _button.enabled = false;
+            gameObject.GetComponentInChildren<Text>().text = Begin;
+            gameObject.GetComponent<Button>().enabled = false;
         }
 
         /// <summary>
@@ -33,7 +31,7 @@ namespace NewSurveyArch
         /// </summary>
         private void OnMouseDown()
         {
-            _button.GetComponent<Text>().text = Next;
+            gameObject.GetComponentInChildren<Text>().text = Next;
         }
 
         internal void OnEnable()
@@ -57,7 +55,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnLastQuestion(object sender, EventArgs e)
         {
-            _button.GetComponent<Text>().text = Continue;
+            gameObject.GetComponentInChildren<Text>().text = Continue;
         }
 
         /// <summary>
@@ -67,7 +65,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnSurveyComplete(object sender, EventArgs e)
         {
-            _button.enabled = false;
+            gameObject.GetComponent<Button>().enabled = false;
         }
 
         /// <summary>
@@ -77,7 +75,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnFirstQuestion(object sender, EventArgs e)
         {
-            _button.enabled = true;
+            _button.GetComponent<Button>().enabled = true;
         }
     }
 }

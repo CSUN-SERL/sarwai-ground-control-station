@@ -10,7 +10,7 @@ using UnityEngine.Networking;
 
 namespace NewSurveyArch
 {
-    public class LoadSurveyFromWeb : MonoBehaviour
+    public class LoadSurveyFromWeb : ScriptableObject
     {
         public bool Loading;
 
