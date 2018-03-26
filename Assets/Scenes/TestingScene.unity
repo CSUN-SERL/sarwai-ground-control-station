@@ -261,8 +261,8 @@ GameObject:
   - component: {fileID: 327768293}
   - component: {fileID: 327768292}
   - component: {fileID: 327768291}
-  - component: {fileID: 327768290}
   - component: {fileID: 327768294}
+  - component: {fileID: 327768290}
   - component: {fileID: 327768296}
   m_Layer: 0
   m_Name: Main Camera
@@ -342,10 +342,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 327768289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e0c77edf1374cfbba254b22d4ca1267, type: 3}
+  m_Script: {fileID: 11500000, guid: 96119a4752f72b94fa80021d9e6e2456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SurveyNumber: 69
+  SurveyNumber: 1
 --- !u!114 &327768296
 MonoBehaviour:
   m_ObjectHideFlags: 0

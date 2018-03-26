@@ -15,11 +15,11 @@ namespace NewSurveyArch
         /// <summary>
         ///     Event occurs when there is a need to fetch a survey
         /// </summary>
-        public static event EventHandler<IntEventArgs> FetchSurvey;
+        public static event EventHandler<IntEventArgs> FetchSurveyFromWeb;
 
         public static void OnFetchSurveyFromWeb(int i)
         {
-            var handler = FetchSurvey;
+            var handler = FetchSurveyFromWeb;
             if (handler != null) handler(null, new IntEventArgs {intField = i});
         }
 

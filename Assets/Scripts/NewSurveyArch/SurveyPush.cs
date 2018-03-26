@@ -7,12 +7,12 @@ namespace NewSurveyArch
     {
         public void OnEnable()
         {
-            EventManager.FetchSurvey += OnPush;
+            EventManager.FetchSurveyFromWeb += OnPush;
         }
 
         public void OnDisable()
         {
-            EventManager.FetchSurvey -= OnPush;
+            EventManager.FetchSurveyFromWeb -= OnPush;
         }
 
 

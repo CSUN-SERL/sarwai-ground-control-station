@@ -75,7 +75,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnFirstQuestion(object sender, EventArgs e)
         {
-            _button.GetComponent<Button>().enabled = true;
+            gameObject.GetComponent<Button>().enabled = true;
         }
     }
 }

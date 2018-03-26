@@ -17,7 +17,7 @@ using UnityEngine.UI;
 
 namespace Survey
 {
-    public class GenerateSurveyQuestionPrefab : MonoBehaviour
+    public class GenericSurvey : MonoBehaviour
     {
         private AnswerButton _backButton;
         private List<GameObject> _go;
@@ -40,7 +40,7 @@ namespace Survey
 
         public IEnumerator StartUp(int tempSurveyNumber)
         {
-            //Debug.Log("Starting Survey");
+            Debug.Log("Starting GenericSurvey");
 
             _surveyNumber = tempSurveyNumber;
             _go = new List<GameObject>();

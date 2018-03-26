@@ -13,14 +13,18 @@ namespace NewSurveyArch
 {
     public class SurveyFetch : MonoBehaviour
     {
+        public void Awake()
+        {
+            StartCoroutine(Fetching(ParticipantBehavior.Participant.CurrentSurvey));
+        }
         public void OnEnable()
         {
-            EventManager.FetchSurvey += OnFetch;
+            EventManager.FetchSurveyFromWeb += OnFetch;
         }
 
         public void OnDisable()
         {
-            EventManager.FetchSurvey -= OnFetch;
+            EventManager.FetchSurveyFromWeb -= OnFetch;
         }
 
         /// <summary>
@@ -51,7 +55,8 @@ namespace NewSurveyArch
                 //var tempList =
                 //    ScriptableObject.CreateInstance<SurveyQuestion>();
 
-                var q = SurveyQuestion.Init(question["question_text"].ToString(), question["type"].ToString(), SeparatePipeInString(question["offered_answer_text"].ToString()), question["offered_answer_id"].ToString(), question["question_id"].ToString());
+                var q = SurveyQuestion.CreateFromJson(question.ToString());
+                surveyList.Add(q);
                 /*
                 tempList.QuestionId = question["question_id"].ToString();
                 tempList.QuestionType = question["type"].ToString();
@@ -73,7 +78,7 @@ namespace NewSurveyArch
 
             Debug.Log("List begins");
             Debug.Log(surveyList);
-            Debug.Log("List ends");
+            Debug.Log("List of size" + surveyList.Count);
             return surveyList;
         }
 
@@ -82,12 +87,21 @@ namespace NewSurveyArch
         {
             var form = new WWWForm();
             form.AddField("survey_id", surveyNumber);
+            
 
             using (var www = UnityWebRequest.Post(ServerURL.RETRIEVE_SURVEY,
                 form))
             {
-                yield return www.SendWebRequest();
+                Debug.Log("fetching...");
+                var temp = www.SendWebRequest();
+                while (!temp.isDone)
+                {
+                    Debug.Log("Download Stat: " + temp.progress);
 
+                    //Wait each frame in each loop OR Unity would freeze
+                    yield return null;
+                }
+                Debug.Log("fetching...breakpoint");
                 if (www.isNetworkError || www.isHttpError)
                 {
                     Debug.Log(www.error);
@@ -105,8 +119,9 @@ namespace NewSurveyArch
                     else
                     {
                         Debug.Log("hello");
-                        EventManager.OnFetchedSurvey(
-                            JTokenToQuestionDetailList(result["data"]));
+                        var temp2 = JTokenToQuestionDetailList(result["data"]);
+                        EventManager.OnFetchedSurvey(temp2);
+                        Debug.Log("Event Called");
                     }
                 }
             }
@@ -119,6 +134,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnFetch(object sender, IntEventArgs e)
         {
+            Debug.Log("FetchStarted");
             StartCoroutine(Fetching(ParticipantBehavior.Participant
                 .CurrentSurvey));
         }

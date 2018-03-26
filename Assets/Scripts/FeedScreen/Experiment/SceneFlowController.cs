@@ -9,7 +9,7 @@ namespace FeedScreen.Experiment
     {
         public const string ProctorSetup = "ProctorSetup";
         public const string Welcome = "Welcome";
-        public const string GeneralSurvey = "GeneralSurvey";
+        public const string GeneralSurvey = "NewSurvey";
         public const string TransparencyBrief = "TransparentBrief";
         public const string QueryScreen = "QueryScreen";
         public const string FinalScene = "FinalScene";

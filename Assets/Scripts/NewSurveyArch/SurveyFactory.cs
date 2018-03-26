@@ -23,10 +23,12 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnLoad(object sender, SurveyEventArgs e)
         {
+            Debug.Log("Event started");
             var list = e.QuestionsList;
             foreach (var surveyQuestion in list)
             {
                 var tempObject = SurveyQuestionToGameObject(surveyQuestion);
+                Debug.Log(transform.name);
                 tempObject.transform.SetParent(transform);
             }
         }
