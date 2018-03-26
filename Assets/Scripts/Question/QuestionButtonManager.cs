@@ -91,8 +91,8 @@ namespace Question
         private void DisplayBoolQuestion(object sender, QueryEventArgs e)
         {
             _query = e.Query;
-            _yesButton.gameObject.SetActive(true);
-            _noButton.gameObject.SetActive(true);
+            //_yesButton.gameObject.SetActive(true);
+            //_noButton.gameObject.SetActive(true);
         }
 
         private void DisplayTagQuestion(object sender, QueryEventArgs e)
