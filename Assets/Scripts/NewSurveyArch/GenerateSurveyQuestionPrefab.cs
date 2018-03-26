@@ -17,105 +17,8 @@ using UnityEngine.UI;
 
 namespace NewSurveyArch
 {
-    public class GenerateSurveyQuestionPrefab : MonoBehaviour
+    public class GenerateSurveyQuestionPrefab : ScriptableObject
     {
-        private List<GameObject> _go;
-
-        private int _questionIndex;
-        private int _surveyNumber;
-        private List<SurveyQuestion> _surveyQuestionList;
-
-        public IEnumerator StartUp(int tempSurveyNumber)
-        {
-            //Debug.Log("Starting Survey");
-
-            _surveyNumber = tempSurveyNumber;
-            _go = new List<GameObject>();
-            var downloadManager = gameObject.AddComponent<LoadSurveyFromWeb>();
-
-            while (!downloadManager.Loading)
-                yield return new WaitForEndOfFrame();
-            //Debug.Log(downloadManager.Loading + " is 1st state of loading");
-
-            StartCoroutine(downloadManager.LoadSurveyEnumerator(_surveyNumber));
-
-            _questionIndex = -1;
-
-            while (downloadManager.Loading)
-                yield return new WaitForEndOfFrame();
-            // Debug.Log(downloadManager.Loading + " is 2nd state of loading");
-
-            _surveyQuestionList = downloadManager.SurveyList;
-            if (_surveyQuestionList.Count == 0)
-                GoToNextScene();
-
-
-            NextQuestion();
-        }
-        
-
-        private void OnEnable()
-        {
-            Survey.EventManager.Load += OnLoad;
-            Survey.EventManager.ChangeQuestion += OnChangeQuestion;
-            MediaDownload.EventManager.AudioClipDownloaded +=
-                OnAudioClipDownloaded;
-            MediaDownload.EventManager.TextureDownloaded +=
-                OnTextureDownloaded;
-        }
-
-        private void OnDisable()
-        {
-            Survey.EventManager.Load -= OnLoad;
-            Survey.EventManager.ChangeQuestion -= OnChangeQuestion;
-            MediaDownload.EventManager.AudioClipDownloaded -=
-                OnAudioClipDownloaded;
-            MediaDownload.EventManager.TextureDownloaded -=
-                OnTextureDownloaded;
-        }
-
-        private void OnTextureDownloaded(object sender,
-            DownloadTextureEventArgs e)
-        {
-            Debug.Log("Image Received");
-            DisplayEventManager.OnDisplayImage(e.ImageTexture);
-        }
-
-        private void OnAudioClipDownloaded(object sender,
-            DownloadAudioClipEventArgs e)
-        {
-            Debug.Log(string.Format("Audio Received {0}", e.Clip.length));
-            DisplayEventManager.OnDisplayAudioClip(e.Clip);
-        }
-
-        private void OnChangeQuestion(object sender, IntEventArgs e)
-        {
-            Debug.Log(string.Format("Changing Index to {0}", e.intField));
-            if (_questionIndex > -1)
-                _go[_questionIndex].SetActive(false);
-            _questionIndex += e.intField;
-            UpdateLiveFeed();
-        }
-
-        private void OnLoad(object sender, IntEventArgs e)
-        {
-            //Debug.Log(e.intField);
-            StartCoroutine(StartUp(e.intField));
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public bool HasNextQuestion()
-        {
-            return _questionIndex + 1 < _surveyQuestionList.Count;
-        }
-
-        public bool HasPreviousQuestion()
-        {
-            return _questionIndex - 1 > -1;
-        }
-
         /// <summary>
         ///     Sets up a question with a given prefab />
         /// </summary>
@@ -167,11 +70,11 @@ namespace NewSurveyArch
         /// </summary>
         /// <param name="questionDetails">A list consisting of a question and the rest is answers</param>
         /// <returns>returns an instantiated GameObject</returns>
-        private GameObject FreeResponseSetUp(QuestionDetails questionDetails)
+        private GameObject FreeResponseSetUp(SurveyQuestion questionDetails)
         {
             var tempPrefab =
-                InstatiatePrefabAndPopulateAnswer(FreeResponsePrefab,
-                    questionDetails.QuestionString);
+                InstatiatePrefabAndPopulateAnswer(FreeResponsePrefab/*Reference.Load('')*/,
+                    questionDetails.Text);
             return tempPrefab;
         }
 
@@ -181,11 +84,11 @@ namespace NewSurveyArch
         /// <param name="questionDetails">A list consisting of a question and the rest is answers</param>
         /// <returns>returns an instantiated GameObject</returns>
         /// <remarks>ToList() is used because Unity's <see cref="Dropdown" /> does not accept Itterables.</remarks>
-        private GameObject MultipleSetup(QuestionDetails questionDetails)
+        private GameObject MultipleSetup(SurveyQuestion questionDetails)
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(MultiplePrefab,
-                    questionDetails.QuestionString);
+                    questionDetails.Text);
             var answerSelection = tempPrefab.transform.GetChild(1).GetChild(0)
                 .GetChild(1);
             //Debug.Log(answerSelection.name + " is in MultipleSetup");
@@ -280,47 +183,17 @@ namespace NewSurveyArch
             }
         }
 
-        private GameObject DebriefSetup(QuestionDetails questionDetails)
-        {
-            //make sure prefab works in the scene where it should be placed. drag and drop a prefab question in test explorer.
-            var tempPrefab = MultipleSetup(questionDetails);
-
-            var imageSelection = tempPrefab.transform.GetChild(1);
-            imageSelection.gameObject.GetComponent<HorizontalLayoutGroup>()
-                .childAlignment = TextAnchor.MiddleCenter;
-
-            var temp = new GameObject();
-            var img = temp.AddComponent<RawImage>();
-
-            img.GetComponent<RectTransform>().sizeDelta =
-                new Vector2(Screen.width / 3, Screen.height / 3);
-
-            temp.AddComponent<ImageDisplay>();
-            temp.AddComponent<AudioPlayer>();
-            var questionId = questionDetails.QuestionId;
-            //DICK
-            //get image location given question_id
-
-            StartCoroutine(LoadQueryImageEnumerator(questionId));
-
-            //}
-
-            temp.transform.SetParent(imageSelection, false);
-            temp.transform.SetAsLastSibling();
-            return tempPrefab;
-        }
-
         /// <summary>
         ///     Sets up a question prefab with a several <see cref="Button" />
         /// </summary>
         /// <param name="questionDetails">A list consisting of a question and the rest is answers</param>
         /// <returns>returns an instantiated GameObject</returns>
         /// <remarks>ToList() is used because Unity's <see cref="Dropdown" /> does not accept Itterables.</remarks>
-        private GameObject ScalarSetup(QuestionDetails questionDetails)
+        private GameObject ScalarSetup(SurveyQuestion questionDetails)
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(ScalarPrefab,
-                    questionDetails.QuestionString);
+                    questionDetails.Text);
             var answerSelection = tempPrefab.transform.GetChild(1).GetChild(0)
                 .GetChild(1);
             //Debug.Log(answerSelection.name + " is in ScalarSetup");
@@ -334,11 +207,11 @@ namespace NewSurveyArch
         /// <param name="questionDetails">A list consisting of a question and the rest is answers</param>
         /// <returns>returns an instantiated GameObject</returns>
         /// <remarks>ToList() is used because Unity's <see cref="Dropdown" /> does not accept Itterables.</remarks>
-        private GameObject NumericSetup(QuestionDetails questionDetails)
+        private GameObject NumericSetup(SurveyQuestion questionDetails)
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(NumericPrefab,
-                    questionDetails.QuestionString);
+                    questionDetails.Text);
             var answerSelection = tempPrefab.transform.GetChild(1).GetChild(0)
                 .GetChild(0);
             //Debug.Log(answerSelection.name);
@@ -367,16 +240,16 @@ namespace NewSurveyArch
             return tempPrefab;
         }
 
-        private GameObject MessegeSetup(QuestionDetails questionDetails)
+        private GameObject MessegeSetup(SurveyQuestion questionDetails)
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(MessegePrefab,
-                    questionDetails.QuestionString);
+                    questionDetails.Text);
 
             return tempPrefab;
         }
 
-        private GameObject PickAllSetup(QuestionDetails currentDetails)
+        private GameObject PickAllSetup(SurveyQuestion currentDetails)
         {
             var tempPrefab = MultipleSetup(currentDetails);
             Destroy(tempPrefab.transform.GetChild(1).GetChild(0).GetChild(0)
@@ -390,11 +263,11 @@ namespace NewSurveyArch
         /// <param name="questionDetails"></param>
         /// <returns></returns>
         private GameObject ScaleSetup(
-            QuestionDetails questionDetails)
+            SurveyQuestion questionDetails)
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(ScalePrefab,
-                    questionDetails.QuestionString);
+                    questionDetails.Text);
 
             //Sets the text on the right side of the scale.
             tempPrefab.transform.GetChild(1).GetChild(0)
@@ -416,10 +289,10 @@ namespace NewSurveyArch
         /// </summary>
         /// <param name="currentDetails"></param>
         /// <returns></returns>
-        private GameObject FindOutQuestionType(QuestionDetails currentDetails)
+        private GameObject FindOutQuestionType(SurveyQuestion currentDetails)
         {
             //Debug.Log(currentDetails.Type);
-            switch (currentDetails.QuestionType)
+            switch (currentDetails.Type)
             {
                 case "FreeResponse":
                     return FreeResponseSetUp(currentDetails);
@@ -435,8 +308,6 @@ namespace NewSurveyArch
                     return MessegeSetup(currentDetails);
                 case "Outro":
                     return MessegeSetup(currentDetails);
-                case "Debrief":
-                    return DebriefSetup(currentDetails);
                 case "IfYesRespond":
                     return MultipleSetup(currentDetails);
                 case "IfNoRespond":
@@ -452,7 +323,7 @@ namespace NewSurveyArch
             }
 
             Debug.Log(string.Format("Question of type '{0}' does not exist",
-                currentDetails.QuestionType));
+                currentDetails.Type));
 
             return FreeResponseSetUp(currentDetails);
         }
