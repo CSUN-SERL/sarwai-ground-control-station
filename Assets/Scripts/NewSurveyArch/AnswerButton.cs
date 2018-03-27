@@ -18,9 +18,7 @@ namespace NewSurveyArch
 
         private void Start()
         {
-            //hides the button image
-            gameObject.GetComponentInChildren<Text>().text = Begin;
-            gameObject.GetComponent<Button>().enabled = false;
+            //gameObject.GetComponent<Button>().enabled = false;
         }
 
         /// <summary>
@@ -31,21 +29,31 @@ namespace NewSurveyArch
         /// </summary>
         private void OnMouseDown()
         {
-            gameObject.GetComponentInChildren<Text>().text = Next;
+            Debug.Log("MouseDown");
+            EventManager.OnNextQuestion();
         }
 
         internal void OnEnable()
         {
-            EventManager.SurveyReady += OnFirstQuestion;
-            EventManager.LastQuestion += OnLastQuestion;
+            ButtonEventManager.BeginQuestion+= OnBeginQuestion;
+            ButtonEventManager.NextQuestion += OnNextQuestion;
+            ButtonEventManager.ContinueQuestion += OnContinueQuestion;
+            EventManager.SurveyReady += OnSurveyReady;
             EventManager.SurveyComplete += OnSurveyComplete;
         }
 
         public void OnDisable()
         {
-            EventManager.SurveyReady -= OnFirstQuestion;
-            EventManager.LastQuestion -= OnLastQuestion;
+            ButtonEventManager.BeginQuestion -= OnBeginQuestion;
+            ButtonEventManager.NextQuestion -= OnNextQuestion;
+            ButtonEventManager.ContinueQuestion -= OnContinueQuestion;
+            EventManager.SurveyReady -= OnSurveyReady;
             EventManager.SurveyComplete -= OnSurveyComplete;
+        }
+
+        private void OnSurveyReady(object sender, EventArgs e)
+        {
+            gameObject.GetComponent<Button>().enabled = true;
         }
 
         /// <summary>
@@ -53,7 +61,28 @@ namespace NewSurveyArch
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnLastQuestion(object sender, EventArgs e)
+        private void OnBeginQuestion(object sender, EventArgs e)
+        {
+            //
+            gameObject.GetComponentInChildren<Text>().text = Begin;
+        }
+
+        /// <summary>
+        ///     Change text to "Continue" when on last question
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnNextQuestion(object sender, EventArgs e)
+        {
+            gameObject.GetComponentInChildren<Text>().text = Next;
+        }
+
+        /// <summary>
+        ///     Change text to "Begin" when on first question
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnContinueQuestion(object sender, EventArgs e)
         {
             gameObject.GetComponentInChildren<Text>().text = Continue;
         }
@@ -65,17 +94,9 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnSurveyComplete(object sender, EventArgs e)
         {
-            gameObject.GetComponent<Button>().enabled = false;
+            gameObject.SetActive(false);
         }
 
-        /// <summary>
-        ///     Change text to "Begin" when on first question
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnFirstQuestion(object sender, EventArgs e)
-        {
-            gameObject.GetComponent<Button>().enabled = true;
-        }
+        
     }
 }

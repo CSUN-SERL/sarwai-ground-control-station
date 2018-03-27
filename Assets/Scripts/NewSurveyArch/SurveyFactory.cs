@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI;
 namespace NewSurveyArch
 {
     public class SurveyFactory : MonoBehaviour
@@ -25,12 +25,17 @@ namespace NewSurveyArch
         {
             Debug.Log("Event started");
             var list = e.QuestionsList;
+            int index = 0;
             foreach (var surveyQuestion in list)
             {
                 var tempObject = SurveyQuestionToGameObject(surveyQuestion);
                 Debug.Log(transform.name);
                 tempObject.transform.SetParent(transform);
+                tempObject.SetActive(false);
+                tempObject.name = index.ToString();
+                ++index;
             }
+            EventManager.OnSurveyReady();
         }
 
         /// <summary>

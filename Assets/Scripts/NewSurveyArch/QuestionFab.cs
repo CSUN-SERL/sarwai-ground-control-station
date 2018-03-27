@@ -27,12 +27,12 @@ namespace NewSurveyArch
 
         internal void OnEnable()
         {
-            EventManager.ChangeQuestion += UpdateDisplay;
+            EventManager.NextQuestion += UpdateDisplay;
         }
 
         public void OnDisable()
         {
-            EventManager.ChangeQuestion -= UpdateDisplay;
+            EventManager.NextQuestion -= UpdateDisplay;
         }
 
         private void OnDestroy()
@@ -42,7 +42,7 @@ namespace NewSurveyArch
 
         public abstract void ChangeGameObjectValues();
 
-        public abstract void UpdateDisplay(object sender, IntEventArgs e);
+        public abstract void UpdateDisplay(object sender, EventArgs e);
 
         public abstract void UploadInfo();
     }

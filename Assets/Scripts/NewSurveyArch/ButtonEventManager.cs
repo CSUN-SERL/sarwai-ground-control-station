@@ -30,16 +30,27 @@ namespace NewSurveyArch
             if (handler != null) handler(null, new StringEventArgs { StringArgs = name });
         }
 
-        public static event EventHandler<ButtonNameEventArgs> ChangeText;
-        //public static event EventHandler<PhysiologicalDataEventArgs> EndSurvey;
-
-        public static void OnChangeText(string oldName, string newName)
+        public static event EventHandler<EventArgs> BeginQuestion;
+        public static void OnBeginQuestion()
         {
-            var handler = ChangeText;
-            if (handler != null) handler(null, new ButtonNameEventArgs { OldName = oldName,NewName = newName });
+            var handler = BeginQuestion;
+            if (handler != null) handler(null, new EventArgs());
         }
 
-       
+        public static event EventHandler<EventArgs> NextQuestion;
+        public static void OnNextQuestion()
+        {
+            var handler = NextQuestion;
+            if (handler != null) handler(null, new EventArgs());
+        }
+
+        public static event EventHandler<EventArgs> ContinueQuestion;
+        public static void OnContinueQuestion()
+        {
+            var handler = ContinueQuestion;
+            if (handler != null) handler(null, new EventArgs());
+        }
+
 
     }
 }

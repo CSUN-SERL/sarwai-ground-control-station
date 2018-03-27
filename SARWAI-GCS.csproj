@@ -423,6 +423,7 @@
     <Compile Include="Assets\Scripts\Networking\ProcessCheck.cs" />
     <Compile Include="Assets\Scripts\Networking\ServerURL.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\AnswerButton.cs" />
+    <Compile Include="Assets\Scripts\NewSurveyArch\AnswerGatherer.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\ButtonEventManager.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\EventManager.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\GenerateSurveyQuestionPrefab.cs" />
@@ -431,6 +432,7 @@
     <Compile Include="Assets\Scripts\NewSurveyArch\Question.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\QuestionContainer.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\QuestionFab.cs" />
+    <Compile Include="Assets\Scripts\NewSurveyArch\SurveyContainer.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\SurveyEnd.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\SurveyFactory.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\SurveyFetch.cs" />

@@ -15,7 +15,14 @@ namespace NewSurveyArch
     {
         public void Awake()
         {
-            StartCoroutine(Fetching(ParticipantBehavior.Participant.CurrentSurvey));
+            try
+            {
+                StartCoroutine(Fetching(ParticipantBehavior.Participant.CurrentSurvey));
+            }
+            catch(System.NullReferenceException e)
+            {
+                StartCoroutine(Fetching(1));
+            }
         }
         public void OnEnable()
         {

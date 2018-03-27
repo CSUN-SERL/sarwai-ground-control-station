@@ -7,12 +7,12 @@ namespace NewSurveyArch
     {
         public void OnEnable()
         {
-            EventManager.FetchSurveyFromWeb += OnPush;
+            EventManager.SurveyComplete += OnPush;
         }
 
         public void OnDisable()
         {
-            EventManager.FetchSurveyFromWeb -= OnPush;
+            EventManager.SurveyComplete -= OnPush;
         }
 
 
@@ -24,6 +24,7 @@ namespace NewSurveyArch
         private static void OnPush(object sender, EventArgs e)
         {
             //TODO:load the survey onto game objects
+            Debug.Log("Pushing Survey");
             EventManager.OnPushedSurvey();
         }
     }

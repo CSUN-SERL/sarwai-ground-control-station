@@ -35,12 +35,16 @@ namespace NewSurveyArch
             if(handler != null) handler(null,new SurveyEventArgs {QuestionsList = questionList });
         }
 
-        public static event EventHandler<IntEventArgs> ChangeQuestion;
-
-        public static void OnChangeQuestion(int i)
+        public static event EventHandler<EventArgs> NextQuestion;
+        public void OnNextQuestionWrapper()
         {
-            var handler = ChangeQuestion;
-            if (handler != null) handler(null, new IntEventArgs{ intField = i });
+            EventManager.OnNextQuestion();
+        }
+
+        public static void OnNextQuestion()
+        {
+            var handler = NextQuestion;
+            if (handler != null) handler(null, new EventArgs());
         }
 
         /// <summary>
@@ -62,13 +66,7 @@ namespace NewSurveyArch
             if (handler != null) handler(null, new EventArgs());
         }
 
-        public static event EventHandler<EventArgs> LastQuestion;
-
-        public static void OnLastQuestion()
-        {
-            var handler = LastQuestion;
-            if (handler != null) handler(null, new EventArgs());
-        }
+        
 
         /// <summary>
         ///     Event occurs when user completes the survey.
