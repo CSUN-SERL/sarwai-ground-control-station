@@ -46,8 +46,8 @@ namespace NewSurveyArch
                 SurveyList.Add(surveyQuestion);
                 Debug.Log(string.Format(
                     "QuestionId: {0}\nQuestionType{1}\nQuestionString: {2},OfferedId: {3}\n",
-                    surveyQuestion.QuestionId, surveyQuestion.Type,
-                    surveyQuestion.Text, surveyQuestion.OfferedAnswerId));
+                    surveyQuestion.question_id, surveyQuestion.type,
+                    surveyQuestion.question_text, surveyQuestion.offered_answer_id));
             }
 
             Debug.Log("List begins");

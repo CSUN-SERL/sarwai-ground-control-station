@@ -1,4 +1,5 @@
-﻿using Boo.Lang;
+﻿using System;
+using Boo.Lang;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,6 +45,16 @@ namespace NewSurveyArch
         void Update()
         {
 
+        }
+
+        private void OnEnable()
+        {
+            EventManager.SurveyReady += StartSurvey;
+        }
+
+        private void StartSurvey(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public override void Load(Question question)

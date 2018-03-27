@@ -54,8 +54,8 @@ namespace NewSurveyArch
             {
                 //var tempList =
                 //    ScriptableObject.CreateInstance<SurveyQuestion>();
-
-                var q = SurveyQuestion.CreateFromJson(question.ToString());
+                Debug.Log(question.ToString());
+                var q = SurveyQuestion.CreateFromJson(question);
                 surveyList.Add(q);
                 /*
                 tempList.QuestionId = question["question_id"].ToString();

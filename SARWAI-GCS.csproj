@@ -436,6 +436,7 @@
     <Compile Include="Assets\Scripts\NewSurveyArch\SurveyFetch.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\SurveyLoad.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\SurveyPush.cs" />
+    <Compile Include="Assets\Scripts\NewSurveyArch\SurveyQuestion.cs" />
     <Compile Include="Assets\Scripts\NewSurveyArch\TestLoadSurvey.cs" />
     <Compile Include="Assets\Scripts\NotificationSquad\NotificationButton.cs" />
     <Compile Include="Assets\Scripts\NotificationSquad\NotificationContainer.cs" />

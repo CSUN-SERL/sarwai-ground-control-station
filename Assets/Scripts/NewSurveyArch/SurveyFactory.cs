@@ -41,7 +41,7 @@ namespace NewSurveyArch
         /// <returns></returns>
         private GameObject SurveyQuestionToGameObject(SurveyQuestion currentDetails)
         {
-            switch (currentDetails.Type)
+            switch (currentDetails.type)
             {
                 case "FreeResponse":
                     return GenerateSurveyQuestionPrefab.FreeResponseSetUp(currentDetails);
@@ -72,7 +72,7 @@ namespace NewSurveyArch
             }
 
             Debug.Log(string.Format("Question of type '{0}' does not exist",
-                currentDetails.Type));
+                currentDetails.type));
 
             return GenerateSurveyQuestionPrefab.FreeResponseSetUp(currentDetails);
         }

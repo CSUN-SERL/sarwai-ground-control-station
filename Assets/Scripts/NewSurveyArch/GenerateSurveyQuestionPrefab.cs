@@ -74,7 +74,7 @@ namespace NewSurveyArch
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/FreeResponse"),
-                    questionDetails.Text);
+                    questionDetails.question_text);
             return tempPrefab;
         }
 
@@ -88,11 +88,11 @@ namespace NewSurveyArch
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/Multiple"),
-                    questionDetails.Text);
+                    questionDetails.question_text);
             var answerSelection = tempPrefab.transform.GetChild(1).GetChild(0)
                 .GetChild(1);
             //Debug.Log(answerSelection.name + " is in MultipleSetup");
-            PopulateAnswers(answerSelection, questionDetails.OfferedAnswerList);
+            PopulateAnswers(answerSelection, questionDetails.offered_answer_text);
             return tempPrefab;
         }
 
@@ -106,11 +106,11 @@ namespace NewSurveyArch
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/Scalar"),
-                    questionDetails.Text);
+                    questionDetails.question_text);
             var answerSelection = tempPrefab.transform.GetChild(1).GetChild(0)
                 .GetChild(1);
             //Debug.Log(answerSelection.name + " is in ScalarSetup");
-            PopulateAnswers(answerSelection, questionDetails.OfferedAnswerList);
+            PopulateAnswers(answerSelection, questionDetails.offered_answer_text);
             return tempPrefab;
         }
 
@@ -124,12 +124,12 @@ namespace NewSurveyArch
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/Numeric"),
-                    questionDetails.Text);
+                    questionDetails.question_text);
             var answerSelection = tempPrefab.transform.GetChild(1).GetChild(0)
                 .GetChild(0);
             //Debug.Log(answerSelection.name);
             var answerList = new List<string>();
-            foreach (var answer in questionDetails.OfferedAnswerList)
+            foreach (var answer in questionDetails.offered_answer_text)
             {
                 var rangeOrAnswer = Regex.Split(answer, @"-");
                 if (rangeOrAnswer.Length > 1)
@@ -157,7 +157,7 @@ namespace NewSurveyArch
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/Messege"),
-                    questionDetails.Text);
+                    questionDetails.question_text);
 
             return tempPrefab;
         }
@@ -180,19 +180,19 @@ namespace NewSurveyArch
         {
             var tempPrefab =
                 InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/TLX"),
-                    questionDetails.Text);
+                    questionDetails.question_text);
 
             //Sets the text on the right side of the scale.
             tempPrefab.transform.GetChild(1).GetChild(0)
                     .GetChild(0).GetChild(0).GetChild(0).GetChild(0)
                     .GetComponent<Text>().text =
-                questionDetails.OfferedAnswerList[0];
+                questionDetails.offered_answer_text[0];
 
             //Sets the text on the right side of the scale.
             tempPrefab.transform.GetChild(1).GetChild(0)
                     .GetChild(0).GetChild(0).GetChild(0).GetChild(1)
                     .GetComponent<Text>().text =
-                questionDetails.OfferedAnswerList[1];
+                questionDetails.offered_answer_text[1];
             return tempPrefab;
         }
 
