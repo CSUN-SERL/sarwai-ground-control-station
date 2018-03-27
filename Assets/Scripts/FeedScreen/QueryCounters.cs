@@ -77,19 +77,19 @@ public class QueryCounters : MonoBehaviour
         _robotIDb = e.Query.RobotId;
 
         // Do logic checking increment counters here.
-        switch (_robotIDa)
+        switch (_robotIDb)
         {
             case 1:
-                QACounter1++;
+                QSCounter1++;
                 break;
             case 2:
-                QACounter2++;
+                QSCounter2++;
                 break;
             case 3:
-                QACounter3++;
+                QSCounter3++;
                 break;
             case 4:
-                QACounter4++;
+                QSCounter4++;
                 break;
             default:
                 Debug.Log("Invalid Robot ID. ");
