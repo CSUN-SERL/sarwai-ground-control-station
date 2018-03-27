@@ -25,11 +25,16 @@ public class MissedDetectionButton : MonoBehaviour
     private const string Station4 = "ws:ubuntu@192.168.1.43";
     private const string Topic = "/coffee";
     private const int Port = 9090;
-    private StringMsg _msg; 
+    private StringMsg _msg; //--------------------- M.S.
 
 
     void Start()
     {
+        _rosA = new ROSBridgeWebSocketConnection(Station1, Port);
+        _rosA.AddPublisher(typeof(CoffeePublisher));
+        _rosA.Connect();
+
+
         Button button1 = MissedDetection1.GetComponent<Button>();
         Button button2 = MissedDetection2.GetComponent<Button>();
         Button button3 = MissedDetection3.GetComponent<Button>();
@@ -41,48 +46,47 @@ public class MissedDetectionButton : MonoBehaviour
         button3.onClick.AddListener(OnButtonClick3);
         button4.onClick.AddListener(OnButtonClick4);
 
-        _msg = new StringMsg("Missed Detection. (Couldn't get it up)");
+        //_msg = new StringMsg("Missed Detection. (Couldn't get it up)");//--------------- M.S.
 
-        
+
         //_rosA.AddPublisher(typeof(Publisher));
         // initialize connection
-        _rosA = new ROSBridgeWebSocketConnection(Station4, Port);
-        _rosA.Connect();
-     
-        _rosA.Publish(Topic, _msg);
+
+        // _rosA.Publish(Topic, _msg); //---------------------------- M.S.
+    }
+
+    void OnAppicationQuit()
+    {
+        if (_rosA != null)
+            _rosA.Disconnect();
     }
 
     void OnButtonClick1()
     {
-        _msg = new StringMsg("Missed Detection. (Couldn't get it up)");
-        _rosA.Publish(Topic, _msg);
-        Debug.Log("Missed Detection. Bot 1");
+        var str = new StringMsg("1");
+        Debug.Log(str);
+        _rosA.Publish("/coffee", str);
         _rosA.Render();
     }
     void OnButtonClick2()
     {
-        _rosA.Publish(Topic, _msg);
-        Debug.Log("Missed Detection. Bot 2");
+        var str = new StringMsg("2");
+        Debug.Log(str);
+        _rosA.Publish("/coffee", str);
         _rosA.Render();
     }
     void OnButtonClick3()
     {
-        _rosA.Publish(Topic, _msg);
-        Debug.Log("Missed Detection. Bot 3");
+        var str = new StringMsg("3");
+        _rosA.Publish("/coffee", str);
+        Debug.Log("Miguelito #3");
         _rosA.Render();
     }
     void OnButtonClick4()
     {
-        _rosA.Publish(Topic, _msg);
-        Debug.Log("Missed Detection. Bot 4");
+        var str = new StringMsg("4");
+        _rosA.Publish("/coffee", str);
+        Debug.Log("Miguelito #4");
         _rosA.Render();
-    }
-
-    private void OnApplicationQuit()
-    {
-        if (_rosA != null)
-        {
-            _rosA.Disconnect();
-        }
     }
 }
