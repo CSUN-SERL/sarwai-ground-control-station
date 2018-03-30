@@ -10,6 +10,6 @@ public class CoffeePublisher
 
     public static string GetMessageTopic()
     {
-        return "missedDetections";
+        return "coffee";
     }
 }

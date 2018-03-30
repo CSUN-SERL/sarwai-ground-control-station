@@ -23,14 +23,14 @@ public class MissedDetectionButton : MonoBehaviour
     //private const string Station1 = "ws:ubuntu@192.168.1.161";
     private const string Station1 = "ws://192.168.1.161";
     private const string Station4 = "ws:ubuntu@192.168.1.43";
-    private const string Topic = "/missedDetections";
+    private const string Topic = "/coffee";
     private const int Port = 9090;
     private StringMsg _msg; //--------------------- M.S.
 
 
     void Start()
     {
-        _rosA = new ROSBridgeWebSocketConnection(Station1, Port);
+        _rosA = new ROSBridgeWebSocketConnection(Station4, Port);
         _rosA.AddPublisher(typeof(CoffeePublisher));
         _rosA.Connect();
 
@@ -65,27 +65,27 @@ public class MissedDetectionButton : MonoBehaviour
     {
         var str = new StringMsg("1");
         Debug.Log(str);
-        _rosA.Publish(Topic, _msg);
+        _rosA.Publish(Topic, str);
         _rosA.Render();
     }
     void OnButtonClick2()
     {
         var str = new StringMsg("2");
         Debug.Log(str);
-        _rosA.Publish(Topic, _msg);
+        _rosA.Publish(Topic, str);
         _rosA.Render();
     }
     void OnButtonClick3()
     {
         var str = new StringMsg("3");
-        _rosA.Publish(Topic, _msg);
+        _rosA.Publish(Topic, str);
         Debug.Log("Miguelito #3");
         _rosA.Render();
     }
     void OnButtonClick4()
     {
         var str = new StringMsg("4");
-        _rosA.Publish(Topic, _msg);
+        _rosA.Publish(Topic, str);
         Debug.Log("Miguelito #4");
         _rosA.Render();
     }
