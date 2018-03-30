@@ -198,6 +198,11 @@ namespace TransparencyIrisToOperator
                         _queryListMutex = false;
                         Application.Quit();
                     }
+                    else if (result["data"].Count() == 0)
+                    {
+                        Debug.Log("Empty Transparency");
+                        GoToNextScene();
+                    }
 
                     foreach (var query in result["data"])
                     {
@@ -388,6 +393,7 @@ namespace TransparencyIrisToOperator
 
         private void GoToNextScene()
         {
+            Debug.Log("Ending Transparency");
             EventManager.OnEnd();
             SceneFlowController.LoadNextScene();
             //Participant.Instance.CurrentSurvey += 1;

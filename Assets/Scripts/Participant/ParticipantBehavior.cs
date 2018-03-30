@@ -73,7 +73,7 @@ namespace Participant
 
         }
 
-        public void MakeNewParicipant(int group, int currentSurvey, int currentMission)
+        public void MakeNewParicipant(int group, int currentTimeline, int currentMission)
         {
             var participantData = new ParticipantData
             {
@@ -87,10 +87,10 @@ namespace Participant
                 participantData.Transparent, participantData.Adaptive,
                 GroupSelection.InputField.text));
 
-            StartCoroutine(NewParticipantRequest(participantData, currentSurvey, currentMission));
+            StartCoroutine(NewParticipantRequest(participantData, currentTimeline, currentMission));
         }
 
-        public IEnumerator NewParticipantRequest(ParticipantData data, int currentSurvey, int currentMission)
+        public IEnumerator NewParticipantRequest(ParticipantData data, int currentTimeline, int currentMission)
         {
             var form = new WWWForm();
             form.AddField("adaptive", data.Adaptive ? "1" : "0");
@@ -120,7 +120,7 @@ namespace Participant
                 Participant = new Participant
                 {
                     Data = data,
-                    CurrentSurvey = currentSurvey,
+                    CurrentTimeline = currentTimeline,
                     CurrentMission = currentMission
                 };
 
@@ -170,7 +170,7 @@ namespace Participant
                 Participant = new Participant
                 {
                     Data = data,
-                    CurrentSurvey = 1,
+                    CurrentTimeline = 0,
                     CurrentMission = 1
                 };
 

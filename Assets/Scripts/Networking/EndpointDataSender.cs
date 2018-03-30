@@ -37,6 +37,7 @@ namespace Networking
                 new Dictionary<string, int>
                 {
                     {"query_id", eventArgs.Query.QueryId},
+                    {"robot_id", eventArgs.Query.RobotId },
                     {"response", eventArgs.Query.Response},
                     {"answerTime", answerTime}
                 };
