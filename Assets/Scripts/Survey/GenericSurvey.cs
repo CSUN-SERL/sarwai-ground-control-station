@@ -78,7 +78,7 @@ namespace Survey
         private void Start()
         {
             //Debug.Log("GenericSurvey Start");
-            ActivateSurveyWithNumber.CallListener();
+            StartCoroutine(StartUp(Participant.Participant.Instance.CurrentScene));
         }
 
         private void OnEnable()
@@ -642,6 +642,7 @@ namespace Survey
                 }
         }
         */
+
         private void GoToNextScene()
         {
             var ag = gameObject.AddComponent<AnswerGatherer>();
