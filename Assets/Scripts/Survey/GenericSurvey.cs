@@ -643,7 +643,7 @@ namespace Survey
         }
         */
 
-       private void GoToNextScene()
+        private void GoToNextScene()
         {
             var ag = gameObject.AddComponent<AnswerGatherer>();
 
