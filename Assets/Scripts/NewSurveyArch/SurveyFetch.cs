@@ -13,17 +13,27 @@ namespace NewSurveyArch
 {
     public class SurveyFetch : MonoBehaviour
     {
-        public void Awake()
+        public int FetchSurvey = 2;
+
+        public static SurveyFetch Instance;
+        private void Awake()
         {
+            if (Instance == null)
+                Instance = this;
+            else if (Instance != this)
+                Destroy(gameObject);
             try
             {
                 StartCoroutine(Fetching(ParticipantBehavior.Participant.CurrentSurvey));
             }
-            catch(System.NullReferenceException e)
+            catch (System.NullReferenceException exception)
             {
-                StartCoroutine(Fetching(1));
+                Debug.Log(exception.Message);
+                Debug.Log("Using defaunlt survey 1, because the participant has not been made.");
+                StartCoroutine(Fetching(FetchSurvey));
             }
         }
+
         public void OnEnable()
         {
             EventManager.FetchSurveyFromWeb += OnFetch;
@@ -85,7 +95,7 @@ namespace NewSurveyArch
 
             Debug.Log("List begins");
             Debug.Log(surveyList);
-            Debug.Log("List of size" + surveyList.Count);
+            Debug.Log("List of size " + surveyList.Count);
             return surveyList;
         }
 

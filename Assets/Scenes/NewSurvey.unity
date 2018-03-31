@@ -126,7 +126,6 @@ RectTransform:
   m_Children:
   - {fileID: 176351588}
   - {fileID: 1149526779}
-  - {fileID: 323768946}
   m_Father: {fileID: 1697427209}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -267,8 +266,6 @@ GameObject:
   - component: {fileID: 323768946}
   - component: {fileID: 323768954}
   - component: {fileID: 323768953}
-  - component: {fileID: 323768952}
-  - component: {fileID: 323768951}
   - component: {fileID: 323768950}
   - component: {fileID: 323768949}
   - component: {fileID: 323768948}
@@ -288,11 +285,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 323768945}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -379, y: -215, z: 0}
+  m_LocalPosition: {x: 341.5, y: 63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 46055963}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &323768947
 MonoBehaviour:
@@ -302,7 +299,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 323768945}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd9af0cc94dd3d41aa1458af33d9991, type: 3}
+  m_Script: {fileID: 11500000, guid: bf90cf7855f82dc4e9f3824014dc5243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &323768948
@@ -313,7 +310,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 323768945}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4affe926b6d93c74fad224e3bbdddc5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f2e7a9a278b63444919c9b0bf715ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &323768949
@@ -338,28 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6baee86a84c020a46857b23b11cd036f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &323768951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 323768945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11cbfcfa04c4c7f4f9d07de51507e0ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &323768952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 323768945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf90cf7855f82dc4e9f3824014dc5243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  FetchSurvey: 1
 --- !u!114 &323768953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,10 +518,10 @@ RectTransform:
   m_Father: {fileID: 1927241367}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 216.32999, y: -22.239985}
+  m_SizeDelta: {x: 432.65997, y: 44.47997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1092581589
 MonoBehaviour:
@@ -847,7 +823,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 323768952}
+      - m_Target: {fileID: 323768947}
         m_MethodName: OnNextQuestionWrapper
         m_Mode: 1
         m_Arguments:

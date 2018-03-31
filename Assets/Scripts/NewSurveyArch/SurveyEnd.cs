@@ -16,6 +16,15 @@ namespace NewSurveyArch
             EventManager.PushedSurvey -= OnEnd;
         }
 
+        public static SurveyEnd Instance;
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else if (Instance != this)
+                Destroy(gameObject);
+        }
+
 
         /// <summary>
         ///     Ends the scene

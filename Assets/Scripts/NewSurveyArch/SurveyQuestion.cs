@@ -10,6 +10,7 @@ namespace NewSurveyArch
     {
         [SerializeField] public string offered_answer_id;
         [SerializeField] public string question_id;
+        [SerializeField] public string offered_answer;
 
         public static SurveyQuestion Init(
             string text,

@@ -5,9 +5,13 @@ using UnityEngine;
 
 namespace NewSurveyArch
 {
-    public class SurveyEventArgs : System.EventArgs
+    public class SurveyListEventArgs : System.EventArgs
     {
         public List<SurveyQuestion> QuestionsList;
+    }
+    public class SurveyObjectEventArgs : System.EventArgs
+    {
+        public GameObject AnswerBox;
     }
 
     public class EventManager : MonoBehaviour
@@ -27,12 +31,12 @@ namespace NewSurveyArch
         /// <summary>
         ///     Event occurs when <see cref="SurveyFetch"/> is done fetching survey data.
         /// </summary>
-        public static event EventHandler<SurveyEventArgs> FetchedSurvey;
+        public static event EventHandler<SurveyListEventArgs> FetchedSurvey;
 
         public static void OnFetchedSurvey(List<SurveyQuestion> questionList)
         {
             var handler = FetchedSurvey;
-            if(handler != null) handler(null,new SurveyEventArgs {QuestionsList = questionList });
+            if(handler != null) handler(null,new SurveyListEventArgs { QuestionsList = questionList });
         }
 
         public static event EventHandler<EventArgs> NextQuestion;
@@ -65,18 +69,16 @@ namespace NewSurveyArch
             var handler = SurveyReady;
             if (handler != null) handler(null, new EventArgs());
         }
-
         
-
         /// <summary>
         ///     Event occurs when user completes the survey.
         /// </summary>
-        public static event EventHandler<EventArgs> SurveyComplete;
+        public static event EventHandler<SurveyObjectEventArgs> SurveyComplete;
 
-        public static void OnSurveyComplete()
+        public static void OnSurveyComplete(GameObject AnswerBox)
         {
             var handler = SurveyComplete;
-            if (handler != null) handler(null, new EventArgs());
+            if (handler != null) handler(null, new SurveyObjectEventArgs{AnswerBox = AnswerBox});
         }
 
     }

@@ -15,6 +15,7 @@ namespace NewSurveyArch
         private const string Begin = "Begin";
         private const string Next = "Next";
         private const string Continue = "Continue";
+        private const string NotAsnwered = "Cannot go to next question until current question is answered.";
 
         private void Start()
         {
@@ -35,6 +36,7 @@ namespace NewSurveyArch
 
         internal void OnEnable()
         {
+            ButtonEventManager.QuestionNotComplete += OnQuestionNotComplete;
             ButtonEventManager.BeginQuestion+= OnBeginQuestion;
             ButtonEventManager.NextQuestion += OnNextQuestion;
             ButtonEventManager.ContinueQuestion += OnContinueQuestion;
@@ -42,8 +44,11 @@ namespace NewSurveyArch
             EventManager.SurveyComplete += OnSurveyComplete;
         }
 
+        
+
         public void OnDisable()
         {
+            ButtonEventManager.QuestionNotComplete -= OnQuestionNotComplete;
             ButtonEventManager.BeginQuestion -= OnBeginQuestion;
             ButtonEventManager.NextQuestion -= OnNextQuestion;
             ButtonEventManager.ContinueQuestion -= OnContinueQuestion;
@@ -54,6 +59,17 @@ namespace NewSurveyArch
         private void OnSurveyReady(object sender, EventArgs e)
         {
             gameObject.GetComponent<Button>().enabled = true;
+        }
+
+        /// <summary>
+        ///     Waits for case when button is clicked, but answer is not answered.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnQuestionNotComplete(object sender, EventArgs e)
+        {
+            var text = gameObject.GetComponentInChildren<Text>();
+            text.text= NotAsnwered + "\n" + Next;
         }
 
         /// <summary>

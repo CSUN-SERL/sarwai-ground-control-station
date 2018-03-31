@@ -1,4 +1,6 @@
 ﻿using System;
+using FeedScreen.Experiment;
+using Survey;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +24,7 @@ namespace NewSurveyArch
         // Use this for initialization
         void Awake()
         {
+            displayNumber = 0;
         }
 
         // Update is called once per frame
@@ -33,10 +36,12 @@ namespace NewSurveyArch
         private void OnEnable()
         {
             EventManager.SurveyReady += StartSurvey;
+
             EventManager.NextQuestion += NextQuestion;
         }
         private void OnDisable()
         {
+            EventManager.SurveyReady -= StartSurvey;
             EventManager.NextQuestion -= NextQuestion;
 
         }
@@ -47,41 +52,22 @@ namespace NewSurveyArch
             total = gameObject.transform.childCount - 1;
             Debug.Log("total = " + total);
             displayNumber = 0;
-            if (total == 1)
-                ButtonEventManager.OnContinueQuestion();
-            else
-                ButtonEventManager.OnBeginQuestion();
-            if (displayNumber < total)
-            {
-                gameObject.transform.GetChild(displayNumber).gameObject.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("End of Questions");
-                EventManager.OnSurveyComplete();
-            }
+            ButtonEventManager.OnBeginQuestion();
+            DisplayOn();
         }
 
         private void NextQuestion(object sender, EventArgs e)
         {
             Debug.Log("NextQuestion");
-             
             if (displayNumber < total)
             {
-                ButtonEventManager.OnNextQuestion();
-                gameObject.transform.GetChild(displayNumber).gameObject.SetActive(false);
-                ++displayNumber;
-                
-                gameObject.transform.GetChild(displayNumber).gameObject.SetActive(true);
-                if (displayNumber == total)
-                {
-                    ButtonEventManager.OnContinueQuestion();
-                }
+                Upload();   
             }
             else
             {
                 Debug.Log("End of Questions");
-                EventManager.OnSurveyComplete();
+                EventManager.OnSurveyComplete(gameObject);
+                SceneFlowController.LoadNextScene();
             }
         }
 
@@ -90,7 +76,11 @@ namespace NewSurveyArch
         /// </summary>
         public override void DisplayOn()
         {
-            gameObject.GetComponent<Image>().enabled = true;
+            gameObject.transform.GetChild(displayNumber).gameObject.SetActive(true);
+            if (displayNumber == total)
+            {
+                ButtonEventManager.OnContinueQuestion();
+            }
         }
 
         /// <summary>
@@ -98,12 +88,38 @@ namespace NewSurveyArch
         /// </summary>
         public override void DisplayOff()
         {
-            gameObject.GetComponent<Image>().enabled = false;
+            ButtonEventManager.OnNextQuestion();
+            gameObject.transform.GetChild(displayNumber).gameObject.SetActive(false);
+            ++displayNumber;
         }
 
         protected override void Upload()
         {
-            throw new System.NotImplementedException();
+            var currentChildQuestion = gameObject.transform.GetChild(displayNumber);
+            if (currentChildQuestion.childCount > 1)
+            {
+                Debug.Log(currentChildQuestion.childCount);
+                Debug.Log(currentChildQuestion.name);
+                var messege = SurveyQuestionPush.Instance.GatherAnswer(currentChildQuestion.gameObject, displayNumber);
+                if (messege == SurveyQuestionPush.AnswerMessege)
+                {
+                    Debug.Log("Question answerd.");
+                    DisplayOff();
+                    DisplayOn();
+                }
+                else if (messege == SurveyQuestionPush.NoAnswerMessege)
+                {
+                    Debug.Log("Question not answered");
+                    ButtonEventManager.OnQuestionNotComplete();
+                    return;
+
+                }
+            }
+            else
+            {
+                DisplayOff();
+                DisplayOn();
+            }
         }
 
 

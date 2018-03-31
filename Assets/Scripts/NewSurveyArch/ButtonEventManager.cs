@@ -10,7 +10,7 @@ namespace NewSurveyArch
         public string NewName { get; set; }
     }
 
-    public class ButtonEventManager : MonoBehaviour
+    public static class ButtonEventManager
     {
         public static event EventHandler<StringEventArgs> Load;
         //public static event EventHandler<PhysiologicalDataEventArgs> EndSurvey;
@@ -48,6 +48,13 @@ namespace NewSurveyArch
         public static void OnContinueQuestion()
         {
             var handler = ContinueQuestion;
+            if (handler != null) handler(null, new EventArgs());
+        }
+
+        public static event EventHandler<EventArgs> QuestionNotComplete;
+        public static void OnQuestionNotComplete()
+        {
+            var handler = QuestionNotComplete;
             if (handler != null) handler(null, new EventArgs());
         }
 

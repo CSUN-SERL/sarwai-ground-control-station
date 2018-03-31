@@ -21,7 +21,7 @@ namespace NewSurveyArch
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnLoad(object sender, SurveyEventArgs e)
+        private void OnLoad(object sender, SurveyListEventArgs e)
         {
             Debug.Log("Event started");
             var list = e.QuestionsList;
@@ -32,7 +32,6 @@ namespace NewSurveyArch
                 Debug.Log(transform.name);
                 tempObject.transform.SetParent(transform);
                 tempObject.SetActive(false);
-                tempObject.name = index.ToString();
                 ++index;
             }
             EventManager.OnSurveyReady();
