@@ -54,7 +54,7 @@ namespace Survey
                         break;
                     //special cases bellow
                     case "Debrief":
-                        MultipleGetAnswer(g, ref temp);
+                        Debrief(g, ref temp);
                         //Debug.Log("Debrief");
                         StartCoroutine(UploadPreferredLvlOfAutonomy(temp));
                         break;
@@ -149,6 +149,25 @@ namespace Survey
             }
 
             questionDetails.SelectedAnswer = "Not Answered";
+        }
+
+        private static void Debrief(GameObject go,
+            ref QuestionDetails questionDetails)
+        {
+            //Debug.Log(go.transform.GetChild(1).GetChild(0).name +
+            //          " is in Multiple");
+            var toggles = go.transform.GetChild(1).GetChild(1)
+                .GetComponentsInChildren<Toggle>().ToList();
+            for (var i = 0; i < toggles.Count; ++i)
+                if (toggles[i].isOn)
+                {
+                    //Debug.Log(i + " = i");
+                    questionDetails.SelectedAnswer =
+                        questionDetails.OfferedAnswerList[i];
+                    return;
+                }
+
+            questionDetails.SelectedAnswer = questionDetails.OfferedAnswerList[0];
         }
 
         //tested
@@ -275,7 +294,7 @@ namespace Survey
         {
             var lvlOfAuto = 0;
             for (;
-                lvlOfAuto < questionDetail.OfferedAnswerList.Count;
+                lvlOfAuto < questionDetail.OfferedAnswerList.Count - 1;
                 ++lvlOfAuto)
                 if (questionDetail.OfferedAnswerList[lvlOfAuto] ==
                     questionDetail.SelectedAnswer)

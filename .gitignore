@@ -1,1 +1,12 @@
-Library/*
+[Ll]ibrary/*
+GCS.exe
+SARWAI-GCS*
+GCS_Data/*
+
+\.vs/*
+
+*.csproj
+*.sln
+Temp/
+obj/
+.vs/

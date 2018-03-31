@@ -182,7 +182,7 @@ namespace Survey
                     }
                     else
                     {
-                        Debug.Log("hello");
+                        Debug.Log(string.Format("got this survey {0} from da web", surveyNumber));
                         JsonNodeToListList(result["data"]);
                     }
                 }
