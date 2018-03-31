@@ -17,7 +17,7 @@ namespace NewSurveyArch
                 {
                     Group = 3
                 },
-                CurrentSurvey= SurveyNumber
+                //CurrentSurvey= SurveyNumber
             };
 
             EventManager.OnFetchSurveyFromWeb(SurveyNumber);

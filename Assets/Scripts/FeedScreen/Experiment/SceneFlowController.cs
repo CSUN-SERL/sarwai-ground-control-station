@@ -41,7 +41,7 @@ namespace FeedScreen.Experiment
                                 SceneManager.LoadScene(Participant.Participant.QueryScreen);
                                 break;
                             default:
-                                SceneManager.LoadScene(Participant.Participant.GeneralSurvey);
+                                SceneManager.LoadScene(Participant.Participant.SurveyScene);
                                 break;
                         }
                         break;

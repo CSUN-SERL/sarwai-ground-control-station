@@ -24,7 +24,7 @@ namespace Participant
 
         public const string ProctorSetup = "ProctorSetup";
         public const string Welcome = "Welcome";
-        public const string GeneralSurvey = "GeneralSurvey";
+        public const string SurveyScene = "SurveyScene";
         public const string TransparencyBrief = "TransparentBrief";
         public const string QueryScreen = "QueryScreen";
         public const string FinalScene = "FinalScene";
@@ -91,6 +91,7 @@ namespace Participant
 
         public int CurrentMission { get; set; }
         public int CurrentTimeline { get; set; }
+        public int CurrentSurvey { get { return Timelines[Data.Group - 1][CurrentTimeline]; } }
         public int CurrentScene { get { return Timelines[Data.Group-1][CurrentTimeline]; } }
         
 

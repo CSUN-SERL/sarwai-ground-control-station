@@ -152,8 +152,16 @@ namespace NewSurveyArch
         private void OnFetch(object sender, IntEventArgs e)
         {
             Debug.Log("FetchStarted");
-            StartCoroutine(Fetching(ParticipantBehavior.Participant
-                .CurrentSurvey));
+            try
+            {
+                StartCoroutine(Fetching(ParticipantBehavior.Participant.CurrentSurvey));
+            }
+            catch (System.NullReferenceException exception)
+            {
+                Debug.Log(exception.Message);
+                Debug.Log("Using defaunlt survey 1, because the participant has not been made.");
+                StartCoroutine(Fetching(FetchSurvey));
+            }
         }
     }
 }
