@@ -11,7 +11,6 @@ namespace Menu_Navigation.Mission
         private GameObject _popup;
         public Text DescriptionText;
         public Text MissionNumberText;
-        public Button StartButton;
 
         private void Start()
         {

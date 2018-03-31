@@ -6,24 +6,21 @@ namespace Mission
 {
     public class StartMissionButton : MonoBehaviour
     {
-        public int WaitTime = 60;
+        public int WaitTime = 1;
         private Button _button;
-
-        void Awake()
-        {
-            StartCoroutine(StartWait(WaitTime));
-        }
 
         private void Start()
         {
             _button = GetComponent<Button>();
             _button.onClick.AddListener(MissionLifeCycleController
                 .StartMission);
+            StartCoroutine(StartWait(WaitTime));
         }
 
         private IEnumerator StartWait(int waitTime)
         {
-            yield return new WaitForSeconds(waitTime);
+            Debug.Log(waitTime);
+            yield return new WaitForSecondsRealtime(waitTime);
             _button.interactable = true;
         }
 
