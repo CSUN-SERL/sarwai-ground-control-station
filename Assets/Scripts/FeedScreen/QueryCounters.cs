@@ -32,6 +32,17 @@ public class QueryCounters : MonoBehaviour
 
     public void OnEnable()
     {
+        // Reset counters at beginning of each mission.
+        QA1.text = "QA: 0";
+        QA2.text = "QA: 0";
+        QA3.text = "QA: 0";
+        QA4.text = "QA: 0";
+
+        QS1.text = "QS: 0";
+        QS2.text = "QS: 0";
+        QS3.text = "QS: 0";
+        QS4.text = "QS: 0";
+
         SocketEventManager.AutonomousQuery += OnAutonomousQuery;
         // On query received, in this case used to increment Q-Stop.
         // From my understanding the GCS receives queries that are not 
