@@ -48,6 +48,11 @@ namespace NewSurveyArch
             EventManager.FetchedSurvey -= StoreQuestionList;
         }
 
+        private string ReplaceApostropy(string target)
+        {
+            return target.Replace("'", "`");
+        }
+
         private void StoreQuestionList(object sender, SurveyListEventArgs e)
         {
             _surveyQuestionList = e.QuestionsList;
@@ -121,7 +126,7 @@ namespace NewSurveyArch
                 return NoAnswerMessege;
             else
             {
-                questionDetails.offered_answer = answer;
+                questionDetails.offered_answer = ReplaceApostropy(answer);
                 StartCoroutine(UploadQuery(questionDetails));
                 return AnswerMessege;
             }
@@ -139,9 +144,9 @@ namespace NewSurveyArch
             for (var i = 0; i < toggles.Count; ++i)
                 if (toggles[i].isOn)
                     questionDetails.offered_answer += "|" +
-                                                      questionDetails
+                                                      ReplaceApostropy(questionDetails
                                                           .offered_answer_text[
-                                                              i];
+                                                              i]);
 
             if (questionDetails.offered_answer.Length > 1)
             {
@@ -173,7 +178,7 @@ namespace NewSurveyArch
                 {
                     Debug.Log(i + " = i,good");
                     questionDetails.offered_answer =
-                        questionDetails.offered_answer_text[i];
+                        ReplaceApostropy(questionDetails.offered_answer_text[i]);
                     StartCoroutine(UploadQuery(questionDetails));
                     return AnswerMessege;
                 }
@@ -195,7 +200,7 @@ namespace NewSurveyArch
                 {
                     //Debug.Log(i + " = i");
                     questionDetails.offered_answer =
-                        questionDetails.offered_answer_text[i];
+                        ReplaceApostropy(questionDetails.offered_answer_text[i]);
                     StartCoroutine(UploadQuery(questionDetails));
                     return AnswerMessege;
                 }
@@ -213,7 +218,7 @@ namespace NewSurveyArch
                 return NoAnswerMessege;
             else
             {
-                questionDetails.offered_answer = answer;
+                questionDetails.offered_answer = ReplaceApostropy(answer);
                 StartCoroutine(UploadQuery(questionDetails));
                 return AnswerMessege;
             }
