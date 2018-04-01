@@ -135,7 +135,6 @@ namespace NewSurveyArch
                     }
                     else
                     {
-                        Debug.Log("hello");
                         var temp2 = JTokenToQuestionDetailList(result["data"]);
                         EventManager.OnFetchedSurvey(temp2);
                         Debug.Log("Event Called");

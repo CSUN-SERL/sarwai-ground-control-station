@@ -36,12 +36,12 @@ namespace NewSurveyArch
         public new static SurveyQuestion CreateFromJson(JToken jsonToken)
         {
             var q = SurveyQuestion.Init(
-                    text: jsonToken["question_text"].ToString(),
-                    type: jsonToken["type"].ToString(),
+                    text: jsonToken["question_text"].ToString().Replace("`","'"),
+                    type: jsonToken["type"].ToString().Replace("`", "'"),
                     offeredAnswerList: SeparatePipeInString(
-                        jsonToken["offered_answer_text"].ToString()),
-                    offeredAnswerId: jsonToken["offered_answer_id"].ToString(),
-                    questionId: jsonToken["question_id"].ToString());
+                        jsonToken["offered_answer_text"].ToString().Replace("`", "'")),
+                    offeredAnswerId: jsonToken["offered_answer_id"].ToString().Replace("`", "'"),
+                    questionId: jsonToken["question_id"].ToString().Replace("`", "'"));
             return q;
         }
     }

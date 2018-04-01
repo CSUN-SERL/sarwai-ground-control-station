@@ -45,6 +45,7 @@ namespace NewSurveyArch
         /// <returns></returns>
         private GameObject SurveyQuestionToGameObject(SurveyQuestion currentDetails)
         {
+            Debug.Log(currentDetails.type);
             switch (currentDetails.type)
             {
                 case "FreeResponse":

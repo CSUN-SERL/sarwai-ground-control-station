@@ -12,22 +12,17 @@ namespace NewSurveyArch
     /// TODO: Implement actual controls, and not just "demo" controls
     public class InsertInputFieldInParentsParent : MonoBehaviour
     {
-        public Toggle _button;
-
-
         private Transform _referenceToHorizontalGroup;
         
         private List<InsertInputFieldInParentsParent> _siblings;
 
-        public InputField InputFieldPrefab;
 
-
-        public bool SpawnInsertFieldOnTrue;
+        public bool SpawnInsertFieldOnTrue = false;
         private GameObject SpawnofInputField;
         
         public void Start()
         {
-            _button.onValueChanged.AddListener(value =>
+            gameObject.GetComponent<Toggle>().onValueChanged.AddListener(value =>
             {
                 if (value) Activate();
                 else DeActivate();
@@ -45,7 +40,7 @@ namespace NewSurveyArch
         {
             if (SpawnInsertFieldOnTrue)
             {
-                SpawnofInputField = Instantiate(InputFieldPrefab.gameObject);
+                SpawnofInputField = Instantiate(Resources.Load<GameObject>("SurveyQuestion/InputField"));
                 SpawnofInputField.transform.SetParent(
                     _referenceToHorizontalGroup);
             }
