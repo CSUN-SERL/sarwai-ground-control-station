@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using ROSBridgeLib;
-using ROSBridgeLib.sensor_msgs;
-using SimpleJSON;
+using LiveFeedScreen.ROSBridgeLib;
+using LiveFeedScreen.ROSBridgeLib.sensor_msgs.sensor_msgs;
+using Tobii.Plugins;
 public class CompressedImage3 : MonoBehaviour
 {
     private RawImage rawimg;
