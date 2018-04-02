@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using LiveFeedScreen.ROSBridgeLib;
-using LiveFeedScreen.ROSBridgeLib.sensor_msgs.sensor_msgs;
-using Tobii.Plugins;
-public class CompressedImage : MonoBehaviour {
+using ROSBridgeLib;
+using ROSBridgeLib.sensor_msgs;
+using SimpleJSON;
+public class CompressedImage4 : MonoBehaviour
+{
     private RawImage rawimg;
     private static Texture2D texture;
-    public string var;
-	private void Start()
-	{
+    [SerializeField]
+    const int BotNum = 1;
+    private void Start()
+    {
         rawimg = GetComponent<RawImage>();
         texture = new Texture2D(2, 2);
 
-	}
-	private void Update()
-	{
+    }
+    private void Update()
+    {
         rawimg.texture = texture;
-	}
-	public new static string GetMessageTopic()
+    }
+    public new static string GetMessageTopic()
     {
         return "/robot4/camera/rgb/image_raw/compressed";
     }
@@ -49,15 +51,15 @@ public class CompressedImage : MonoBehaviour {
         Debug.Log(arr[1]);
         Debug.Log("------------------------------------------");
 
-        byte[] bimage = imageMsg.GetImage ();
-        texture.LoadImage (bimage);
+        byte[] bimage = imageMsg.GetImage();
+        texture.LoadImage(bimage);
         //texture.LoadRawTextureData(bimage);
         texture.Apply();
-       
-       
-       // GUI.DrawTexture(new Rect(10, 10, 60, 60), texture, ScaleMode.ScaleToFit, true, 10.0F);
+
+
+        // GUI.DrawTexture(new Rect(10, 10, 60, 60), texture, ScaleMode.ScaleToFit, true, 10.0F);
         //GetComponent<Renderer>().material.mainTexture = texture;
-    } 
+    }
 
 
 }
