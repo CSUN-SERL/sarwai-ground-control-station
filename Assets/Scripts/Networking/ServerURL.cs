@@ -150,11 +150,11 @@
         {
             if (robot_id == 1 || robot_id == 2)
                 return string.Format(
-                    "http://{0}:{1}/snapshot?topic=/robot{2}/camera/rgb/image_raw",
+                    "http://{0}:{1}/snapshot?topic=/robot{2}/camera/rgb/image_boxed",
                     STATION_4_URL, STATION_1_PORT, robot_id);
             if (robot_id == 3 || robot_id == 4)
                 return string.Format(
-                    "http://{0}:{1}/snapshot?topic=/robot{2}/camera/rgb/image_raw",
+                    "http://{0}:{1}/snapshot?topic=/robot{2}/camera/rgb/image_boxed",
                     STATION_4_URL, STATION_4_PORT, robot_id);
             return null;
         }

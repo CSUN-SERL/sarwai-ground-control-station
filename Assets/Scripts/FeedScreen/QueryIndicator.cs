@@ -79,7 +79,7 @@ public class QueryIndicator : MonoBehaviour
         }
     }
 
-    // Kind of a stupid implementation, but if it works, I'm happy.
+    // Kind of a silly implementation, but if it works, I'm happy.
     public void ToggleState()
     {
         if (_robotID == 1)

@@ -42,7 +42,7 @@ namespace Mission
             else if (Instance != this)
                 Destroy(this);
 
-            InitializeMission();
+            
         }
 
         private void OnEnable()
@@ -50,6 +50,8 @@ namespace Mission
             EventManager.Initialized += OnInitialized;
             //EventManager.Completed += OnCompleted;
             EventManager.Stopped += OnStopped;
+
+            InitializeMission();
         }
 
         private void OnDisable()
