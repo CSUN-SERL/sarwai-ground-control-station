@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace NewSurveyArch
 {
+    /// <summary>
+    ///     Dicatates action based on end of survey.
+    /// </summary>
     public class SurveyEnd : MonoBehaviour
     {
         public void OnEnable()
@@ -16,6 +19,9 @@ namespace NewSurveyArch
             EventManager.PushedSurvey -= OnEnd;
         }
 
+        /// <summary>
+        ///     Singleton.
+        /// </summary>
         public static SurveyEnd Instance;
         private void Awake()
         {

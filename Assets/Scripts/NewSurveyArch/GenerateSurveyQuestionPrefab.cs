@@ -1,26 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using FeedScreen.Experiment.Missions.Broadcasts.Events;
-using MediaDownload;
-using Mission;
-using Mission.Display.Queries;
-using Mission.Queries.QueryTypes.Audio;
-using Mission.Queries.QueryTypes.Visual;
-using Networking;
-using Newtonsoft.Json.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace NewSurveyArch
 {
+    /// <summary>
+    ///     Instantiates a gameobject givea a question.
+    /// </summary>
     public class GenerateSurveyQuestionPrefab : ScriptableObject
     {
         /// <summary>
-        ///     Sets up a question with a given prefab />
+        ///     Sets up the text for a question with a given gameobject and instantiates it.
         /// </summary>
         /// <param name="tempPrefab"></param>
         /// <param name="question"></param>
@@ -36,6 +27,7 @@ namespace NewSurveyArch
 
 
         /// <summary>
+        ///     Populates the answers into the gameobject and sets up a inputfiled for answers with '@' character at the front.
         /// </summary>
         /// <param name="answerSelection"></param>
         /// <param name="answers"></param>
@@ -46,10 +38,7 @@ namespace NewSurveyArch
             firstAnswer.SetActive(false);
             //Debug.Log(firstAnswer.name + "is firstAnswer");
             //Debug.Log(answerSelection.name + "is firstAnswer");
-            foreach (var answer in answers)
-            {
-                Debug.Log(answer);
-            }
+            foreach (var answer in answers) Debug.Log(answer);
             foreach (var answer in answers)
             {
                 var newAnswer = answer;
@@ -57,7 +46,7 @@ namespace NewSurveyArch
                 instance.SetActive(true);
                 instance.transform.SetParent(firstAnswer.transform.parent);
                 if (newAnswer[0] == '@')
-                { 
+                {
                     Debug.Log(instance.name);
                     newAnswer = answer.Substring(1);
                     instance.GetComponent<InsertInputFieldInParentsParent>()
@@ -75,10 +64,12 @@ namespace NewSurveyArch
         /// </summary>
         /// <param name="questionDetails">A list consisting of a question and the rest is answers</param>
         /// <returns>returns an instantiated GameObject</returns>
-        public static GameObject FreeResponseSetUp(SurveyQuestion questionDetails)
+        public static GameObject FreeResponseSetUp(
+            SurveyQuestion questionDetails)
         {
             var tempPrefab =
-                InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/FreeResponse"),
+                InstatiatePrefabAndPopulateAnswer(
+                    Resources.Load<GameObject>("SurveyQuestion/FreeResponse"),
                     questionDetails.question_text);
             return tempPrefab;
         }
@@ -92,12 +83,14 @@ namespace NewSurveyArch
         public static GameObject MultipleSetup(SurveyQuestion questionDetails)
         {
             var tempPrefab =
-                InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/Multiple"),
+                InstatiatePrefabAndPopulateAnswer(
+                    Resources.Load<GameObject>("SurveyQuestion/Multiple"),
                     questionDetails.question_text);
             var answerSelection = tempPrefab.transform.GetChild(1).GetChild(0)
                 .GetChild(1);
             //Debug.Log(answerSelection.name + " is in MultipleSetup");
-            PopulateAnswers(answerSelection, questionDetails.offered_answer_text);
+            PopulateAnswers(answerSelection,
+                questionDetails.offered_answer_text);
             return tempPrefab;
         }
 
@@ -110,17 +103,19 @@ namespace NewSurveyArch
         public static GameObject ScalarSetup(SurveyQuestion questionDetails)
         {
             var tempPrefab =
-                InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/Scalar"),
+                InstatiatePrefabAndPopulateAnswer(
+                    Resources.Load<GameObject>("SurveyQuestion/Scalar"),
                     questionDetails.question_text);
             var answerSelection = tempPrefab.transform.GetChild(1).GetChild(0)
                 .GetChild(1);
             //Debug.Log(answerSelection.name + " is in ScalarSetup");
-            PopulateAnswers(answerSelection, questionDetails.offered_answer_text);
+            PopulateAnswers(answerSelection,
+                questionDetails.offered_answer_text);
             return tempPrefab;
         }
 
         /// <summary>
-        ///     Sets up a question prefab with a several <see cref="Button" />
+        ///     Sets up a question prefab with <see cref="Dropdown" />
         /// </summary>
         /// <param name="questionDetails">A list consisting of a question and the rest is answers</param>
         /// <returns>returns an instantiated GameObject</returns>
@@ -128,7 +123,8 @@ namespace NewSurveyArch
         public static GameObject NumericSetup(SurveyQuestion questionDetails)
         {
             var tempPrefab =
-                InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/Numeric"),
+                InstatiatePrefabAndPopulateAnswer(
+                    Resources.Load<GameObject>("SurveyQuestion/Numeric"),
                     questionDetails.question_text);
             var answerSelection = tempPrefab.transform.GetChild(1).GetChild(0)
                 .GetChild(0);
@@ -158,10 +154,16 @@ namespace NewSurveyArch
             return tempPrefab;
         }
 
+        /// <summary>
+        ///     Sets up a question prefab with a single question and no answers.
+        /// </summary>
+        /// <param name="questionDetails"></param>
+        /// <returns></returns>
         public static GameObject MessegeSetup(SurveyQuestion questionDetails)
         {
             var tempPrefab =
-                InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/Messege"),
+                InstatiatePrefabAndPopulateAnswer(
+                    Resources.Load<GameObject>("SurveyQuestion/Messege"),
                     questionDetails.question_text);
 
             return tempPrefab;
@@ -176,7 +178,7 @@ namespace NewSurveyArch
         }
 
         /// <summary>
-        ///     Sets up the Scale Prefab in unity with answers and a questinon/
+        ///     Sets up a question prefab with <see cref="Slider" />
         /// </summary>
         /// <param name="questionDetails"></param>
         /// <returns></returns>
@@ -184,7 +186,8 @@ namespace NewSurveyArch
             SurveyQuestion questionDetails)
         {
             var tempPrefab =
-                InstatiatePrefabAndPopulateAnswer(Resources.Load<GameObject>("SurveyQuestion/TLX"),
+                InstatiatePrefabAndPopulateAnswer(
+                    Resources.Load<GameObject>("SurveyQuestion/TLX"),
                     questionDetails.question_text);
 
             //Sets the text on the right side of the scale.
@@ -200,7 +203,5 @@ namespace NewSurveyArch
                 questionDetails.offered_answer_text[1];
             return tempPrefab;
         }
-
-        
     }
-}//                Instantiate(Resources.Load("SurveyQuestion/Multiple") as GameObject);
+} //                Instantiate(Resources.Load("SurveyQuestion/Multiple") as GameObject);

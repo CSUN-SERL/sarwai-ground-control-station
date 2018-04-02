@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace NewSurveyArch
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Deals with changing the question index
     /// </summary>
@@ -16,12 +17,7 @@ namespace NewSurveyArch
         private const string Next = "Next";
         private const string Continue = "Continue";
         private const string NotAsnwered = "Cannot go to next question until current question is answered.";
-
-        private void Start()
-        {
-            //gameObject.GetComponent<Button>().enabled = false;
-        }
-
+        
         /// <summary>
         ///     For brevity, can be improved.
         ///     

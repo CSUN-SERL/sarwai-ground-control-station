@@ -1,37 +1,24 @@
 ﻿using System;
 using FeedScreen.Experiment;
-using Survey;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace NewSurveyArch
 {
-
+    /// <summary>
+    ///     Manager for gameobjects that conatain survey questions.
+    /// </summary>
     public class SurveyContainer : QuestionContainer
     {
-        public int displayNumber;
-        public int total;
-        /*
-        protected override void Download()
-        {
-        }
+        /// <summary>
+        ///     Number on which the question is on.
+        /// </summary>
+        public int DisplayNumber;
 
-        protected override void Upload()
-        {
-        }*/
-        private SurveyQuestion _question;
+        /// <summary>
+        ///     Total number of questions.
+        /// </summary>
+        public int Total;
 
-        // Use this for initialization
-        void Awake()
-        {
-            displayNumber = 0;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         private void OnEnable()
         {
@@ -39,29 +26,39 @@ namespace NewSurveyArch
 
             EventManager.NextQuestion += NextQuestion;
         }
+
         private void OnDisable()
         {
             EventManager.SurveyReady -= StartSurvey;
             EventManager.NextQuestion -= NextQuestion;
-
         }
 
+        /// <summary>
+        ///     Starts the visibility of the first question and the button correlated with going to next question.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartSurvey(object sender, EventArgs e)
         {
             EventManager.SurveyReady -= StartSurvey;
-            total = gameObject.transform.childCount - 1;
-            Debug.Log("total = " + total);
-            displayNumber = 0;
+            Total = gameObject.transform.childCount - 1;
+            Debug.Log("total = " + Total);
+            DisplayNumber = 0;
             ButtonEventManager.OnBeginQuestion();
             DisplayOn();
         }
 
+        /// <summary>
+        ///     Stops the visibility of current question. Starts the visibility of next question.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NextQuestion(object sender, EventArgs e)
         {
             Debug.Log("NextQuestion");
-            if (displayNumber < total)
+            if (DisplayNumber < Total)
             {
-                Upload();   
+                Upload();
             }
             else
             {
@@ -72,64 +69,59 @@ namespace NewSurveyArch
         }
 
         /// <summary>
-        ///     Displays once the listener recieves the call.
+        ///     Displays current questinon.
         /// </summary>
         public override void DisplayOn()
         {
-            gameObject.transform.GetChild(displayNumber).gameObject.SetActive(true);
-            if (displayNumber == total)
-            {
-                ButtonEventManager.OnContinueQuestion();
-            }
+            gameObject.transform.GetChild(DisplayNumber).gameObject
+                .SetActive(true);
+            if (DisplayNumber == Total) ButtonEventManager.OnContinueQuestion();
         }
 
         /// <summary>
-        ///     Stosp displaying once the listener recieves the call.
+        ///     Stops displaying current question.
         /// </summary>
         public override void DisplayOff()
         {
             ButtonEventManager.OnNextQuestion();
-            gameObject.transform.GetChild(displayNumber).gameObject.SetActive(false);
-            ++displayNumber;
+            gameObject.transform.GetChild(DisplayNumber).gameObject
+                .SetActive(false);
         }
 
+
+        /// <summary>
+        ///     Uploads the current question via <see cref="SurveyQuestionPush" />
+        /// </summary>
         protected override void Upload()
         {
-            var currentChildQuestion = gameObject.transform.GetChild(displayNumber);
+            var currentChildQuestion =
+                gameObject.transform.GetChild(DisplayNumber);
             if (currentChildQuestion.childCount > 1)
             {
                 Debug.Log(currentChildQuestion.childCount);
                 Debug.Log(currentChildQuestion.name);
-                var messege = SurveyQuestionPush.Instance.GatherAnswer(currentChildQuestion.gameObject, displayNumber);
+                var messege =
+                    SurveyQuestionPush.Instance.GatherAnswer(
+                        currentChildQuestion.gameObject, DisplayNumber);
                 if (messege == SurveyQuestionPush.AnswerMessege)
                 {
-                    Debug.Log("Question answerd.");
+                    Debug.Log("Question answered.");
                     DisplayOff();
+                    ++DisplayNumber;
                     DisplayOn();
                 }
                 else if (messege == SurveyQuestionPush.NoAnswerMessege)
                 {
                     Debug.Log("Question not answered");
                     ButtonEventManager.OnQuestionNotComplete();
-                    return;
-
                 }
             }
             else
             {
                 DisplayOff();
+                ++DisplayNumber;
                 DisplayOn();
             }
-        }
-
-
-        /// <summary>
-        ///     Stores question locally.
-        /// </summary>
-        /// <param name="question"></param>
-        public void Init(SurveyQuestion question)
-        {
-            _question = question;
         }
     }
 }

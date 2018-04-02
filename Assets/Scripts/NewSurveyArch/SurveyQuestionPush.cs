@@ -1,9 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using FeedScreen.Experiment;
 using Networking;
-using Newtonsoft.Json;
 using Participant;
 using Tobii.Plugins;
 using UnityEngine;
@@ -12,11 +11,13 @@ using UnityEngine.UI;
 
 namespace NewSurveyArch
 {
+    /// <inheritdoc />
+    /// <summary>
+    ///     Pushes an answered survey question to the database.
+    /// </summary>
     public class SurveyQuestionPush : MonoBehaviour
     {
-        
-
-        //T
+        //Allows the bypass of questions for testing.
 #if UNITY_EDITOR
         public static string NoAnswerMessege = "Answered";
 #else
@@ -24,12 +25,22 @@ namespace NewSurveyArch
 #endif
         public static string AnswerMessege = "Answered";
 
-
-
+        /// <summary>
+        ///     Locally stores the survey number for ease of use.
+        /// </summary>
         private int _surveyNumber;
+
+        /// <summary>
+        ///     Locally stores the question List for reference.
+        /// </summary>
         private List<SurveyQuestion> _surveyQuestionList;
 
+
+        /// <summary>
+        ///     Set up for singleton.
+        /// </summary>
         public static SurveyQuestionPush Instance;
+
         private void Awake()
         {
             if (Instance == null)
@@ -48,7 +59,13 @@ namespace NewSurveyArch
             EventManager.FetchedSurvey -= StoreQuestionList;
         }
 
-        private string ReplaceApostropy(string target)
+
+        /// <summary>
+        ///     Converts any apostrophe given to a backquote to avoid mysql issues.
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        private static string ReplaceApostropy(string target)
         {
             return target.Replace("'", "`");
         }
@@ -56,29 +73,33 @@ namespace NewSurveyArch
         private void StoreQuestionList(object sender, SurveyListEventArgs e)
         {
             _surveyQuestionList = e.QuestionsList;
-        }
-
-        public string GatherAnswer(GameObject g, int questionNumber)
-        {
-            Debug.Log(AnswerMessege + " = AnswerMessege");
             try
             {
                 _surveyNumber = ParticipantBehavior.Participant.CurrentSurvey;
             }
-            catch (System.NullReferenceException exception)
+            catch (NullReferenceException exception)
             {
                 Debug.Log(exception.Message);
+                _surveyNumber = GameObject.Find("EventSystem")
+                    .GetComponent<SurveyFetch>().TestFetchingSurvey;
                 Debug.Log(
-                    "Pushing defaunlt survey 1, because the participant has not been made.");
-                _surveyNumber = SurveyFetch.Instance.FetchSurvey;
+                    string.Format("Pushing default survey {0}, because the participant has not been made.",_surveyNumber));
             }
+        }
+
+        /// <summary>
+        ///     Get the answer based on type, and for uploading to database.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="questionNumber"></param>
+        /// <returns></returns>
+        public string GatherAnswer(GameObject g, int questionNumber)
+        {
+            Debug.Log(AnswerMessege + " = AnswerMessege");
+
 
             var temp = _surveyQuestionList[questionNumber];
 
-            //Debug.Log(surveyQuestionList[int.Parse(g.name)].QuestionId +
-            //" is question id");
-            //Debug.Log(surveyQuestionList[int.Parse(g.name)].Type +
-            //" is question type");
             switch (temp.type)
             {
                 case "FreeResponse":
@@ -105,53 +126,50 @@ namespace NewSurveyArch
                         "'{0}' does not exist please make sure the type is correct."));
                     return AnswerMessege;
             }
-
-
-            //Debug.Log(surveyQuestionList[int.Parse(g.name)].SelectedAnswer +
-            //          " is answer");
-            
-
-            //Debug.Log(currentDetails.QuestionString + " is question string");
-            //Debug.Assert(false, "Question type does not exist");
         }
-        //tested}
 
-        //tested
+        /// <summary>
+        ///     Fills out the offered_answer of the question for question type "FreeResponse", from the input field.
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="questionDetails"></param>
+        /// <returns></returns>
         private string FreeResponseGetAnswer(GameObject go,
             ref SurveyQuestion questionDetails)
         {
             var answer = go.transform.GetChild(1).GetChild(0).GetChild(0)
                 .GetChild(2).GetComponent<Text>().text;
-            if (answer.Length == 0)
-                return NoAnswerMessege;
-            else
-            {
-                questionDetails.offered_answer = ReplaceApostropy(answer);
-                StartCoroutine(UploadQuery(questionDetails));
-                return AnswerMessege;
-            }
+            if (answer.Length == 0) return NoAnswerMessege;
 
+            questionDetails.offered_answer = ReplaceApostropy(answer);
+            StartCoroutine(UploadQuery(questionDetails));
+            return AnswerMessege;
         }
 
+        /// <summary>
+        ///     Fills out the offered_answer of the question for question type "PickAll", from all selected choice from a group of
+        ///     <see cref="Toggle" />.
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="questionDetails"></param>
+        /// <returns></returns>
         private string PickAllGetAnswer(GameObject go,
             ref SurveyQuestion questionDetails)
         {
-            //Debug.Log(go.transform.GetChild(1).GetChild(0).name +
-            //          " is in Multiple");
             var toggles = go.transform.GetChild(1).GetChild(0)
                 .GetComponentsInChildren<Toggle>().ToList();
             questionDetails.offered_answer = "";
             for (var i = 0; i < toggles.Count; ++i)
                 if (toggles[i].isOn)
                     questionDetails.offered_answer += "|" +
-                                                      ReplaceApostropy(questionDetails
-                                                          .offered_answer_text[
-                                                              i]);
+                                                      ReplaceApostropy(
+                                                          questionDetails
+                                                              .offered_answer_text
+                                                              [
+                                                                  i]);
 
             if (questionDetails.offered_answer.Length > 1)
             {
-
-
                 questionDetails.offered_answer =
                     questionDetails.offered_answer.Substring(1);
                 StartCoroutine(UploadQuery(questionDetails));
@@ -161,12 +179,16 @@ namespace NewSurveyArch
             return NoAnswerMessege;
         }
 
-        //tested
+        /// <summary>
+        ///     Fills out the offered_answer of the question for question type "Multiple", from the first selected choice from a
+        ///     group of <see cref="Toggle" />.
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="questionDetails"></param>
+        /// <returns></returns>
         private string MultipleGetAnswer(GameObject go,
             ref SurveyQuestion questionDetails)
         {
-            //Debug.Log(go.transform.GetChild(1).GetChild(0).name +
-            //          " is in Multiple");
             var toggles = go.transform.GetChild(1).GetChild(0)
                 .GetComponentsInChildren<Toggle>().ToList();
             Debug.Log("Toggle count = " + toggles.Count);
@@ -178,7 +200,8 @@ namespace NewSurveyArch
                 {
                     Debug.Log(i + " = i,good");
                     questionDetails.offered_answer =
-                        ReplaceApostropy(questionDetails.offered_answer_text[i]);
+                        ReplaceApostropy(questionDetails
+                            .offered_answer_text[i]);
                     StartCoroutine(UploadQuery(questionDetails));
                     return AnswerMessege;
                 }
@@ -187,20 +210,24 @@ namespace NewSurveyArch
             return NoAnswerMessege;
         }
 
-        //tested
+        /// <summary>
+        ///     Fills out the offered_answer of the question for question type "Scalar", from the first selected choice from a
+        ///     group of <see cref="Toggle" />.
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="questionDetails"></param>
+        /// <returns></returns>
         private string ScalarGetAnswer(GameObject go,
             ref SurveyQuestion questionDetails)
         {
-            //Debug.Log(go.transform.GetChild(1).GetChild(0).name +
-            //          " is in Scalar");
             var toggles = go.transform.GetChild(1).GetChild(0)
                 .GetComponentsInChildren<Toggle>().ToList();
             for (var i = 0; i < toggles.Count; ++i)
                 if (toggles[i].isOn)
                 {
-                    //Debug.Log(i + " = i");
                     questionDetails.offered_answer =
-                        ReplaceApostropy(questionDetails.offered_answer_text[i]);
+                        ReplaceApostropy(questionDetails
+                            .offered_answer_text[i]);
                     StartCoroutine(UploadQuery(questionDetails));
                     return AnswerMessege;
                 }
@@ -208,6 +235,13 @@ namespace NewSurveyArch
             return NoAnswerMessege;
         }
 
+        /// <summary>
+        ///     Fills out the offered_answer of the question for question type "Numeric", from the number given by
+        ///     <see cref="Slider" />.
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="questionDetails"></param>
+        /// <returns></returns>
         private string NumericGetAnswer(GameObject go,
             ref SurveyQuestion questionDetails)
         {
@@ -216,14 +250,19 @@ namespace NewSurveyArch
 
             if (answer == questionDetails.offered_answer_text[0])
                 return NoAnswerMessege;
-            else
-            {
-                questionDetails.offered_answer = ReplaceApostropy(answer);
-                StartCoroutine(UploadQuery(questionDetails));
-                return AnswerMessege;
-            }
+
+            questionDetails.offered_answer = ReplaceApostropy(answer);
+            StartCoroutine(UploadQuery(questionDetails));
+            return AnswerMessege;
         }
 
+        /// <summary>
+        ///     Fills out the offered_answer of the question for question type "Scale", from the selected choice in a
+        ///     <see cref="Dropdown" />.
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="questionDetails"></param>
+        /// <returns></returns>
         private string ScaleGetAnswer(GameObject go,
             ref SurveyQuestion questionDetails)
         {
@@ -236,6 +275,11 @@ namespace NewSurveyArch
             return AnswerMessege;
         }
 
+        /// <summary>
+        ///     Sets up a mysql query to upload to databse.
+        /// </summary>
+        /// <param name="questionDetails"></param>
+        /// <returns></returns>
         private IEnumerator UploadQuery(SurveyQuestion questionDetails)
         {
             const string sql = "INSERT INTO dbsurveys.participant_result " +
@@ -256,7 +300,12 @@ namespace NewSurveyArch
             StartCoroutine(UploadQueryEnumerator(sqlQuery));
             yield return null;
         }
-        
+
+        /// <summary>
+        ///     Uploads the query.
+        /// </summary>
+        /// <param name="sqlQuery"></param>
+        /// <returns></returns>
         private static IEnumerator UploadQueryEnumerator(string sqlQuery)
         {
             var form = new WWWForm();
