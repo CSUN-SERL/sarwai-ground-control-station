@@ -116,7 +116,11 @@ namespace Networking
                     SocketEventManager.OnQueryGenerated((string)data);
                 });
 
-
+                _socket.On("gcs-automated-query", data =>
+                {
+                    Debug.Log("Q-Autonomous. " + data.GetType());
+                    SocketEventManager.OnAutonomousQuery((string)data);
+                });
 
             }
         }
