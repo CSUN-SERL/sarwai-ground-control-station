@@ -1,10 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using FeedScreen.Experiment.Missions.Broadcasts.Events;
+using Mission;
 using UnityEngine;
 
 namespace NewSurveyArch
 {
+    /// <summary>
+    ///     Info needed to upload question.
+    /// </summary>
+    public class UploadQuestionEventArgs : EventArgs
+    {
+        public GameObject surveyQuestionObject;
+        public int surveyQuestionIndex;
+    }
+
     /// <summary>
     ///     Allows you to pass the list of question for a survey.
     /// </summary>
@@ -59,15 +69,37 @@ namespace NewSurveyArch
             OnNextQuestion();
         }
 
-        public static event EventHandler<EventArgs> NextQuestion;
-
         /// <summary>
         ///     Event occurs when a new question needs to be displayed.
         /// </summary>
+        public static event EventHandler<EventArgs> NextQuestion;
+               
         public static void OnNextQuestion()
         {
             var handler = NextQuestion;
             if (handler != null) handler(null, new EventArgs());
+        }
+
+        public static event EventHandler<UploadQuestionEventArgs> UploadQuestion;
+
+        /// <summary>
+        ///     Event occurs when a question needs to be uploaded.
+        /// </summary>
+        public static void OnUploadQuestion(GameObject g, int qNumber)
+        {
+            var handler = UploadQuestion;
+            if (handler != null) handler(null, new UploadQuestionEventArgs { surveyQuestionObject = g, surveyQuestionIndex = qNumber });
+        }
+
+        public static event EventHandler<StringEventArgs> UploadedQuestion;
+
+        /// <summary>
+        ///     Event occurs when a question needs to be uploaded.
+        /// </summary>
+        public static void OnUploadedQuestion(string response)
+        {
+            var handler = UploadedQuestion;
+            if (handler != null) handler(null, new StringEventArgs { StringArgs = response });
         }
 
         /// <summary>

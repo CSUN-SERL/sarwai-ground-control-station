@@ -82,7 +82,7 @@ namespace Participant
         {
             _instance = this;
             Mission.Lifecycle.EventManager.Completed += OnCompleted;
-            Survey.EventManager.End += OnSurveyEnd;
+            NewSurveyArch.EventManager.PushedSurvey += OnSurveyEnd;
             TransparencyIrisToOperator.EventManager.End += OnTransparencyBriefEnd;
 
         }
@@ -91,8 +91,9 @@ namespace Participant
 
         public int CurrentMission { get; set; }
         public int CurrentTimeline { get; set; }
-        public int CurrentSurvey { get { return Timelines[Data.Group - 1][CurrentTimeline]; } }
-        public int CurrentScene { get { return Timelines[Data.Group-1][CurrentTimeline]; } }
+        public int CurrentSurvey { get {
+                Debug.Log("timeline = " + Instance.CurrentTimeline); return Timelines[Data.Group - 1][Instance.CurrentTimeline]; } }
+        public int CurrentScene { get { return Timelines[Data.Group-1][Instance.CurrentTimeline]; } }
         
 
         public bool isDone
@@ -116,7 +117,7 @@ namespace Participant
         ~Participant()
         {
             Mission.Lifecycle.EventManager.Completed -= OnCompleted;
-            Survey.EventManager.End -= OnSurveyEnd;
+            NewSurveyArch.EventManager.PushedSurvey -= OnSurveyEnd;
             TransparencyIrisToOperator.EventManager.End -= OnTransparencyBriefEnd;
         }
 

@@ -39,7 +39,6 @@ namespace NewSurveyArch
             foreach (var surveyQuestion in questionList)
             {
                 var tempObject = SurveyQuestionToGameObject(surveyQuestion);
-                Debug.Log(transform.name);
                 tempObject.transform.SetParent(transform);
                 tempObject.SetActive(false);
                 ++index;
@@ -57,7 +56,7 @@ namespace NewSurveyArch
         private GameObject SurveyQuestionToGameObject(
             SurveyQuestion currentDetails)
         {
-            Debug.Log(currentDetails.type);
+            //  Debug.Log(currentDetails.type);
             switch (currentDetails.type)
             {
                 case "FreeResponse":

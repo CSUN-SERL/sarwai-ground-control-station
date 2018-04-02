@@ -1,5 +1,6 @@
 ﻿using System;
 using FeedScreen.Experiment;
+using Mission;
 using UnityEngine;
 
 namespace NewSurveyArch
@@ -23,14 +24,20 @@ namespace NewSurveyArch
         private void OnEnable()
         {
             EventManager.SurveyReady += StartSurvey;
-
             EventManager.NextQuestion += NextQuestion;
+            EventManager.UploadedQuestion += Uploaded;
+        }
+
+        private void Uploaded(object sender, StringEventArgs e)
+        {
+            UploadedMessege(e.StringArgs);
         }
 
         private void OnDisable()
         {
             EventManager.SurveyReady -= StartSurvey;
             EventManager.NextQuestion -= NextQuestion;
+            EventManager.UploadedQuestion -= Uploaded;
         }
 
         /// <summary>
@@ -42,7 +49,6 @@ namespace NewSurveyArch
         {
             EventManager.SurveyReady -= StartSurvey;
             Total = gameObject.transform.childCount - 1;
-            Debug.Log("total = " + Total);
             DisplayNumber = 0;
             ButtonEventManager.OnBeginQuestion();
             DisplayOn();
@@ -100,27 +106,28 @@ namespace NewSurveyArch
             {
                 Debug.Log(currentChildQuestion.childCount);
                 Debug.Log(currentChildQuestion.name);
-                var messege =
-                    SurveyQuestionPush.Instance.GatherAnswer(
-                        currentChildQuestion.gameObject, DisplayNumber);
-                if (messege == SurveyQuestionPush.AnswerMessege)
-                {
-                    Debug.Log("Question answered.");
-                    DisplayOff();
-                    ++DisplayNumber;
-                    DisplayOn();
-                }
-                else if (messege == SurveyQuestionPush.NoAnswerMessege)
-                {
-                    Debug.Log("Question not answered");
-                    ButtonEventManager.OnQuestionNotComplete();
-                }
+                EventManager.OnUploadQuestion(
+                        currentChildQuestion.gameObject, DisplayNumber);                
             }
             else
             {
+                UploadedMessege(SurveyQuestionPush.AnswerMessege);
+            }
+        }
+
+        private void UploadedMessege(string messege)
+        {
+            if (messege == SurveyQuestionPush.AnswerMessege)
+            {
+                Debug.Log("Question answered.");
                 DisplayOff();
                 ++DisplayNumber;
                 DisplayOn();
+            }
+            else if (messege == SurveyQuestionPush.NoAnswerMessege)
+            {
+                Debug.Log("Question not answered");
+                ButtonEventManager.OnQuestionNotComplete();
             }
         }
     }

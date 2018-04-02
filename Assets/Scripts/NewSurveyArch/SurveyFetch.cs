@@ -34,6 +34,7 @@ namespace NewSurveyArch
                 Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
+                
             //Test for creation of participant, else uses default.
             try
             {

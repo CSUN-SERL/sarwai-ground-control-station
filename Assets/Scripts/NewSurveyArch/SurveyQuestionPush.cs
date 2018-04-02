@@ -18,6 +18,7 @@ namespace NewSurveyArch
     public class SurveyQuestionPush : MonoBehaviour
     {
         //Allows the bypass of questions for testing.
+
 #if UNITY_EDITOR
         public static string NoAnswerMessege = "Answered";
 #else
@@ -43,20 +44,33 @@ namespace NewSurveyArch
 
         private void Awake()
         {
+            
             if (Instance == null)
                 Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
+                
         }
 
         private void OnEnable()
         {
             EventManager.FetchedSurvey += StoreQuestionList;
+            EventManager.UploadQuestion += AttemptUpload;
+        }
+
+        private void AttemptUpload(object sender, UploadQuestionEventArgs e)
+        {
+            string messege = GatherAnswer(e.surveyQuestionObject, e.surveyQuestionIndex);
+            Debug.Log(e.surveyQuestionIndex + " == " + (_surveyQuestionList.Count - 2));
+            if (e.surveyQuestionIndex == _surveyQuestionList.Count - 2)
+                EventManager.OnPushedSurvey();
+            EventManager.OnUploadedQuestion(messege);
         }
 
         private void OnDisable()
         {
             EventManager.FetchedSurvey -= StoreQuestionList;
+            EventManager.UploadQuestion -= AttemptUpload;
         }
 
 
@@ -97,9 +111,8 @@ namespace NewSurveyArch
         {
             Debug.Log(AnswerMessege + " = AnswerMessege");
 
-
             var temp = _surveyQuestionList[questionNumber];
-
+            Debug.Log(temp.type + temp.question_text + " in answer gather");
             switch (temp.type)
             {
                 case "FreeResponse":
@@ -194,11 +207,8 @@ namespace NewSurveyArch
             Debug.Log("Toggle count = " + toggles.Count);
             for (var i = 0; i < toggles.Count; ++i)
             {
-                Debug.Log(i + " = i,good");
-
                 if (toggles[i].isOn)
                 {
-                    Debug.Log(i + " = i,good");
                     questionDetails.offered_answer =
                         ReplaceApostropy(questionDetails
                             .offered_answer_text[i]);

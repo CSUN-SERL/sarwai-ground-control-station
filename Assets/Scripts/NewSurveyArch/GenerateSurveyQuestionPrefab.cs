@@ -36,9 +36,6 @@ namespace NewSurveyArch
         {
             var firstAnswer = answerSelection.gameObject;
             firstAnswer.SetActive(false);
-            //Debug.Log(firstAnswer.name + "is firstAnswer");
-            //Debug.Log(answerSelection.name + "is firstAnswer");
-            foreach (var answer in answers) Debug.Log(answer);
             foreach (var answer in answers)
             {
                 var newAnswer = answer;
@@ -47,7 +44,6 @@ namespace NewSurveyArch
                 instance.transform.SetParent(firstAnswer.transform.parent);
                 if (newAnswer[0] == '@')
                 {
-                    Debug.Log(instance.name);
                     newAnswer = answer.Substring(1);
                     instance.GetComponent<InsertInputFieldInParentsParent>()
                         .SpawnInsertFieldOnTrue = true;
