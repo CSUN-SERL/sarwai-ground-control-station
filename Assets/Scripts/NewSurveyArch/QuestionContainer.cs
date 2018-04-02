@@ -28,18 +28,6 @@ namespace NewSurveyArch
 
         private SurveyQuestion _question;
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         /// <summary>
         ///     Displays once the listener recieves the call.
         /// </summary>

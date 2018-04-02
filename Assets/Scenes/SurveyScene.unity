@@ -253,8 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6515fabaa83de7840bdb352f113c9532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayNumber: 0
-  total: 0
+  DisplayNumber: 0
+  Total: 0
 --- !u!1 &323768945
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6baee86a84c020a46857b23b11cd036f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FetchSurvey: 1
+  TestFetchingSurvey: 2
 --- !u!114 &323768953
 MonoBehaviour:
   m_ObjectHideFlags: 0

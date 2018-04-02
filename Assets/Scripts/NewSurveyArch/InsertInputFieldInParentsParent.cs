@@ -4,14 +4,15 @@ using UnityEngine.UI;
 
 namespace NewSurveyArch
 {
-    /// <inheritdoc cref="AbstractVideoControlToggle" />
-    /// <seealso cref="PauseButton" />
     /// <summary>
-    ///     Responsible for accessing manual control operation for robots.
-    /// </summary>
-    /// TODO: Implement actual controls, and not just "demo" controls
+    ///     Creates a textbox for questions in the survey that require an explanation.
+    /// </summary>TODO:This script is probably broken, needs to follow a different cleaner behavior.
     public class InsertInputFieldInParentsParent : MonoBehaviour
     {
+
+        /// <summary>
+        ///     Reference to the AnswerTypeBar inside of Multiple and Scalar prefabs.
+        /// </summary>
         private Transform _referenceToHorizontalGroup;
         
         private List<InsertInputFieldInParentsParent> _siblings;

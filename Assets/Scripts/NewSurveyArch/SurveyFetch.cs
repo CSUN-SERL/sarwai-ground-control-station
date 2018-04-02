@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -11,26 +12,42 @@ using UnityEngine.Networking;
 
 namespace NewSurveyArch
 {
+    /// <inheritdoc />
+    /// <summary>
+    ///     Fetches the survey from the database.
+    /// </summary>
     public class SurveyFetch : MonoBehaviour
     {
-        public int FetchSurvey = 2;
-
+        /// <summary>
+        ///     Sets up singleton.
+        /// </summary>
         public static SurveyFetch Instance;
+
+        /// <summary>
+        ///     Auto sets up survey if participant has not been made.
+        /// </summary>
+        public int TestFetchingSurvey = 2;
+
         private void Awake()
         {
             if (Instance == null)
                 Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
+            //Test for creation of participant, else uses default.
             try
             {
-                StartCoroutine(Fetching(ParticipantBehavior.Participant.CurrentSurvey));
+                StartCoroutine(Fetching(ParticipantBehavior.Participant
+                    .CurrentSurvey));
             }
-            catch (System.NullReferenceException exception)
+            catch (NullReferenceException exception)
             {
                 Debug.Log(exception.Message);
-                Debug.Log("Using defaunlt survey 1, because the participant has not been made.");
-                StartCoroutine(Fetching(FetchSurvey));
+                Debug.Log(
+                    string.Format(
+                        "Pushing default survey {0}, because the participant has not been made.",
+                        TestFetchingSurvey));
+                StartCoroutine(Fetching(TestFetchingSurvey));
             }
         }
 
@@ -55,7 +72,7 @@ namespace NewSurveyArch
         }
 
         /// <summary>
-        ///     Converter for JToken.
+        ///     Converter from JToken to question list.
         /// </summary>
         /// <param name="questionsJToken"></param>
         /// <returns></returns>
@@ -64,33 +81,13 @@ namespace NewSurveyArch
 
         {
             Debug.Log(questionsJToken);
-            Debug.Log(questionsJToken[0]);
             var surveyList = new List<SurveyQuestion>();
 
             foreach (var question in questionsJToken)
             {
-                //var tempList =
-                //    ScriptableObject.CreateInstance<SurveyQuestion>();
                 Debug.Log(question.ToString());
                 var q = SurveyQuestion.CreateFromJson(question);
                 surveyList.Add(q);
-                /*
-                tempList.QuestionId = question["question_id"].ToString();
-                tempList.QuestionType = question["type"].ToString();
-                tempList.QuestionString = question["question_text"].ToString();
-                tempList.OfferedAnswerId =
-                    question["offered_answer_id"].ToString();
-
-                tempList.OfferedAnswerList =
-                    SeparatePipeInString(question["offered_answer_text"]
-                        .ToString());
-
-                surveyList.Add(tempList);
-                Debug.Log(string.Format(
-                    "QuestionId: {0}\nQuestionType{1}\nQuestionString: {2},OfferedId: {3}\n",
-                    tempList.QuestionId, tempList.QuestionType,
-                    tempList.QuestionString, tempList.OfferedAnswerId));
-                    */
             }
 
             Debug.Log("List begins");
@@ -99,12 +96,16 @@ namespace NewSurveyArch
             return surveyList;
         }
 
-
+        /// <summary>
+        ///     Fetches the json that consists of survey questions.
+        /// </summary>
+        /// <param name="surveyNumber"></param>
+        /// <returns></returns>
         public IEnumerator Fetching(int surveyNumber)
         {
             var form = new WWWForm();
             form.AddField("survey_id", surveyNumber);
-            
+
 
             using (var www = UnityWebRequest.Post(ServerURL.RETRIEVE_SURVEY,
                 form))
@@ -118,6 +119,7 @@ namespace NewSurveyArch
                     //Wait each frame in each loop OR Unity would freeze
                     yield return null;
                 }
+
                 Debug.Log("fetching...breakpoint");
                 if (www.isNetworkError || www.isHttpError)
                 {
@@ -153,13 +155,15 @@ namespace NewSurveyArch
             Debug.Log("FetchStarted");
             try
             {
-                StartCoroutine(Fetching(ParticipantBehavior.Participant.CurrentSurvey));
+                StartCoroutine(Fetching(ParticipantBehavior.Participant
+                    .CurrentSurvey));
             }
-            catch (System.NullReferenceException exception)
+            catch (NullReferenceException exception)
             {
                 Debug.Log(exception.Message);
-                Debug.Log("Using defaunlt survey 1, because the participant has not been made.");
-                StartCoroutine(Fetching(FetchSurvey));
+                Debug.Log(
+                    "Using defaunlt survey 1, because the participant has not been made.");
+                StartCoroutine(Fetching(TestFetchingSurvey));
             }
         }
     }
