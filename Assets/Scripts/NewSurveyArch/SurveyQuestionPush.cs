@@ -44,12 +44,10 @@ namespace NewSurveyArch
 
         private void Awake()
         {
-            
             if (Instance == null)
                 Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
-                
         }
 
         private void OnEnable()
@@ -60,8 +58,10 @@ namespace NewSurveyArch
 
         private void AttemptUpload(object sender, UploadQuestionEventArgs e)
         {
-            string messege = GatherAnswer(e.surveyQuestionObject, e.surveyQuestionIndex);
-            Debug.Log(e.surveyQuestionIndex + " == " + (_surveyQuestionList.Count - 2));
+            var messege = GatherAnswer(e.surveyQuestionObject,
+                e.surveyQuestionIndex);
+            Debug.Log(e.surveyQuestionIndex + " == " +
+                      (_surveyQuestionList.Count - 2));
             if (e.surveyQuestionIndex == _surveyQuestionList.Count - 2)
                 EventManager.OnPushedSurvey();
             EventManager.OnUploadedQuestion(messege);
@@ -97,7 +97,9 @@ namespace NewSurveyArch
                 _surveyNumber = GameObject.Find("EventSystem")
                     .GetComponent<SurveyFetch>().TestFetchingSurvey;
                 Debug.Log(
-                    string.Format("Pushing default survey {0}, because the participant has not been made.",_surveyNumber));
+                    string.Format(
+                        "Pushing default survey {0}, because the participant has not been made.",
+                        _surveyNumber));
             }
         }
 
@@ -152,6 +154,7 @@ namespace NewSurveyArch
         {
             var answer = go.transform.GetChild(1).GetChild(0).GetChild(0)
                 .GetChild(2).GetComponent<Text>().text;
+
             if (answer.Length == 0) return NoAnswerMessege;
 
             questionDetails.offered_answer = ReplaceApostropy(answer);
@@ -206,16 +209,31 @@ namespace NewSurveyArch
                 .GetComponentsInChildren<Toggle>().ToList();
             Debug.Log("Toggle count = " + toggles.Count);
             for (var i = 0; i < toggles.Count; ++i)
-            {
                 if (toggles[i].isOn)
                 {
-                    questionDetails.offered_answer =
-                        ReplaceApostropy(questionDetails
-                            .offered_answer_text[i]);
+                    if (questionDetails
+                            .offered_answer_text[i][0] == '@')
+                    {
+                        var inputField = go.transform.GetChild(1).GetChild(1)
+                            .GetChild(2).GetComponentInChildren<Text>().text;
+                        Debug.Log(inputField);
+                        //if (inputField == "")
+                        //    break;
+                        questionDetails.offered_answer =
+                            ReplaceApostropy(questionDetails
+                                .offered_answer_text[i]) + "|" + inputField;
+                    }
+                    else
+                    {
+                        questionDetails.offered_answer =
+                            ReplaceApostropy(questionDetails
+                                .offered_answer_text[i]);
+                    }
+
+                    
                     StartCoroutine(UploadQuery(questionDetails));
                     return AnswerMessege;
                 }
-            }
 
             return NoAnswerMessege;
         }
@@ -233,14 +251,31 @@ namespace NewSurveyArch
             var toggles = go.transform.GetChild(1).GetChild(0)
                 .GetComponentsInChildren<Toggle>().ToList();
             for (var i = 0; i < toggles.Count; ++i)
-                if (toggles[i].isOn)
+                if(toggles[i].isOn)
+            {
+                if (questionDetails
+                        .offered_answer_text[i][0] == '@')
+                {
+                    var inputField = go.transform.GetChild(1).GetChild(1)
+                        .GetChild(2).GetComponentInChildren<Text>().text;
+                    Debug.Log(inputField);
+                    if (inputField == "")
+                        break;
+                    questionDetails.offered_answer =
+                        ReplaceApostropy(questionDetails
+                            .offered_answer_text[i]) + "|" + inputField;
+                }
+                else
                 {
                     questionDetails.offered_answer =
                         ReplaceApostropy(questionDetails
                             .offered_answer_text[i]);
-                    StartCoroutine(UploadQuery(questionDetails));
-                    return AnswerMessege;
                 }
+
+
+                StartCoroutine(UploadQuery(questionDetails));
+                return AnswerMessege;
+            }
 
             return NoAnswerMessege;
         }
