@@ -375,7 +375,7 @@ namespace TransparencyIrisToOperator
             --_questionIndex;
             UpdateLiveFeed();
         }
-
+        /*
         private void OnGUI()
         {
             var e = Event.current;
@@ -390,7 +390,7 @@ namespace TransparencyIrisToOperator
                     }
                 }
         }
-
+        */
         private void GoToNextScene()
         {
             Debug.Log("Ending Transparency");
