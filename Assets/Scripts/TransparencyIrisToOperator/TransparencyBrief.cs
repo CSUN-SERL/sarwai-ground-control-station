@@ -91,7 +91,10 @@ namespace TransparencyIrisToOperator
             var messege =
                 "Iris has used your feedback to improve your experience in the next mission. " +
                 "Please click 'Begin' to see how this will affects you.";
-            _go.Add(InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),messege));
+            var tempPrefab = InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),messege);
+            tempPrefab.transform.SetParent(gameObject.transform);
+            _go.Add(tempPrefab);
+            _go.Last().SetActive(false);
 
         }
 
@@ -103,7 +106,10 @@ namespace TransparencyIrisToOperator
             var messege =
                 "Iris has used your feedback to improve your experience in the next mission. " +
                 "Please click 'Continue' to go on to your next mission.";
-            _go.Add(InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"), messege));
+            var tempPrefab = InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"), messege);
+            tempPrefab.transform.SetParent(gameObject.transform);
+            _go.Add(tempPrefab);
+            _go.Last().SetActive(false);
 
         }
 
@@ -228,7 +234,8 @@ namespace TransparencyIrisToOperator
                     else if (result["data"].Count() == 0)
                     {
                         Debug.Log("Empty Transparency");
-                        GoToNextScene();
+                        yield return null;
+                        //GoToNextScene();
                     }
 
                     foreach (var query in result["data"])
@@ -307,7 +314,7 @@ namespace TransparencyIrisToOperator
             }
             var messege =
                 string.Format(
-                    "This {0} query is has been set to {1}, based on your given preferences.",query.GetDisplayName(),autoString);
+                    "This {0} query is set to {1}, based on your given preferences.",query.GetDisplayName(),autoString);
             var tempPrefab =
                 InstatiatePrefabAndPopulateMessege(MessegePrefab,
                     messege);
