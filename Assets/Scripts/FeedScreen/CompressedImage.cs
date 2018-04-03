@@ -6,9 +6,15 @@ using LiveFeedScreen.ROSBridgeLib;
 using LiveFeedScreen.ROSBridgeLib.sensor_msgs.sensor_msgs;
 using Tobii.Plugins;
 public class CompressedImage : MonoBehaviour {
+
     private RawImage rawimg;
     private static Texture2D texture;
-	private void Start()
+
+    private static byte[] bimage;
+    private static byte[] arr;
+
+
+    private void Start()
 	{
         rawimg = GetComponent<RawImage>();
         texture = new Texture2D(2, 2);
@@ -42,13 +48,13 @@ public class CompressedImage : MonoBehaviour {
         CompressedImageMsg imageMsg = (CompressedImageMsg)msg;
         Debug.Log("HERE IS THE BYTE[] COMMING IN FROM ROS");
         Debug.Log("------------------------------------------");
-        byte[] arr;
+        
         arr = imageMsg.GetImage();
         Debug.Log(imageMsg.GetImage());
         Debug.Log(arr[1]);
         Debug.Log("------------------------------------------");
 
-        byte[] bimage = imageMsg.GetImage ();
+        bimage = imageMsg.GetImage ();
         texture.LoadImage (bimage);
         //texture.LoadRawTextureData(bimage);
         texture.Apply();

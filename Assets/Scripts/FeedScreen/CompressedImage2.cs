@@ -10,6 +10,10 @@ public class CompressedImage2 : MonoBehaviour
     private RawImage rawimg;
     private static Texture2D texture;
     public int robot_id;
+
+    public static byte[] bimage;
+    public static byte[] arr;
+
     private void Start()
     {
         rawimg = GetComponent<RawImage>();
@@ -44,13 +48,13 @@ public class CompressedImage2 : MonoBehaviour
         CompressedImageMsg imageMsg = (CompressedImageMsg)msg;
         Debug.Log("HERE IS THE BYTE[] COMMING IN FROM ROS");
         Debug.Log("------------------------------------------");
-        byte[] arr;
+        
         arr = imageMsg.GetImage();
         Debug.Log(imageMsg.GetImage());
         Debug.Log(arr[1]);
         Debug.Log("------------------------------------------");
 
-        byte[] bimage = imageMsg.GetImage();
+        bimage = imageMsg.GetImage();
         texture.LoadImage(bimage);
         //texture.LoadRawTextureData(bimage);
         texture.Apply();
