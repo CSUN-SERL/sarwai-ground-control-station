@@ -29,7 +29,7 @@ public class CompressedImage4 : MonoBehaviour
     }
     public new static string GetMessageTopic()
     {
-        return "/robot4/camera/rgb/image_raw/compressed";
+        return "/robot4/camera/rgb/image_boxed/compressed";
     }
 
     public new static string GetMessageType()
