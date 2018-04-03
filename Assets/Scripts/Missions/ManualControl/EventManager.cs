@@ -15,8 +15,8 @@ namespace Mission.ManualControl
         {
             get
             {
-                if (!_eventManager)
                 {
+                if (!_eventManager)
                     _eventManager =
                         FindObjectOfType(typeof(EventManager)) as
                             EventManager;

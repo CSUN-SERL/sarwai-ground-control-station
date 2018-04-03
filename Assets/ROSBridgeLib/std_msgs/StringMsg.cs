@@ -35,7 +35,7 @@ namespace LiveFeedScreen.ROSBridgeLib.std_msgs
 
             public override string ToYAMLString()
             {
-                return "{\"data\" : " + _data + "}";
+                return "{\"data\" : \"" + _data + "\"}";
             }
         }
     }

@@ -88,5 +88,15 @@ namespace Mission
                 QueryGenerated.Invoke(data, EventArgs.Empty);
             Debug.Log("Triggered: OnQueryGenerated " + data);
         }
+
+        // Handle Autonomous Query Event.  Used for Q-Autonmous Counter.
+        public static event SocketEvent<string> AutonomousQuery;
+
+        public static void OnAutonomousQuery(string data)
+        {
+            if (AutonomousQuery != null)
+                AutonomousQuery.Invoke(data, EventArgs.Empty);
+            Debug.Log("Triggered: OnAutonomousQuery. ");
+        }
     }
 }

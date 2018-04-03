@@ -13,13 +13,13 @@ namespace Participant
             if (handler != null) handler(null, e);
         }
 
-        public static event EventHandler<NewParticipantEventArgs>
+        public static event EventHandler<EventArgs>
             NewParticipantMade;
 
-        public static void OnNewParticipantMade(NewParticipantEventArgs e)
+        public static void OnNewParticipantMade()
         {
             var handler = NewParticipantMade;
-            if (handler != null) handler(null, e);
+            if (handler != null) handler(null, new EventArgs());
         }
     }
 }
