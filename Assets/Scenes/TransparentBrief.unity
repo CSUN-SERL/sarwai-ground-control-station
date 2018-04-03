@@ -298,6 +298,11 @@ Prefab:
       propertyPath: BehaviorOfButton
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114446572822357330, guid: 725770ab9dd9811409046a46e6490309,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114540115783041622, guid: 725770ab9dd9811409046a46e6490309, type: 2}
     - {fileID: 114698830618181114, guid: 725770ab9dd9811409046a46e6490309, type: 2}
@@ -441,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92f1f620dc504b47be78a800a650222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  On: 1
+  On: 0
 --- !u!114 &1697427212
 MonoBehaviour:
   m_ObjectHideFlags: 0
