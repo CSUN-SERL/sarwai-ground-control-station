@@ -48,6 +48,7 @@ namespace Mission
 
         private void OnEnable()
         {
+            Started = false;
             EventManager.Initialized += OnInitialized;
             //EventManager.Completed += OnCompleted;
             EventManager.Stopped += OnStopped;
