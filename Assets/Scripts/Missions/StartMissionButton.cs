@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Mission
 {
     public class StartMissionButton : MonoBehaviour
     {
+        public int WaitTime = 1;
         private Button _button;
 
         private void Start()
@@ -12,12 +14,15 @@ namespace Mission
             _button = GetComponent<Button>();
             _button.onClick.AddListener(MissionLifeCycleController
                 .StartMission);
+            StartCoroutine(StartWait(WaitTime));
         }
 
-        private void Update()
+        private IEnumerator StartWait(int waitTime)
         {
-            _button.interactable =
-                MissionLifeCycleController.Instance.Initialized;
+            Debug.Log(waitTime);
+            yield return new WaitForSecondsRealtime(waitTime);
+            _button.interactable = true;
         }
+
     }
 }

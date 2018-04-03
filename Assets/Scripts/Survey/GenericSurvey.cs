@@ -661,4 +661,8 @@ namespace Survey
             //_nextButton.Disable();
         }
     }
+<<<<<<< HEAD
 }//                Instantiate(Resources.Load("SurveyQuestion/Multiple") as GameObject);
+=======
+}
+>>>>>>> 75cdf76b377be5895362195d9111f53d7d2766ec
