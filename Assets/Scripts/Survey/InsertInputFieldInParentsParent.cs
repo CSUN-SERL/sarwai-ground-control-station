@@ -33,7 +33,7 @@ namespace Survey
         /// </summary>
         public void Start()
         {
-            _button.onValueChanged.AddListener(value =>
+            gameObject.GetComponent<Toggle>().onValueChanged.AddListener(value =>
             {
                 if (value) Activate();
                 else DeActivate();

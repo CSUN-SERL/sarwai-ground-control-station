@@ -9,10 +9,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class QueryIndicator : MonoBehaviour {
+public class QueryIndicator : MonoBehaviour
+{
 
     // this is the UI.Text or other UI element you want to toggle
-    public MaskableGraphic Image1, Image2, Image3, Image4; 
+    public MaskableGraphic Image1, Image2, Image3, Image4;
     public MaskableGraphic Text1, Text2, Text3, Text4;
 
     private int _robotID;
@@ -78,7 +79,7 @@ public class QueryIndicator : MonoBehaviour {
         }
     }
 
-    // Kind of a stupid implementation, but if it works, I'm happy.
+    // Kind of a silly implementation, but if it works, I'm happy.
     public void ToggleState()
     {
         if (_robotID == 1)

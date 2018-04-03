@@ -13,20 +13,23 @@ EditorBuildSettings:
     guid: 5cb8640ad39d65d4b922102cbf71b027
   - enabled: 0
     path: 
-    guid: 07643bc3bcaf7784ba564fc1aafff0d3
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Welcome.unity
     guid: 6d42a90b251cc8e4eacfc3689fb737ee
   - enabled: 1
+    path: Assets/Scenes/MissionScene.unity
+    guid: 248feb107352ff8469b06209766d4e74
+  - enabled: 0
     path: Assets/Scenes/QueryScreen.unity
     guid: 5ff9ef6f6d916d34cb785463cce0a145
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GeneralSurvey.unity
     guid: d0b4d3b509610564abff6a3f5a93c1fb
   - enabled: 0
     path: Assets/Scenes/FeedScreen.unity
     guid: db5c88dd61977af4d8e834660b62333b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/FeedScreen.unity
     guid: db5c88dd61977af4d8e834660b62333b
   - enabled: 1
@@ -38,3 +41,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TransparentBrief.unity
     guid: d50ed343bef322a4785df8f3f66fc2b0
+  - enabled: 1
+    path: Assets/Scenes/SurveyScene.unity
+    guid: 0cf8a5f831175804e9d5da1d3be831f6
