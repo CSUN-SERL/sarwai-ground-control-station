@@ -4724,7 +4724,6 @@ GameObject:
   - component: {fileID: 911607355}
   - component: {fileID: 911607354}
   - component: {fileID: 911607353}
-  - component: {fileID: 911607358}
   m_Layer: 0
   m_Name: Testing Object
   m_TagString: Untagged
@@ -4813,22 +4812,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   On: 0
---- !u!114 &911607358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 911607351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c65465c1af29558438b84dbd9b010efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GroupNumber: 0
-  Id: 500
-  MissionNumber: 1
-  On: 1
-  ProctorName: 
 --- !u!114 &911607359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8201,8 +8184,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 418386427}
   m_HandleRect: {fileID: 418386426}
   m_Direction: 3
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8302,8 +8285,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6392741}
   m_HandleRect: {fileID: 6392739}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

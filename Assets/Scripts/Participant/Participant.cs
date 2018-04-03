@@ -17,8 +17,8 @@ namespace Participant
         private const int NonAdaptiveTrust = 4;
         private const int AdaptiveTrust = 5;
         private const int Tlx = 6;
-        private const int EndofExperiment = 20;
-        private const int EndTlx = 21;
+        private const int EndofExperiment = 21;
+        private const int EndTlx = 20;
         private const int EndScene = -2;
 
 
