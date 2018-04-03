@@ -92,9 +92,9 @@ namespace Mission.Display.Queries
             {
 	            query.TotalLifeTime = query.ArrivalTime - query.DepartureTime;
 	            query.TotalUILifeTime = query.UIDepartureTime - query.UIArrivalTime;
+                DisplayEventManager.OnClearDisplay();
 
-
-	            query = null;
+                query = null;
                 Destroy(gameObject);
             }
         }
