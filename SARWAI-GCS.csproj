@@ -348,6 +348,12 @@
     <Compile Include="Assets\Scripts\DataCollection\PictureTaker.cs" />
     <Compile Include="Assets\Scripts\DisplayScript.cs" />
     <Compile Include="Assets\Scripts\EmptyClass.cs" />
+    <Compile Include="Assets\Scripts\FeedScreen\CoffeePublisher.cs" />
+    <Compile Include="Assets\Scripts\FeedScreen\CompressedImage.cs" />
+    <Compile Include="Assets\Scripts\FeedScreen\CompressedImage2.cs" />
+    <Compile Include="Assets\Scripts\FeedScreen\CompressedImage3.cs" />
+    <Compile Include="Assets\Scripts\FeedScreen\CompressedImage4.cs" />
+    <Compile Include="Assets\Scripts\FeedScreen\DisplayCompressedImage.cs" />
     <Compile Include="Assets\Scripts\FeedScreen\Experiment\Missions\Broadcasts\Answer.cs" />
     <Compile Include="Assets\Scripts\FeedScreen\Experiment\Missions\Broadcasts\Events\IntEventArgs.cs" />
     <Compile Include="Assets\Scripts\FeedScreen\Experiment\Missions\Broadcasts\Events\StringEventArgs.cs" />
