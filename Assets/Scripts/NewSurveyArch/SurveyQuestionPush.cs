@@ -259,8 +259,8 @@ namespace NewSurveyArch
                     var inputField = go.transform.GetChild(1).GetChild(1)
                         .GetChild(2).GetComponentInChildren<Text>().text;
                     Debug.Log(inputField);
-                    if (inputField == "")
-                        break;
+                    //if (inputField == "")
+                    //    break;
                     questionDetails.offered_answer =
                         ReplaceApostropy(questionDetails
                             .offered_answer_text[i]) + "|" + inputField;
