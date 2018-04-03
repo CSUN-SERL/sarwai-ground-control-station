@@ -2,6 +2,7 @@
 using FeedScreen.Experiment;
 using Mission.Lifecycle;
 using Networking;
+using NUnit.Framework.Constraints;
 using Participant;
 using UnityEngine;
 using EventManager = Mission.Lifecycle.EventManager;
@@ -27,7 +28,7 @@ namespace Mission
         public static MissionLifeCycleController Instance;
         public bool Initialized { get; private set; }
 
-        public bool Started { get; private set; }
+        public static bool Started { get; private set; }
         public bool Completed { get; private set; }
 
         public bool Running
@@ -100,6 +101,7 @@ namespace Mission
 
             GcsSocket.Emit(START_MISSION,
                 ParticipantBehavior.Participant.CurrentMission);
+            
             Lifecycle.EventManager.OnStarted();
         }
 
@@ -116,6 +118,7 @@ namespace Mission
                 SceneFlowController.LoadErrorScene();
             }
 
+            Started = true;
             GcsSocket.Emit(STOP_MISSION,
                 ParticipantBehavior.Participant.CurrentMission);
         }

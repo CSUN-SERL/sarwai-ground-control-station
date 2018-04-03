@@ -7,6 +7,7 @@
 // a live video stream of the cameras on the Gazebo Husky bot.
 
 using System.Collections;
+using Mission;
 using Networking;
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,7 +62,7 @@ namespace LiveFeedScreen.E2SHPackage_Scripts
 
 
                 // Check shit
-                if (www.error != null || tex == null)
+                if (www.error != null || tex == null || MissionLifeCycleController.Started != true)
                 {
                     rawImage.texture = DefaulTexture;
                     continue;
