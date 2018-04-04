@@ -26,7 +26,7 @@ namespace Mission
         //public const string MISSION_CLOSED = "gcs-mission-closed";
 
         public static MissionLifeCycleController Instance;
-        public bool Initialized { get; private set; }
+        public static bool Initialized { get; private set; }
 
         public static bool Started { get; private set; }
         public bool Completed { get; private set; }
@@ -42,13 +42,12 @@ namespace Mission
                 Instance = this;
             else if (Instance != this)
                 Destroy(this);
-
-            
         }
 
         private void OnEnable()
         {
             Started = false;
+            Initialized = false;
             EventManager.Initialized += OnInitialized;
             //EventManager.Completed += OnCompleted;
             EventManager.Stopped += OnStopped;
@@ -73,7 +72,7 @@ namespace Mission
                 Debug.Log("Error: Socket connection could not be established.");
                 SceneFlowController.LoadErrorScene();
             };
-
+            
             var initializeMissionParameters = string.Format("mission{0}-{1}-{2}-{3}",
                 ParticipantBehavior.Participant.CurrentMission,
                 ParticipantBehavior.Participant.Data.Adaptive ? "true" : "false",
