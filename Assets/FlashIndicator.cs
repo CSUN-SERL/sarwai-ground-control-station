@@ -54,10 +54,10 @@ public class FlashIndicator : MonoBehaviour
     private void OnQueryGenerated(string obj, EventArgs args)
     {
         _blinks = Duration;
-
+        Debug.Log("On query generated is called.");
         if (int.Parse(obj) != RobotId) return;
         if (_mutex) return;
-
+        Debug.Log(int.Parse(obj) + " is the robotID");
         StartCoroutine(Blink());
         _mutex = false;
     }
