@@ -361,7 +361,6 @@ GameObject:
   - component: {fileID: 1697427208}
   - component: {fileID: 1697427207}
   - component: {fileID: 1697427206}
-  - component: {fileID: 1697427211}
   - component: {fileID: 1697427212}
   m_Layer: 0
   m_Name: Main Camera
@@ -435,18 +434,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1697427211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1697427205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a92f1f620dc504b47be78a800a650222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  On: 1
 --- !u!114 &1697427212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +453,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2115528123}
-  - component: {fileID: 2115528124}
   m_Layer: 0
   m_Name: Test
   m_TagString: Untagged
@@ -487,19 +473,3 @@ Transform:
   m_Father: {fileID: 1697427209}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2115528124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2115528122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c65465c1af29558438b84dbd9b010efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GroupNumber: 1
-  Id: 1154
-  MissionNumber: 2
-  On: 1
-  ProctorName: test1
