@@ -16,13 +16,20 @@ public class LoadingBarController : MonoBehaviour {
     {
         //Debug.Log("Loading Mission.. Hold On Tight..  ");
 
-        if(MissionLifeCycleController.Initialized == true && loadingBar.value <= 9999)
+        if(MissionLifeCycleController.Initialized == true && loadingBar.value <= 10999)
         {
-            num = Random.Range(0,6);
+            num = Random.Range(0,7);
             loadingBar.value += num;
-            Debug.Log("Loading Mission.. Hold On Tight..  " + loadingBar.value);
+            //Debug.Log("Loading Mission.. Hold On Tight..  " + loadingBar.value);
         }
-        
+
+        if (MissionLifeCycleController.Initialized == false && loadingBar.value <= 5000)
+        {
+            num = Random.Range(0, 7);
+            loadingBar.value += num;
+            Debug.Log("Have Not Initialized Successfully" + loadingBar.value);
+        }
+
         //if (scene.name == "MissionScene" && MissionLifeCycleController.Initialized == true && loadingBar.value <= 1000)
         //{
         //    loadingBar.value = 5000;
@@ -37,7 +44,7 @@ public class LoadingBarController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         loadingBar.value = 0;
-        loadingBar.maxValue = 12000;
+        loadingBar.maxValue = 11000;
         Loading();
 	}
 
