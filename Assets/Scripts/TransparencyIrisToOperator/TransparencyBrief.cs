@@ -234,8 +234,8 @@ namespace TransparencyIrisToOperator
                     else if (result["data"].Count() == 0)
                     {
                         Debug.Log("Empty Transparency");
+                        GoToNextScene();
                         yield return null;
-                        //GoToNextScene();
                     }
 
                     foreach (var query in result["data"])
