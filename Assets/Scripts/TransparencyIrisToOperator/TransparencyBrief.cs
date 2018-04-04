@@ -242,6 +242,7 @@ namespace TransparencyIrisToOperator
                     {
                         var temp = JsonToQuery(query);
                         temp.Arrive();
+                        _queryList.Add(temp);
                     }
 
                     _queryListMutex = false;
@@ -308,7 +309,7 @@ namespace TransparencyIrisToOperator
             Debug.Log(string.Format("Query_id {0} Lvl_autonomy {1}", query.QueryId, query.PreferredLevelOfAutonomy));
 
             string autoString = "autonomous";
-            if (query.LevelOfAutonomy == 0)
+            if (query.PreferredLevelOfAutonomy  == 0)
             {
                 autoString = "non-autonomous";
             }

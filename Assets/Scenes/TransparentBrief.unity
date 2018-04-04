@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92f1f620dc504b47be78a800a650222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  On: 0
+  On: 1
 --- !u!114 &1697427212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GroupNumber: 1
-  Id: 695
+  Id: 1154
   MissionNumber: 2
-  On: 0
+  On: 1
   ProctorName: test1
