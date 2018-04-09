@@ -61,16 +61,16 @@ namespace Networking
             {
                 _socket.On(Socket.EVENT_CONNECT, () =>
                 {
+                    Debug.Log("Connected Event Received.");
                     _socket.Emit("testee", "GCS Connected.");
                     Connected = true;
                     Mission.SocketEventManager.OnSocketConnected();
-                    Debug.Log("Connected Event Received.");
                 });
 
                 _socket.On(Socket.EVENT_DISCONNECT, () =>
                 {
-                    Connected = false;
                     Debug.Log("Disconnect Event Received.");
+                    Connected = false;
                 });
 
                 // Add listener for test data.
@@ -107,19 +107,6 @@ namespace Networking
                 {
                     //EventManager.OnNotificationRecieved(new NotificationEventArgs { Notification = new Notification(data.ToString()) });
                     Debug.Log("Notification Event Reveicved.");
-                });
-
-                // iris-generated-query means that a query was generated, data contains the robotID
-                _socket.On("gcs-generated-query", data =>
-                {
-                    Debug.Log("A query was generated. " + data.GetType());
-                    SocketEventManager.OnQueryGenerated((string)data);
-                });
-
-                _socket.On("gcs-automated-query", data =>
-                {
-                    Debug.Log("Q-Autonomous. " + data.GetType());
-                    SocketEventManager.OnAutonomousQuery((string)data);
                 });
 
             }
