@@ -28,12 +28,13 @@ namespace TransparencyIrisToOperator
 
         private int _questionIndex = 0;
         private List<Query> _queryList;
+        private List<int> _queryAnswerList;
 
         public GameObject MessegePrefab;
         public GameObject DisplayPrefab;
         private bool _queryListMutex = false;
 
-        private int hardcodedQueryNumber = 5;
+        private int hardcodedQueryNumber = 4;
 
         private int nLoadedQueries = 0;
 
@@ -44,6 +45,7 @@ namespace TransparencyIrisToOperator
         public IEnumerator StartUp()
         {
             _queryList = new List<Query>();
+            _queryAnswerList = new List<int>();
             _go = new List<GameObject>();
 
             AddIntro();
@@ -68,7 +70,7 @@ namespace TransparencyIrisToOperator
 
             for (int i = 0; i < hardcodedQueryNumber; ++i)
             {
-                var tempPrefab = MessegeSetup(_queryList[i]);
+                vay tempPrefab = MessegeSetup(_queryList[i],_queryAnswerList[i]);
                 tempPrefab.transform.SetParent(gameObject.transform);
                 _go.Add(tempPrefab);
                 _go.Last().SetActive(false);
@@ -243,6 +245,8 @@ namespace TransparencyIrisToOperator
                         var temp = JsonToQuery(query);
                         temp.Arrive();
                         _queryList.Add(temp);
+                        _queryAnswerList.Add(query["true_response"]);
+
                     }
 
                     _queryListMutex = false;
@@ -304,18 +308,39 @@ namespace TransparencyIrisToOperator
         }
 
 
-        private GameObject MessegeSetup(Query query)
+        private GameObject MessegeSetup(Query query, true_response)
         {
             Debug.Log(string.Format("Query_id {0} Lvl_autonomy {1}", query.QueryId, query.PreferredLevelOfAutonomy));
 
-            string autoString = "autonomous";
+
+
+            string autoString = "Iris has decided to continue to handle" +
+              " this type of query in the next mission";//autonomous
+
             if (query.PreferredLevelOfAutonomy  == 0)
             {
-                autoString = "non-autonomous";
+                autoString = "Iris has decided that you will handle" + 
+                  " this type of query in the next mission";//non-autonomous
             }
-            var messege =
+           
+            var messege ="Rover {0} incorrectly identified a human, " +
+              "with {1}% confidence, where there wasn't a human victim. " +
+              "In this case, Rover {0} mistake was based on what it {2}. " +
+              "However, based on the query responses in the previous mission " +
+              autoString;
+            var iris_correct_or_naw = "incorrect";
+            if (user_asnswer == true_response)
+            {
+     
+                messege ="Rover {0} correctly identified a human, " +
+                  "with {1}% confidence." +
+                  "Based on the query responses in the previous mission " +
+                  autoString;
+
+
+            }
                 string.Format(
-                    "This {0} query is set to {1}, based on your given preferences.",query.GetDisplayName(),autoString);
+                    messege,query.GetDisplayName(),autoString);
             var tempPrefab =
                 InstatiatePrefabAndPopulateMessege(MessegePrefab,
                     messege);
