@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.Rider2017.3/system/resharper-host/local/Transient/ReSharperHost/v11/SolutionCaches/_SARWAI-GCS.-499003455.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assets" t="Include">
+        <e p="ROSBridgeLib" t="Include">
+          <e p="ROSBridgeMsg.cs" t="Include" />
+          <e p="ROSBridgePublisher.cs" t="Include" />
+          <e p="ROSBridgeSubscriber.cs" t="Include" />
+          <e p="ROSBridgeWebSocketConnection.cs" t="Include" />
+          <e p="SUBTOPIC.cs" t="Include" />
+          <e p="geometry_msgs" t="Include">
+            <e p="TwistMsg.cs" t="Include" />
+            <e p="Vector3Msg.cs" t="Include" />
+          </e>
+          <e p="sensor_msgs" t="Include">
+            <e p="CompressedImageMsg.cs" t="Include" />
+          </e>
+          <e p="std_msgs" t="Include">
+            <e p="HeaderMsg.cs" t="Include" />
+            <e p="Int32Msg.cs" t="Include" />
+            <e p="Int32MultiArrayMsg.cs" t="Include" />
+            <e p="Int64Msg.cs" t="Include" />
+            <e p="Int64MultiArrayMsg.cs" t="Include" />
+            <e p="Int8Msg.cs" t="Include" />
+            <e p="Int8MultiArrayMsg.cs" t="Include" />
+            <e p="MultiArrayDimensionMsg.cs" t="Include" />
+            <e p="MultiArrayLayoutMsg.cs" t="Include" />
+            <e p="StringMsg.cs" t="Include" />
+            <e p="TimeMsg.cs" t="Include" />
+            <e p="UInt16Msg.cs" t="Include" />
+            <e p="UInt16MultiArrayMsg.cs" t="Include" />
+            <e p="UInt32Msg.cs" t="Include" />
+            <e p="UInt32MultiArrayMsg.cs" t="Include" />
+            <e p="UInt64Msg.cs" t="Include" />
+            <e p="UInt64MultiArrayMsg.cs" t="Include" />
+            <e p="UInt8Msg.cs" t="Include" />
+            <e p="UInt8MultiArrayMsg.cs" t="Include" />
+          </e>
+          <e p="turtlesim" t="Include">
+            <e p="ColorMsg.cs" t="Include" />
+            <e p="PoseMsg.cs" t="Include" />
+            <e p="VelocityMsg.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="DataCollection" t="Include">
+            <e p="Physiological" t="Include">
+              <e p="EventArgs.cs" t="Include" />
+              <e p="EventManager.cs" t="Include" />
+              <e p="PhysiologicalDataEventArgs.cs" t="Include" />
+              <e p="Recorder.cs" t="Include" />
+              <e p="Sensors" t="Include">
+                <e p="EmotionClassification.cs" t="Include" />
+                <e p="GalvanicSkinResponse.cs" t="Include" />
+                <e p="GazeTracking.cs" t="Include" />
+                <e p="HeartRate.cs" t="Include" />
+                <e p="IPhysisiologicalDataSensor.cs" t="Include" />
+                <e p="NeuLogSensorValue.cs" t="Include" />
+                <e p="PhysiologicalMonoBehaviour.cs" t="Include" />
+              </e>
+              <e p="Uploader.cs" t="Include" />
+            </e>
+            <e p="PictureTaker.cs" t="Include" />
+          </e>
+          <e p="DisplayScript.cs" t="Include" />
+          <e p="EmptyClass.cs" t="Include" />
+          <e p="FeedScreen" t="Include">
+            <e p="CoffeePublisher.cs" t="Include" />
+            <e p="CompressedImage.cs" t="Include" />
+            <e p="CompressedImage2.cs" t="Include" />
+            <e p="CompressedImage3.cs" t="Include" />
+            <e p="CompressedImage4.cs" t="Include" />
+            <e p="DisplayCompressedImage.cs" t="Include" />
+            <e p="Experiment" t="Include">
+              <e p="Missions" t="Include">
+                <e p="Broadcasts" t="Include">
+                  <e p="Answer.cs" t="Include" />
+                  <e p="Events" t="Include">
+                    <e p="IntEventArgs.cs" t="Include" />
+                    <e p="StringEventArgs.cs" t="Include" />
+                  </e>
+                  <e p="QueryContainer.cs" t="Include" />
+                  <e p="QueryMaker.cs" t="Include" />
+                </e>
+              </e>
+              <e p="SceneFlowController.cs" t="Include" />
+            </e>
+            <e p="MissedDetectionButton.cs" t="Include" />
+            <e p="QueryCounters.cs" t="Include" />
+            <e p="QueryIndicator.cs" t="Include" />
+          </e>
+          <e p="FinalSceneBehavior.cs" t="Include" />
+          <e p="IOStream" t="Include">
+            <e p="MessageType.cs" t="Include" />
+            <e p="ProcessReceiver.cs" t="Include" />
+            <e p="ProcessTransmitter.cs" t="Include" />
+            <e p="ProcessTransmitterWrap.cs" t="Include" />
+          </e>
+          <e p="McButton.cs" t="Include" />
+          <e p="MediaDownload" t="Include">
+            <e p="DownloadAudioClipEventArgs.cs" t="Include" />
+            <e p="DownloadMediaEventArgs.cs" t="Include" />
+            <e p="DownloadTextureEventArgs.cs" t="Include" />
+            <e p="EventManager.cs" t="Include" />
+            <e p="GetImage.cs" t="Include" />
+            <e p="IMediaDownloader.cs" t="Include" />
+            <e p="MediaDownloader.cs" t="Include" />
+            <e p="QueryTextureEventArgs.cs" t="Include" />
+          </e>
+          <e p="Menu Navigation" t="Include">
+            <e p="Button Logic" t="Include">
+              <e p="CameraSwitcher.cs" t="Include" />
+              <e p="GroupSelection.cs" t="Include" />
+            </e>
+            <e p="Mission" t="Include">
+              <e p="StartMenuScript.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Missions" t="Include">
+            <e p="AudioEventArgs.cs" t="Include" />
+            <e p="AudioManager.cs" t="Include" />
+            <e p="Display" t="Include">
+              <e p="DisplayEventManager.cs" t="Include" />
+              <e p="LoadingText.cs" t="Include" />
+              <e p="Queries" t="Include">
+                <e p="AnswerButton.cs" t="Include" />
+                <e p="AudioPlayer.cs" t="Include" />
+                <e p="ConfidenceDisplay.cs" t="Include" />
+                <e p="GreenButton.cs" t="Include" />
+                <e p="IAnswerButton.cs" t="Include" />
+                <e p="ImageDisplay.cs" t="Include" />
+                <e p="QueryButton.cs" t="Include" />
+                <e p="TextDisplay.cs" t="Include" />
+              </e>
+              <e p="TimerDisplay.cs" t="Include" />
+            </e>
+            <e p="EndMenuScript.cs" t="Include" />
+            <e p="Endpoint" t="Include">
+              <e p="EventManager.cs" t="Include" />
+              <e p="Notification.cs" t="Include" />
+              <e p="NotificationEventArgs.cs" t="Include" />
+            </e>
+            <e p="Lifecycle" t="Include">
+              <e p="EventManager.cs" t="Include" />
+            </e>
+            <e p="ManualControl" t="Include">
+              <e p="EventManager.cs" t="Include" />
+              <e p="ManualControl.cs" t="Include" />
+              <e p="ManualControlButton.cs" t="Include" />
+              <e p="ManualControlTest.cs" t="Include" />
+            </e>
+            <e p="MissionControllerBehavior.cs" t="Include" />
+            <e p="MissionEventArgs.cs" t="Include" />
+            <e p="MissionEventManager.cs" t="Include" />
+            <e p="MissionLifeCycleController.cs" t="Include" />
+            <e p="MissionLoader.cs" t="Include" />
+            <e p="MissionMetaData.cs" t="Include" />
+            <e p="MissionTimer.cs" t="Include" />
+            <e p="Queries" t="Include">
+              <e p="Detection.cs" t="Include" />
+              <e p="DetectionQueryFactory.cs" t="Include" />
+              <e p="Message.cs" t="Include" />
+              <e p="Query.cs" t="Include" />
+              <e p="QueryAnswerEventArgs.cs" t="Include" />
+              <e p="QueryTypes" t="Include">
+                <e p="Audio" t="Include">
+                  <e p="AudioDetectionQuery.cs" t="Include" />
+                </e>
+                <e p="ConfidenceQuery.cs" t="Include" />
+                <e p="Visual" t="Include">
+                  <e p="DoubleDetectionQuery.cs" t="Include" />
+                  <e p="TaggingQuery.cs" t="Include" />
+                  <e p="VisualDetectionQuery.cs" t="Include" />
+                  <e p="VisualQuery.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="QueryEventArgs.cs" t="Include" />
+            <e p="StartMissionButton.cs" t="Include" />
+          </e>
+          <e p="MuteAudioSource.cs" t="Include" />
+          <e p="Networking" t="Include">
+            <e p="EndpointDataReceiver.cs" t="Include" />
+            <e p="EndpointDataSender.cs" t="Include" />
+            <e p="GcsSocket.cs" t="Include" />
+            <e p="ProcessCheck.cs" t="Include" />
+            <e p="ServerURL.cs" t="Include" />
+          </e>
+          <e p="NewSurveyArch" t="Include">
+            <e p="AnswerButton.cs" t="Include" />
+            <e p="ButtonEventManager.cs" t="Include" />
+            <e p="EventManager.cs" t="Include" />
+            <e p="GenerateSurveyQuestionPrefab.cs" t="Include" />
+            <e p="InsertInputFieldInParentsParent.cs" t="Include" />
+            <e p="Question.cs" t="Include" />
+            <e p="QuestionContainer.cs" t="Include" />
+            <e p="SurveyContainer.cs" t="Include" />
+            <e p="SurveyEnd.cs" t="Include" />
+            <e p="SurveyFactory.cs" t="Include" />
+            <e p="SurveyFetch.cs" t="Include" />
+            <e p="SurveyQuestion.cs" t="Include" />
+            <e p="SurveyQuestionPush.cs" t="Include" />
+            <e p="TestLoadSurvey.cs" t="Include" />
+          </e>
+          <e p="NotificationSquad" t="Include">
+            <e p="NotificationButton.cs" t="Include" />
+            <e p="NotificationContainer.cs" t="Include" />
+            <e p="NotificationManager.cs" t="Include" />
+            <e p="NotificationMessege.cs" t="Include" />
+          </e>
+          <e p="Old" t="Include">
+            <e p="AbstractVideoControlButton.cs" t="Include" />
+            <e p="AbstractVideoControlToggle.cs" t="Include" />
+            <e p="Backward30Seconds.cs" t="Include" />
+            <e p="FastBackward.cs" t="Include" />
+            <e p="FastForward.cs" t="Include" />
+            <e p="Forward30Seconds.cs" t="Include" />
+            <e p="Husky.cs" t="Include" />
+            <e p="INterfaceSiri.cs" t="Include" />
+            <e p="INterfaceVideoController.cs" t="Include" />
+            <e p="PauseButton.cs" t="Include" />
+            <e p="Siri.cs" t="Include" />
+            <e p="VideoController.cs" t="Include" />
+          </e>
+          <e p="Participant" t="Include">
+            <e p="EventManager.cs" t="Include" />
+            <e p="NewParticipantEventArgs.cs" t="Include" />
+            <e p="Participant.cs" t="Include" />
+            <e p="ParticipantBehavior.cs" t="Include" />
+            <e p="ParticipantData.cs" t="Include" />
+          </e>
+          <e p="QueryJsonFactory.cs" t="Include" />
+          <e p="Question" t="Include">
+            <e p="QuestionButtonManager.cs" t="Include" />
+          </e>
+          <e p="SpriteMaker.cs" t="Include" />
+          <e p="Survey" t="Include">
+            <e p="ActivateSurveyWithNumber.cs" t="Include" />
+            <e p="AnswerButton.cs" t="Include" />
+            <e p="AnswerGatherer.cs" t="Include" />
+            <e p="EventManager.cs" t="Include" />
+            <e p="GenericSurvey.cs" t="Include" />
+            <e p="InsertInputFieldInParentsParent.cs" t="Include" />
+            <e p="LoadSurveyFromWeb.cs" t="Include" />
+            <e p="QuestionDetails.cs" t="Include" />
+            <e p="SurveyEnd.cs" t="Include" />
+            <e p="TestLoadSurvey.cs" t="Include" />
+          </e>
+          <e p="Tests" t="Include">
+            <e p="DisplayImageTest.cs" t="Include" />
+            <e p="GazeTrackingTest.cs" t="Include" />
+            <e p="HeartRateTest.cs" t="Include" />
+            <e p="JSONTest.cs" t="Include" />
+            <e p="JsonPostTest.cs" t="Include" />
+            <e p="JsonStressTest.cs" t="Include" />
+            <e p="JsonStressTest1.cs" t="Include" />
+            <e p="MissionLengthTest.cs" t="Include" />
+            <e p="MissionLifeCycleTest.cs" t="Include" />
+            <e p="NotificationTester.cs" t="Include" />
+            <e p="PictureTest.cs" t="Include" />
+            <e p="Queries" t="Include">
+              <e p="Audio" t="Include">
+                <e p="AudioJsonTest.cs" t="Include" />
+                <e p="DisplayTest.cs" t="Include" />
+              </e>
+              <e p="AudioQueryTest.cs" t="Include" />
+              <e p="Detection" t="Include">
+                <e p="DetectionJsonTest.cs" t="Include" />
+              </e>
+              <e p="QueryAnswerTest.cs" t="Include" />
+              <e p="Tagging" t="Include">
+                <e p="TaggingQueryEndpoint.cs" t="Include" />
+                <e p="TaggingQueryTest.cs" t="Include" />
+              </e>
+            </e>
+            <e p="ServerImageDownload.cs" t="Include" />
+            <e p="SocketTest.cs" t="Include" />
+            <e p="TestParticipant.cs" t="Include" />
+            <e p="TransparencyBriefTest.cs" t="Include" />
+            <e p="VisualDetectionQueryTest.cs" t="Include" />
+          </e>
+          <e p="TransparencyIrisToOperator" t="Include">
+            <e p="EventManager.cs" t="Include" />
+            <e p="TransparencyBrief.cs" t="Include" />
+            <e p="TransparencyDetails.cs" t="Include" />
+            <e p="TransparencyQueryContainer.cs" t="Include" />
+          </e>
+          <e p="UnMuteButton.cs" t="Include" />
+          <e p="VideoController.cs" t="Include" />
+          <e p="VisualDetectionJson.cs" t="Include" />
+          <e p="WelcomeStartup.cs" t="Include" />
+        </e>
+        <e p="Tobii" t="Include">
+          <e p="Framework" t="Include">
+            <e p="DisplayInfo.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="EyeTrackingClientLibraryDeployer.cs" t="Include" />
+              <e p="EyeTrackingSettingsWindow.cs" t="Include" />
+              <e p="TobiiEulaCheck.cs" t="Include" />
+            </e>
+            <e p="GazeAware.cs" t="Include" />
+            <e p="GazePoint.cs" t="Include" />
+            <e p="HeadPose.cs" t="Include" />
+            <e p="Internal" t="Include">
+              <e p="DataProviderBase.cs" t="Include" />
+              <e p="DataProviderStub.cs" t="Include" />
+              <e p="FocusedObject.cs" t="Include" />
+              <e p="GameViewInfo.cs" t="Include" />
+              <e p="GazeFocus.cs" t="Include" />
+              <e p="GazeFocusSettings.cs" t="Include" />
+              <e p="GazeFocusStub.cs" t="Include" />
+              <e p="GazePointDataProvider.cs" t="Include" />
+              <e p="HeadPoseDataProvider.cs" t="Include" />
+              <e p="HitTestFromPoint.cs" t="Include" />
+              <e p="IDataProvider.cs" t="Include" />
+              <e p="IGazeFocus.cs" t="Include" />
+              <e p="IGazeFocusInternal.cs" t="Include" />
+              <e p="IGazeFocusable.cs" t="Include" />
+              <e p="IRegisterGazeFocusable.cs" t="Include" />
+              <e p="IScorer.cs" t="Include" />
+              <e p="IStateValue.cs" t="Include" />
+              <e p="ITimestamped.cs" t="Include" />
+              <e p="ITobiiHost.cs" t="Include" />
+              <e p="Interop.cs" t="Include" />
+              <e p="MultiRaycastHistoricHitScore.cs" t="Include" />
+              <e p="ScoredObject.cs" t="Include" />
+              <e p="ScreenHelpers.cs" t="Include" />
+              <e p="SingleRaycastHistoricHitScore.cs" t="Include" />
+              <e p="SingleRaycastNoScore.cs" t="Include" />
+              <e p="StateValue.cs" t="Include" />
+              <e p="StateValueStub.cs" t="Include" />
+              <e p="TobiiEulaFile.cs" t="Include" />
+              <e p="TobiiHost.cs" t="Include" />
+              <e p="TobiiHostStub.cs" t="Include" />
+              <e p="Win32Helpers.cs" t="Include" />
+              <e p="WindowHelpers.cs" t="Include" />
+            </e>
+            <e p="TobiiAPI.cs" t="Include" />
+            <e p="UserPresence.cs" t="Include" />
+          </e>
+          <e p="Plugins" t="Include">
+            <e p="SimpleJSON.cs" t="Include" />
+          </e>
+          <e p="Readme.txt" t="Include" />
+        </e>
+        <e p="WaitForParticipantCreation.cs" t="Include" />
+      </e>
+      <e p="SARWAI-GCS.Editor.csproj" t="IncludeRecursive" />
+      <e p="SARWAI-GCS.csproj" t="IncludeRecursive" />
+      <e p="SARWAI-GCS.sln" t="IncludeFlat" />
+      <e p="Temp/UnityVS_bin/Debug" t="ExcludeRecursive" />
+      <e p="Temp/UnityVS_obj/Debug" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
