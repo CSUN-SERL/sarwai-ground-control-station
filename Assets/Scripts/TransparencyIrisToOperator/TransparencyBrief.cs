@@ -28,7 +28,7 @@ namespace TransparencyIrisToOperator
 
         private int _questionIndex = 0;
         private List<Query> _queryList;
-        private List<int> _queryAnswerList;
+        private List<string> _queryAnswerList;
 
         public GameObject MessegePrefab;
         public GameObject DisplayPrefab;
@@ -45,7 +45,7 @@ namespace TransparencyIrisToOperator
         public IEnumerator StartUp()
         {
             _queryList = new List<Query>();
-            _queryAnswerList = new List<int>();
+            _queryAnswerList = new List<string>();
             _go = new List<GameObject>();
 
             AddIntro();
@@ -70,7 +70,7 @@ namespace TransparencyIrisToOperator
 
             for (int i = 0; i < hardcodedQueryNumber; ++i)
             {
-                vay tempPrefab = MessegeSetup(_queryList[i],_queryAnswerList[i]);
+                var tempPrefab = MessegeSetup(_queryList[i], _queryAnswerList[i]);
                 tempPrefab.transform.SetParent(gameObject.transform);
                 _go.Add(tempPrefab);
                 _go.Last().SetActive(false);
@@ -246,7 +246,7 @@ namespace TransparencyIrisToOperator
                         var temp = JsonToQuery(query);
                         temp.Arrive();
                         _queryList.Add(temp);
-                        _queryAnswerList.Add(query["true_response"]);
+                        _queryAnswerList.Add(query["true_response"].ToString());
 
                     }
 
@@ -309,7 +309,7 @@ namespace TransparencyIrisToOperator
         }
 
 
-        private GameObject MessegeSetup(Query query, true_response)
+        private GameObject MessegeSetup(Query query, string true_response)
         {
             Debug.Log(string.Format("Query_id {0} Lvl_autonomy {1}", query.QueryId, query.PreferredLevelOfAutonomy));
 
@@ -330,7 +330,7 @@ namespace TransparencyIrisToOperator
               "However, based on the query responses in the previous mission " +
               autoString;
             var iris_correct_or_naw = "incorrect";
-            if (user_asnswer == true_response)
+            if ("1" == true_response)
             {
      
                 messege ="Rover {0} correctly identified a human, " +
