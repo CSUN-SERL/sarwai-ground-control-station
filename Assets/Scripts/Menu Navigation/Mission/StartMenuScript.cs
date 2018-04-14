@@ -35,10 +35,6 @@ namespace Menu_Navigation.Mission
 
         private void OnDisplayBrief(object sender, MissionEventArgs e)
         {
-            //TODO Resize Start Popup to changing screen size.
-            //_popup.transform.position = new Vector3(x: Screen.width / 2.0F, y: Screen.height / 2.0F);
-            //_popup.transform.localScale = new Vector3(2.0F, 2.0F);
-
             _popup = gameObject.transform.GetChild(0).gameObject;
             _popup.SetActive(true);
 

@@ -3,9 +3,8 @@ using System.Collections;
 using FeedScreen.Experiment.Missions.Broadcasts.Events;
 using UnityEngine;
 using UnityEngine.UI;
-using EventManager = Mission.Lifecycle.EventManager;
 
-namespace Mission.Display
+namespace Mission
 {
     public class LoadingText : MonoBehaviour
     {
@@ -19,15 +18,20 @@ namespace Mission.Display
         {
             _doOnMainThread = new Queue();
             Lifecycle.EventManager.Initialize += OnInitialize;
-            Lifecycle.EventManager.Initialized += OnInitialized;
+            Lifecycle.EventManager.Ready += OnReady;
             _loadingCoroutine = StartCoroutine(DotAnimation());
+        }
+
+        void Start()
+        {
+            Text = gameObject.GetComponent<Text>();
         }
 
         private void OnDisable()
         {
             _doOnMainThread = null;
             Lifecycle.EventManager.Initialize -= OnInitialize;
-            Lifecycle.EventManager.Initialized -= OnInitialized;
+            Lifecycle.EventManager.Ready -= OnReady;
             _loadingCoroutine = null;
         }
 
@@ -37,7 +41,7 @@ namespace Mission.Display
             {
                 _doOnMainThread.Dequeue();
                 StopCoroutine(_loadingCoroutine);
-                Text.text = "Press Start to begin mission.";
+                Text.text = _status;
             }
         }
 
@@ -46,9 +50,9 @@ namespace Mission.Display
             _status = "Initializing Mission";
         }
 
-        private void OnInitialized(object sender, EventArgs e)
+        private void OnReady(object sender, EventArgs e)
         {
-            _doOnMainThread.Enqueue(0);
+            _status = "Mission is ready to begin, Please Press Start.";
         }
 
         private IEnumerator DotAnimation()

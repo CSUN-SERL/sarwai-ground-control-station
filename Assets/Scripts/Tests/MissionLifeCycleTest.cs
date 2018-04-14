@@ -67,7 +67,6 @@ namespace Tests
             if (Input.GetKeyDown("i"))
             {
                 Debug.Log(Mission.MissionLifeCycleController.INITIALIZE_MISSION);
-                MissionLifeCycleController.InitializeMission();
                 Mission.Lifecycle.EventManager.OnInitialize(1);
             }
 

@@ -2,7 +2,6 @@
 using Mission;
 using Quobject.SocketIoClientDotNet.Client;
 using UnityEngine;
-using EventManager = Mission.Lifecycle.EventManager;
 
 namespace Networking
 {
@@ -47,6 +46,7 @@ namespace Networking
             DontDestroyOnLoad(gameObject);
         }
 
+
         private void OnDestroy()
         {
             if (_socket == null) return;
@@ -59,6 +59,7 @@ namespace Networking
             _socket = IO.Socket(ServerURL.SOCKET_IO);
             if (_socket != null)
             {
+                //Socket Events.
                 _socket.On(Socket.EVENT_CONNECT, () =>
                 {
                     _socket.Emit("testee", "GCS Connected.");
@@ -73,36 +74,45 @@ namespace Networking
                     Debug.Log("Disconnect Event Received.");
                 });
 
-                // Add listener for test data.
+                // Test Events.
                 _socket.On("tester",
                     data => { Debug.Log("Testing Data Received:" + data); });
 
+
+                // Lifecycle Events.
+                _socket.On(MissionLifeCycleController.MISSION_INITIALIZED,
+                    data =>
+                    {
+                        Debug.Log("Mission Initialized Event Received.");
+                        Mission.Lifecycle.EventManager.OnInitialized();
+                    });
+
+                _socket.On(MissionLifeCycleController.MISSION_READY,
+                    data => {
+                        Debug.Log("Mission Ready Event Received.");
+                        Mission.Lifecycle.EventManager.OnReady();
+                    });
+
+                _socket.On(MissionLifeCycleController.MISSION_STARTED, data =>
+                {
+                    Mission.Lifecycle.EventManager.OnStarted();
+                    Debug.Log("Mission Started Event Received.");
+                });
+
+                _socket.On(MissionLifeCycleController.MISSION_STOPPED, data =>
+                {
+                    Mission.Lifecycle.EventManager.OnStopped();
+                    Debug.Log("Mission Stopped Event Received.");
+                });
+
+
+                // Mission Events.
                 _socket.On(ServerURL.QUERY_RECEIVED, data =>
                 {
                     Debug.Log(data);
                     Mission.SocketEventManager.OnDataRecieved(
                         new StringEventArgs {StringArgs = data.ToString()});
                 });
-
-                _socket.On(MissionLifeCycleController.MISSION_INITIALIZED,
-                    data =>
-                    {
-                        Debug.Log("Mission Initialized Event Received.");
-                        EventManager.OnInitialized();
-                    });
-
-                _socket.On(MissionLifeCycleController.MISSION_STARTED, data =>
-                {
-                    EventManager.OnStarted();
-                    Debug.Log("Mission Started Event Received.");
-                });
-
-                _socket.On(MissionLifeCycleController.MISSION_STOPPED, data =>
-                {
-                    EventManager.OnStopped();
-                    Debug.Log("Mission Stopped Event Received.");
-                });
-
                 _socket.On(ServerURL.NOTIFICATION_RECEIVED, data =>
                 {
                     //EventManager.OnNotificationRecieved(new NotificationEventArgs { Notification = new Notification(data.ToString()) });

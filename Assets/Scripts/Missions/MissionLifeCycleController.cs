@@ -4,7 +4,6 @@ using Mission.Lifecycle;
 using Networking;
 using Participant;
 using UnityEngine;
-using EventManager = Mission.Lifecycle.EventManager;
 
 namespace Mission
 {
@@ -12,6 +11,8 @@ namespace Mission
     {
         public const string INITIALIZE_MISSION = "gcs-initialize-mission";
         public const string MISSION_INITIALIZED = "gcs-mission-initialized";
+
+        public const string MISSION_READY = "gcs-mission-ready";
 
         public const string START_MISSION = "gcs-start-mission";
         public const string MISSION_STARTED = "gcs-mission-started";
@@ -25,14 +26,13 @@ namespace Mission
         //public const string MISSION_CLOSED = "gcs-mission-closed";
 
         public static MissionLifeCycleController Instance;
+
         public bool Initialized { get; private set; }
-
+        public bool Ready { get; private set; }
         public bool Started { get; private set; }
-        public bool Completed { get; private set; }
-
         public bool Running
         {
-            get { return Started && !Completed; }
+            get { return Started && Initialized && Ready; }
         }
 
         private void Awake()
@@ -41,30 +41,27 @@ namespace Mission
                 Instance = this;
             else if (Instance != this)
                 Destroy(this);
-
-            
         }
 
-        private void OnEnable()
-        {
-            EventManager.Initialized += OnInitialized;
-            //EventManager.Completed += OnCompleted;
-            EventManager.Stopped += OnStopped;
-
-            InitializeMission();
+        private void OnEnable() {
+            Lifecycle.EventManager.Initialize += InitializeMission;
+            Lifecycle.EventManager.Initialized += OnInitialized;
+            Lifecycle.EventManager.Ready += OnReady;
+            Lifecycle.EventManager.Stopped += OnStopped;
         }
 
         private void OnDisable()
         {
-            EventManager.Initialized -= OnInitialized;
-            //EventManager.Completed -= OnCompleted;
-            EventManager.Stopped -= OnStopped;
+            Lifecycle.EventManager.Initialize -= InitializeMission;
+            Lifecycle.EventManager.Initialized -= OnInitialized;
+            Lifecycle.EventManager.Ready -= OnReady;
+            Lifecycle.EventManager.Stopped -= OnStopped;
         }
 
         /// <summary>
         /// Starts the initialization process for a mission.
         /// </summary>
-        public static void InitializeMission()
+        public static void InitializeMission(object sender, EventArgs e)
         {
             if (!GcsSocket.Alive)
             {
@@ -87,11 +84,19 @@ namespace Mission
 
         private void OnInitialized(object sender, EventArgs e)
         {
-            Initialized = true;
+            Instance.Initialized = true;
+        }
+
+        private void OnReady(object sender, EventArgs e)
+        {
+            Ready = true;
+            Debug.Log("Ready");
         }
 
         public static void StartMission()
         {
+
+            Instance.Started = true;
 
             if (!GcsSocket.Alive) {
                 Debug.Log("Error: Socket connection could not be established.");
@@ -105,7 +110,9 @@ namespace Mission
 
         public static void CompleteMission()
         {
-            EventManager.OnCompleted();
+            Instance.Started = false;
+            Instance.Initialized = false;
+            Lifecycle.EventManager.OnCompleted();
         }
 
         public static void StopMission()
