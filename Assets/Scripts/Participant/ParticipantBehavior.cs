@@ -28,6 +28,13 @@ namespace Participant
             if (Instance == null) Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
+
+            if (!gameObject.GetComponentInChildren<Recorder>())
+            {
+
+                Recorder recorder = gameObject.AddComponent<Recorder>();
+                recorder.Rate = 1;
+            }
         }
 
         private void Start()
@@ -131,7 +138,7 @@ namespace Participant
                 EventManager.OnNewParticipantMade();
             }
         }
-        
+
 
         /// <summary>
         /// Attempts to create a participant by sending an HTTP request to server and waiting for the response.

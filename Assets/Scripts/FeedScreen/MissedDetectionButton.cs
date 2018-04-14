@@ -28,7 +28,7 @@ public class MissedDetectionButton : MonoBehaviour
     private StringMsg _msg; //--------------------- M.S.
 
 
-    void Start()
+    void OnEnable()
     {
         _rosA = new ROSBridgeWebSocketConnection(Station4, Port);
         _rosA.AddPublisher(typeof(CoffeePublisher));
@@ -55,7 +55,7 @@ public class MissedDetectionButton : MonoBehaviour
         _rosA.Publish(Topic, _msg);
     }
 
-    void OnAppicationQuit()
+    void OnDisable()
     {
         if (_rosA != null)
             _rosA.Disconnect();

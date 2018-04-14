@@ -8,7 +8,6 @@ using Tobii.Plugins;
 public class CompressedImage : MonoBehaviour {
     private RawImage rawimg;
     private static Texture2D texture;
-
 	private void Start()
 	{
         rawimg = GetComponent<RawImage>();
@@ -21,7 +20,7 @@ public class CompressedImage : MonoBehaviour {
 	}
 	public new static string GetMessageTopic()
     {
-        return "/robot4/camera/rgb/image_raw/compressed";
+        return "/robot1/camera/rgb/image_raw/compressed";
     }
 
     public new static string GetMessageType()

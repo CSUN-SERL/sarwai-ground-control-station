@@ -5,6 +5,14 @@ namespace FeedScreen.Experiment
 {
     internal class SceneFlowController : MonoBehaviour
     {
+        public const string ProctorSetup = "ProctorSetup";
+        public const string Welcome = "Welcome";
+        public const string GeneralSurvey = "NewSurvey";
+        public const string TransparencyBrief = "TransparentBrief";
+        public const string QueryScreen = "QueryScreen";
+        public const string FinalScene = "FinalScene";
+        public const string Error = "Error";
+
         public static SceneFlowController Instance;
 
         public static void LoadNextScene()
@@ -33,7 +41,7 @@ namespace FeedScreen.Experiment
                                 SceneManager.LoadScene(Participant.Participant.QueryScreen);
                                 break;
                             default:
-                                SceneManager.LoadScene(Participant.Participant.GeneralSurvey);
+                                SceneManager.LoadScene(Participant.Participant.SurveyScene);
                                 break;
                         }
                         break;

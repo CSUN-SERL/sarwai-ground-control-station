@@ -17,14 +17,14 @@ namespace Participant
         private const int NonAdaptiveTrust = 4;
         private const int AdaptiveTrust = 5;
         private const int Tlx = 6;
-        private const int EndofExperiment = 20;
-        private const int EndTlx = 21;
+        private const int EndofExperiment = 21;
+        private const int EndTlx = 20;
         private const int EndScene = -2;
 
 
         public const string ProctorSetup = "ProctorSetup";
         public const string Welcome = "Welcome";
-        public const string GeneralSurvey = "GeneralSurvey";
+        public const string SurveyScene = "SurveyScene";
         public const string TransparencyBrief = "TransparentBrief";
         public const string QueryScreen = "MissionScene";
         public const string FinalScene = "FinalScene";
@@ -82,7 +82,7 @@ namespace Participant
         {
             _instance = this;
             Mission.Lifecycle.EventManager.Completed += OnCompleted;
-            Survey.EventManager.End += OnSurveyEnd;
+            NewSurveyArch.EventManager.PushedSurvey += OnSurveyEnd;
             TransparencyIrisToOperator.EventManager.End += OnTransparencyBriefEnd;
 
         }
@@ -91,7 +91,9 @@ namespace Participant
 
         public int CurrentMission { get; set; }
         public int CurrentTimeline { get; set; }
-        public int CurrentScene { get { return Timelines[Data.Group-1][CurrentTimeline]; } }
+        public int CurrentSurvey { get {
+                Debug.Log("timeline = " + Instance.CurrentTimeline); return Timelines[Data.Group - 1][Instance.CurrentTimeline]; } }
+        public int CurrentScene { get { return Timelines[Data.Group-1][Instance.CurrentTimeline]; } }
         
 
         public bool isDone
@@ -115,7 +117,7 @@ namespace Participant
         ~Participant()
         {
             Mission.Lifecycle.EventManager.Completed -= OnCompleted;
-            Survey.EventManager.End -= OnSurveyEnd;
+            NewSurveyArch.EventManager.PushedSurvey -= OnSurveyEnd;
             TransparencyIrisToOperator.EventManager.End -= OnTransparencyBriefEnd;
         }
 

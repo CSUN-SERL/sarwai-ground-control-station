@@ -46,6 +46,8 @@ namespace TransparencyIrisToOperator
             _queryList = new List<Query>();
             _go = new List<GameObject>();
 
+            AddIntro();
+
             _nextButton = gameObject.transform.parent.GetChild(1).GetChild(0)
                 .GetComponent<AnswerButton>();
             _nextButton.BehaviorOfButton = 1;
@@ -76,7 +78,38 @@ namespace TransparencyIrisToOperator
             SocketEventManager.QueryRecieved -= OnArrive;
             _backButton.gameObject.SetActive(true);
             _nextButton.gameObject.SetActive(true);
+            AddOutro();
             NextQuestion();
+
+        }
+
+        /// <summary>
+        ///     Adding an intro messege to transparency brief.
+        /// </summary>
+        private void AddIntro()
+        {
+            var messege =
+                "Iris has used your feedback to improve your experience in the next mission. " +
+                "Please click 'Begin' to see how this will affects you.";
+            var tempPrefab = InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),messege);
+            tempPrefab.transform.SetParent(gameObject.transform);
+            _go.Add(tempPrefab);
+            _go.Last().SetActive(false);
+
+        }
+
+        /// <summary>
+        ///     Adding an outro messege to transperency brief.
+        /// </summary>
+        private void AddOutro()
+        {
+            var messege =
+                "Iris has used your feedback to improve your experience in the next mission. " +
+                "Please click 'Continue' to go on to your next mission.";
+            var tempPrefab = InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"), messege);
+            tempPrefab.transform.SetParent(gameObject.transform);
+            _go.Add(tempPrefab);
+            _go.Last().SetActive(false);
 
         }
 
@@ -202,12 +235,15 @@ namespace TransparencyIrisToOperator
                     {
                         Debug.Log("Empty Transparency");
                         GoToNextScene();
+                        yield return null;
+                        
                     }
 
                     foreach (var query in result["data"])
                     {
                         var temp = JsonToQuery(query);
                         temp.Arrive();
+                        _queryList.Add(temp);
                     }
 
                     _queryListMutex = false;
@@ -259,7 +295,7 @@ namespace TransparencyIrisToOperator
             }
         }
 
-        private static GameObject InstatiatePrefabAndPopulateAnswer(
+        private static GameObject InstatiatePrefabAndPopulateMessege(
             GameObject tempPrefab, string question)
         {
             var tempGameObject = Instantiate(tempPrefab);
@@ -274,15 +310,15 @@ namespace TransparencyIrisToOperator
             Debug.Log(string.Format("Query_id {0} Lvl_autonomy {1}", query.QueryId, query.PreferredLevelOfAutonomy));
 
             string autoString = "autonomous";
-            if (query.LevelOfAutonomy == 0)
+            if (query.PreferredLevelOfAutonomy  == 0)
             {
                 autoString = "non-autonomous";
             }
             var messege =
                 string.Format(
-                    "This {0} query is has been set to {1}, based on your given preferences.",query.GetDisplayName(),autoString);
+                    "This {0} query is set to {1}, based on your given preferences.",query.GetDisplayName(),autoString);
             var tempPrefab =
-                InstatiatePrefabAndPopulateAnswer(MessegePrefab,
+                InstatiatePrefabAndPopulateMessege(MessegePrefab,
                     messege);
             var display = new GameObject();
             display.AddComponent<RawImage>();
@@ -375,7 +411,7 @@ namespace TransparencyIrisToOperator
             --_questionIndex;
             UpdateLiveFeed();
         }
-
+        /*
         private void OnGUI()
         {
             var e = Event.current;
@@ -390,7 +426,7 @@ namespace TransparencyIrisToOperator
                     }
                 }
         }
-
+        */
         private void GoToNextScene()
         {
             Debug.Log("Ending Transparency");

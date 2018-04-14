@@ -33,13 +33,14 @@ namespace Survey
         public GameObject MessegePrefab;
         public GameObject MultiplePrefab;
         public GameObject NumericPrefab;
+
         public GameObject QueryImagePrefab;
         public GameObject ScalarPrefab;
         public GameObject ScalePrefab;
 
         public IEnumerator StartUp(int tempSurveyNumber)
         {
-            //Debug.Log("Starting Survey");
+            Debug.Log("Starting GenericSurvey");
 
             _surveyNumber = tempSurveyNumber;
             _go = new List<GameObject>();
@@ -276,7 +277,7 @@ namespace Survey
                 form))
             {
                 yield return www.SendWebRequest();
-
+                
                 if (www.isNetworkError || www.isHttpError)
                 {
                     Debug.Log(www.error);
@@ -333,7 +334,7 @@ namespace Survey
             //}
 
             temp.transform.SetParent(imageSelection, false);
-            temp.transform.SetAsFirstSibling();
+            temp.transform.SetAsLastSibling();
             return tempPrefab;
         }
 
@@ -445,7 +446,7 @@ namespace Survey
         /// <returns></returns>
         private GameObject FindOutQuestionType(QuestionDetails currentDetails)
         {
-            //Debug.Log(currentDetails.QuestionType);
+            //Debug.Log(currentDetails.Type);
             switch (currentDetails.QuestionType)
             {
                 case "FreeResponse":
@@ -660,4 +661,5 @@ namespace Survey
             //_nextButton.Disable();
         }
     }
+
 }

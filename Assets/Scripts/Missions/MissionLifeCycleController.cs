@@ -2,6 +2,7 @@
 using FeedScreen.Experiment;
 using Mission.Lifecycle;
 using Networking;
+using NUnit.Framework.Constraints;
 using Participant;
 using UnityEngine;
 
@@ -105,6 +106,7 @@ namespace Mission
 
             GcsSocket.Emit(START_MISSION,
                 ParticipantBehavior.Participant.CurrentMission);
+            Started = true;
             Lifecycle.EventManager.OnStarted();
         }
 
@@ -122,7 +124,7 @@ namespace Mission
                 Debug.Log("Error: Socket connection could not be established.");
                 SceneFlowController.LoadErrorScene();
             }
-
+            
             GcsSocket.Emit(STOP_MISSION,
                 ParticipantBehavior.Participant.CurrentMission);
         }
