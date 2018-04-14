@@ -6,6 +6,7 @@ using System.Linq;
 using FeedScreen.Experiment;
 using FeedScreen.Experiment.Missions.Broadcasts.Events;
 using Mission;
+using Mission.Queries.QueryTypes;
 using Mission.Queries.QueryTypes.Audio;
 using Mission.Queries.QueryTypes.Visual;
 using Networking;
@@ -27,7 +28,7 @@ namespace TransparencyIrisToOperator
         private AnswerButton _nextButton;
 
         private int _questionIndex = 0;
-        private List<Query> _queryList;
+        private List<ConfidenceQuery> _queryList;
         private List<string> _queryAnswerList;
 
         public GameObject MessegePrefab;
@@ -44,7 +45,7 @@ namespace TransparencyIrisToOperator
         /// <returns></returns>
         public IEnumerator StartUp()
         {
-            _queryList = new List<Query>();
+            _queryList = new List<ConfidenceQuery>();
             _queryAnswerList = new List<string>();
             _go = new List<GameObject>();
 
@@ -145,7 +146,7 @@ namespace TransparencyIrisToOperator
 
         private void OnArrive(object sender, QueryEventArgs e)
         {
-            _queryList.Add(e.Query);
+            _queryList.Add(e.Query as ConfidenceQuery);
             ++nLoadedQueries;
         }
 
@@ -243,7 +244,7 @@ namespace TransparencyIrisToOperator
 
                     foreach (var query in result["data"])
                     {
-                        var temp = JsonToQuery(query);
+                        var temp = JsonToQuery(query) as ConfidenceQuery;
                         temp.Arrive();
                         _queryList.Add(temp);
                         _queryAnswerList.Add(query["true_response"].ToString());
@@ -280,7 +281,7 @@ namespace TransparencyIrisToOperator
                 var temp= new AudioDetectionQuery();
                 temp.AudioFileName= queryJson["file_path"].ToString();
                 temp.QueryId = int.Parse(queryJson["query_id"].ToString());
-                //query.RobotId = int.Parse(queryJson["robot_id"].ToString());
+                temp.RobotId = int.Parse(queryJson["robot_id"].ToString());
                 temp.PreferredLevelOfAutonomy = int.Parse(queryJson["preferred_level_of_autonomy"].ToString());
                 Debug.Log(temp.PreferredLevelOfAutonomy);
                 temp.LevelOfAutonomy = int.Parse(queryJson["level_of_autonomy"].ToString());
@@ -309,11 +310,12 @@ namespace TransparencyIrisToOperator
         }
 
 
-        private GameObject MessegeSetup(Query query, string true_response)
+        private GameObject MessegeSetup(ConfidenceQuery query, string true_response)
         {
             Debug.Log(string.Format("Query_id {0} Lvl_autonomy {1}", query.QueryId, query.PreferredLevelOfAutonomy));
 
 
+            var type = "heard/saw";
 
             string autoString = "Iris has decided to continue to handle" +
               " this type of query in the next mission";//autonomous
@@ -329,7 +331,6 @@ namespace TransparencyIrisToOperator
               "In this case, Rover {0} mistake was based on what it {2}. " +
               "However, based on the query responses in the previous mission " +
               autoString;
-            var iris_correct_or_naw = "incorrect";
             if ("1" == true_response)
             {
      
@@ -340,8 +341,9 @@ namespace TransparencyIrisToOperator
 
 
             }
-                string.Format(
-                    messege,query.GetDisplayName(),autoString);
+
+            messege = string.Format(
+                    messege,query.RobotId, query.Confidence, type);
             var tempPrefab =
                 InstatiatePrefabAndPopulateMessege(MessegePrefab,
                     messege);
