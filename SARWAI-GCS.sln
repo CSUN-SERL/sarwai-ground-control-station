@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SARWAI-GCS", "SARWAI-GCS.csproj", "{B496F39E-B4FA-F853-8880-99734F34B56A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SARWAI-GCS.Editor", "SARWAI-GCS.Editor.csproj", "{3E1976A8-153C-7D76-ADE1-95051CD3B48C}"

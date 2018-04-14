@@ -106,7 +106,7 @@ namespace Mission
 
             GcsSocket.Emit(START_MISSION,
                 ParticipantBehavior.Participant.CurrentMission);
-            Started = true;
+            Instance.Started = true;
             Lifecycle.EventManager.OnStarted();
         }
 

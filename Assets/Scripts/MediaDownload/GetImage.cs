@@ -62,7 +62,7 @@ namespace LiveFeedScreen.E2SHPackage_Scripts
 
 
                 // Check shit
-                if (www.error != null || tex == null || MissionLifeCycleController.Started != true)
+                if (www.error != null || tex == null || MissionLifeCycleController.Instance.Running != true)
                 {
                     rawImage.texture = DefaulTexture;
                     continue;
