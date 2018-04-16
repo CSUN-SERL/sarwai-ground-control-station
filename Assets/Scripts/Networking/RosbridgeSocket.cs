@@ -62,6 +62,11 @@ namespace Networking
 
         public static void Emit(string topic, string message)
         {
+            if (Instance._rosA == null)
+            {
+                Instance.Connect();
+            }
+
             Debug.Log(string.Format("RosBridge: Sending {0} on {1}", message, topic));
             var str = new StringMsg(message);
             Instance._rosA.Publish(topic, str);

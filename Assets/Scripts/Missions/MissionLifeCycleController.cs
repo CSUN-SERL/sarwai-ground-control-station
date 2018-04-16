@@ -52,6 +52,7 @@ namespace Mission
             EventManager.Initialized += OnInitialized;
             //EventManager.Completed += OnCompleted;
             EventManager.Stopped += OnStopped;
+            SceneManager.sceneLoaded += OnLevelFinishedLoading;
         }
 
         private void OnDisable()
@@ -59,13 +60,13 @@ namespace Mission
             EventManager.Initialized -= OnInitialized;
             //EventManager.Completed -= OnCompleted;
             EventManager.Stopped -= OnStopped;
+            SceneManager.sceneLoaded -= OnLevelFinishedLoading;
         }
 
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnLevelFinishedLoading(Scene scene, LoadSceneMode arg1)
         {
             Debug.Log(scene.name);
-            if (scene.name == SceneFlowController.QueryScreen)
-            {
+            if (scene.name == SceneFlowController.MissionScene) {
                 InitializeMission();
             }
         }
