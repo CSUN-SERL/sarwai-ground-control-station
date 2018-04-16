@@ -66,9 +66,10 @@ namespace Tests
             //Initialize Mission
             if (Input.GetKeyDown("i"))
             {
-                Debug.Log(Mission.MissionLifeCycleController.INITIALIZE_MISSION);
-                MissionLifeCycleController.InitializeMission();
+                Debug.Log(MissionLifeCycleController.INITIALIZE_MISSION);
                 Mission.Lifecycle.EventManager.OnInitialize(1);
+                MissionLifeCycleController.InitializeMission();
+                
             }
 
             //Mission Initialized

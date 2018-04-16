@@ -26,6 +26,7 @@ namespace Mission
         //public const string MISSION_CLOSED = "gcs-mission-closed";
 
         public static MissionLifeCycleController Instance;
+
         public bool Initialized { get; private set; }
 
         public static bool Started { get; private set; }

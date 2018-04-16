@@ -11,6 +11,11 @@
 		//private const int PORT = 81;
 		public const int PORT = 8000;
 
+        public const string ROSBRIDGE_URL = "ws:ubuntu@192.168.1.43";
+        public const int ROSBRIDGE_PORT = 9090;
+
+        public const string MISSED_DETECTION_TOPIC = "/coffee";
+
 
         private const string STATION_1_URL = "192.168.1.161";
         private const int STATION_1_PORT = 8080;
