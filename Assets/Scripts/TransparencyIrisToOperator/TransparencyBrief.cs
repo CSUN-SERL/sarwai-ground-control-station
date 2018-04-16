@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FeedScreen.Experiment;
 using FeedScreen.Experiment.Missions.Broadcasts.Events;
+using MediaDownload;
 using Mission;
 using Mission.Queries.QueryTypes;
 using Mission.Queries.QueryTypes.Audio;
@@ -25,17 +26,18 @@ namespace TransparencyIrisToOperator
     {
         private AnswerButton _backButton;
         private List<GameObject> _go;
+        private List<GameObject> _display;
         private AnswerButton _nextButton;
 
         private int _questionIndex = 0;
-        private List<ConfidenceQuery> _queryList;
-        private List<string> _queryAnswerList;
+        private List<JToken> _queryList;
+        private List<Guid> _dataDownloadId;
 
         public GameObject MessegePrefab;
         public GameObject DisplayPrefab;
         private bool _queryListMutex = false;
 
-        private int hardcodedQueryNumber = 4;
+        private int hardcodedQueryNumber = 0;
 
         private int nLoadedQueries = 0;
 
@@ -45,9 +47,9 @@ namespace TransparencyIrisToOperator
         /// <returns></returns>
         public IEnumerator StartUp()
         {
-            _queryList = new List<ConfidenceQuery>();
-            _queryAnswerList = new List<string>();
+            _queryList = new List<JToken>();
             _go = new List<GameObject>();
+            _dataDownloadId = new List<Guid>();
 
             AddIntro();
 
@@ -65,18 +67,57 @@ namespace TransparencyIrisToOperator
             _queryListMutex = true;
             StartCoroutine(GetQueries());
             while (_queryListMutex) yield return null;
-            
-
-            while (_queryList.Count < hardcodedQueryNumber) yield return null;
-
-            for (int i = 0; i < hardcodedQueryNumber; ++i)
+            foreach (var query in _queryList)
             {
-                var tempPrefab = MessegeSetup(_queryList[i], _queryAnswerList[i]);
+                var tempPrefab = MessegeSetup(query);
                 tempPrefab.transform.SetParent(gameObject.transform);
                 _go.Add(tempPrefab);
                 _go.Last().SetActive(false);
 
             }
+
+            for (int i = 0; i < _queryList.Count; ++i)
+            {
+                if (_queryList[i]["type"].ToString() == AudioDetectionQuery.QueryType)
+                {
+                    _dataDownloadId[i] = Guid.NewGuid();
+                    MediaDownload.EventManager.OnDownloadMedia(new DownloadMediaEventArgs
+                    {
+                        DownloadGuid = _dataDownloadId[i],
+                        FileName = _queryList[i]["file_path"].ToString(),
+                        MediaType = MediaDownloader.AudioClipType
+                    });
+
+                    /*
+                    MediaDownload.EventManager.OnDownloadMedia(new Dow)
+                    var temp = new AudioDetectionQuery();
+                    temp.AudioFileName = _queryList[i]["file_path"].ToString();
+                    temp.QueryId =int.Parse(_queryList[i]["query_id"].ToString());
+                    temp.Arrive();
+                    _dataDownload.Add(temp);
+                    */
+                } else
+                {
+                    _dataDownloadId.Add(Guid.NewGuid());
+                    MediaDownload.EventManager.OnDownloadMedia(new DownloadMediaEventArgs
+                    {
+                        DownloadGuid = _dataDownloadId[_dataDownloadId.Count-1],
+                        FileName = _queryList[i]["file_path"].ToString(),
+                        MediaType = MediaDownloader.ImageType
+                    });
+                    /*
+                    var temp = new VisualQuery();
+                    temp.ImageFileName = _queryList[i]["file_path"].ToString();
+                    temp.QueryId = int.Parse(_queryList[i]["query_id"].ToString());
+                    temp.Arrive();
+                    _dataDownloadId.Add(temp);
+                    */
+                }
+
+            }
+
+            while (_queryList.Count < hardcodedQueryNumber) yield return null;
+            
 
             SocketEventManager.QueryRecieved -= OnArrive;
             _backButton.gameObject.SetActive(true);
@@ -136,17 +177,51 @@ namespace TransparencyIrisToOperator
             EventManager.Load += OnLoad;
             SocketEventManager.QueryRecieved += OnArrive;
             Survey.EventManager.ChangeQuestion += OnChangeQuestion;
+            MediaDownload.EventManager.TextureDownloaded += OnDownloadedImage;
+            MediaDownload.EventManager.AudioClipDownloaded += OnDownloadedAudio;
+        }
+        /*
+            display.AddComponent<RawImage>();
+            display.AddComponent<AudioSource>(); 
+         */
+        private void OnDownloadedAudio(object sender, DownloadAudioClipEventArgs e)
+        {
+            Debug.Log("Audio Downloaded");
+            int index = indexOfGuid(e.DownloadGuid);
+            _display[index].AddComponent<AudioSource>();
+            var eventArgs = e as DownloadAudioClipEventArgs;
+            _display[index].GetComponent<AudioSource>().clip = eventArgs.Clip;
+        }
+        private int indexOfGuid(Guid guidid)
+        {
+            for (int i = 0; i < _dataDownloadId.Count; ++i)
+            {
+                if (guidid == _dataDownloadId[i])
+                    return i;
+            }
+            throw new IndexOutOfRangeException (string.Format("no guid found in transparency {0}",guidid.ToString()));
+        }
+
+        private void OnDownloadedImage(object sender, DownloadTextureEventArgs e)
+        {
+            Debug.Log("Image Downloaded");
+            int index = indexOfGuid(e.DownloadGuid);
+            _display[index].AddComponent<RawImage>();
+            var eventArgs = e as DownloadTextureEventArgs;
+            _display[index].GetComponent<RawImage>().texture = eventArgs.ImageTexture;
         }
 
         private void OnDisable()
         {
             EventManager.Load -= OnLoad;
             Survey.EventManager.ChangeQuestion -= OnChangeQuestion;
+            MediaDownload.EventManager.TextureDownloaded -= OnDownloadedImage;
+            MediaDownload.EventManager.AudioClipDownloaded -= OnDownloadedAudio;
         }
 
         private void OnArrive(object sender, QueryEventArgs e)
         {
-            _queryList.Add(e.Query as ConfidenceQuery);
+            //_queryList.Add(e.Query as ConfidenceQuery);
             ++nLoadedQueries;
         }
 
@@ -161,7 +236,7 @@ namespace TransparencyIrisToOperator
         /// <returns></returns>
         public bool HasNextQuestion()
         {
-            return _questionIndex + 1 < _queryList.Count;
+            return _questionIndex + 1 < _go.Count;
         }
 
         public bool HasPreviousQuestion()
@@ -244,10 +319,8 @@ namespace TransparencyIrisToOperator
 
                     foreach (var query in result["data"])
                     {
-                        var temp = JsonToQuery(query) as ConfidenceQuery;
-                        temp.Arrive();
-                        _queryList.Add(temp);
-                        _queryAnswerList.Add(query["true_response"].ToString());
+                        _queryList.Add(query);
+                        ++hardcodedQueryNumber;
 
                     }
 
@@ -257,7 +330,7 @@ namespace TransparencyIrisToOperator
                 }
             }
         }
-
+        /*
         private static Query JsonToQuery(JToken queryJson)
         {
             if (queryJson["type"].ToString() == VisualDetectionQuery.QueryType)
@@ -298,7 +371,7 @@ namespace TransparencyIrisToOperator
             {
                 return null;
             }
-        }
+        }*/
 
         private static GameObject InstatiatePrefabAndPopulateMessege(
             GameObject tempPrefab, string question)
@@ -310,17 +383,19 @@ namespace TransparencyIrisToOperator
         }
 
 
-        private GameObject MessegeSetup(ConfidenceQuery query, string true_response)
+        private GameObject MessegeSetup(JToken query)
         {
-            Debug.Log(string.Format("Query_id {0} Lvl_autonomy {1}", query.QueryId, query.PreferredLevelOfAutonomy));
+            Debug.Log(string.Format("Query_id {0} Lvl_autonomy {1}", query["query_id"].ToString(), query["level_of_autonomy"].ToString()));
 
 
-            var type = "heard/saw";
+            var type = "saw";
+            if (query["type"].ToString() == AudioDetectionQuery.QueryType)
+                type = "heard";
 
             string autoString = "Iris has decided to continue to handle" +
               " this type of query in the next mission";//autonomous
 
-            if (query.PreferredLevelOfAutonomy  == 0)
+            if (query["preferred_level_of_autonomy"].ToString() == "0")
             {
                 autoString = "Iris has decided that you will handle" + 
                   " this type of query in the next mission";//non-autonomous
@@ -331,7 +406,7 @@ namespace TransparencyIrisToOperator
               "In this case, Rover {0} mistake was based on what it {2}. " +
               "However, based on the query responses in the previous mission " +
               autoString;
-            if ("1" == true_response)
+            if ("1" == query["true_response"].ToString())
             {
      
                 messege ="Rover {0} correctly identified a human, " +
@@ -343,38 +418,44 @@ namespace TransparencyIrisToOperator
             }
 
             messege = string.Format(
-                    messege,query.RobotId, query.Confidence, type);
+                    messege,query["robot_id"].ToString(), query["confidence"].ToString(), type);
             var tempPrefab =
-                InstatiatePrefabAndPopulateMessege(MessegePrefab,
+                InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),
                     messege);
             var display = new GameObject();
-            display.AddComponent<RawImage>();
-            display.AddComponent<AudioSource>();
-
+            
+            /*
             try
             {
-                var q = query as VisualDetectionQuery;
-                display.GetComponent<RawImage>().texture = q.Texture;
+                Debug.Log("Not trying to get images");
+                var q = _dataDownloadId.Add(temp) as VisualDetectionQuery;
+                //var q = query as VisualQuery;
+                //display.GetComponent<RawImage>().texture = q.Texture;
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.Log(e.Message);
                 try
                 {
-                    var q = query as AudioDetectionQuery;
-                    display.GetComponent<AudioSource>().clip = q.Audio;
+                    Debug.Log("Not trying to get audio");
+
+                    //var q = query as AudioDetectionQuery;
+                    //display.GetComponent<AudioSource>().clip = q.Audio;
                 }
                 catch (Exception e2)
                 {
                     Debug.Log(e2.Message);
                     throw;
                 }
-            }
+            }*/
+            
 
             display.transform.SetParent(tempPrefab.transform.GetChild(0));
+            _display.Add(display);
             return tempPrefab;
         }
+        
         
 
         private void ReloadPrefab()
@@ -385,7 +466,8 @@ namespace TransparencyIrisToOperator
 
         private void UpdateLiveFeed()
         {
-            if (_questionIndex == _queryList.Count)
+            Debug.Log(_queryList.Count + " =_queryList.Count:Index = " + _questionIndex);
+            if (_questionIndex == _queryList.Count + 2)
             {
                 GoToNextScene();
             }
@@ -403,7 +485,7 @@ namespace TransparencyIrisToOperator
                     _nextButton.GetComponentInChildren<Text>().text = "Begin";
                 }
 
-                Debug.Log(_go.Count + " = Count:Index = " + _questionIndex);
+                Debug.Log(_go.Count + " = _go.Count:Index = " + _questionIndex);
 
                 if (_go.Count <= _questionIndex)
                 {
