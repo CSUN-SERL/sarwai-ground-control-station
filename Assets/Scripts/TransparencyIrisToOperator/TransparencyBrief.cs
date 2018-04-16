@@ -422,7 +422,7 @@ namespace TransparencyIrisToOperator
             var tempPrefab =
                 InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),
                     messege);
-            var display = new GameObject();
+            var display =Instantiate(new GameObject());
             
             /*
             try
