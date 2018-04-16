@@ -121,8 +121,8 @@ namespace Networking
                     Debug.Log("Q-Autonomous. " + data.GetType());
                     SocketEventManager.OnAutonomousQuery((string)data);
                 });
-
             }
+
         }
 
         public static void Emit(string socketEvent, string message)
@@ -138,12 +138,17 @@ namespace Networking
 
         private void OnDisconnectSocket(object sender, EventArgs e)
         {
-            if (_socket == null) return;
-            _socket.Emit("testee", "GCS Disconnecting.");
-            _socket.Disconnect();
-            Mission.SocketEventManager.OnSocketDisconnected();
-            _socket = null;
-            Connected = false;
+
+
+            if (_socket != null)
+            {
+                _socket.Emit("testee", "GCS Disconnecting.");
+                _socket.Disconnect();
+                Mission.SocketEventManager.OnSocketDisconnected();
+                _socket = null;
+                Connected = false;
+            }
+            
         }
     }
 }
