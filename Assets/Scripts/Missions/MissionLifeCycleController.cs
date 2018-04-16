@@ -5,6 +5,7 @@ using Networking;
 using NUnit.Framework.Constraints;
 using Participant;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using EventManager = Mission.Lifecycle.EventManager;
 
 namespace Mission
@@ -43,8 +44,6 @@ namespace Mission
                 Instance = this;
             else if (Instance != this)
                 Destroy(this);
-
-            
         }
 
         private void OnEnable()
@@ -53,8 +52,6 @@ namespace Mission
             EventManager.Initialized += OnInitialized;
             //EventManager.Completed += OnCompleted;
             EventManager.Stopped += OnStopped;
-
-            InitializeMission();
         }
 
         private void OnDisable()
@@ -62,6 +59,15 @@ namespace Mission
             EventManager.Initialized -= OnInitialized;
             //EventManager.Completed -= OnCompleted;
             EventManager.Stopped -= OnStopped;
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            Debug.Log(scene.name);
+            if (scene.name == SceneFlowController.QueryScreen)
+            {
+                InitializeMission();
+            }
         }
 
         /// <summary>
@@ -85,7 +91,7 @@ namespace Mission
 
             GcsSocket.Emit(INITIALIZE_MISSION, initializeMissionParameters);
 
-            Lifecycle.EventManager.OnInitialize(ParticipantBehavior.Participant.CurrentMission);
+            EventManager.OnInitialize(ParticipantBehavior.Participant.CurrentMission);
         }
 
         private void OnInitialized(object sender, EventArgs e)

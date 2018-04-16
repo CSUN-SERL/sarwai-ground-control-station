@@ -62,7 +62,7 @@ namespace Networking
 
         public static void Emit(string topic, string message)
         {
-            Debug.Log(string.Format("RosBridge: Sending {0} on {1}", topic, message));
+            Debug.Log(string.Format("RosBridge: Sending {0} on {1}", message, topic));
             var str = new StringMsg(message);
             Instance._rosA.Publish(topic, str);
             Instance._rosA.Render();

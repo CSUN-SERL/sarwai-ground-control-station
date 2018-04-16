@@ -9,7 +9,7 @@ namespace FeedScreen.Experiment
         public const string Welcome = "Welcome";
         public const string GeneralSurvey = "NewSurvey";
         public const string TransparencyBrief = "TransparentBrief";
-        public const string QueryScreen = "QueryScreen";
+        public const string QueryScreen = "MissionScene";
         public const string FinalScene = "FinalScene";
         public const string Error = "Error";
 
