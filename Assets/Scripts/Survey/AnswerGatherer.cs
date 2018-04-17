@@ -35,7 +35,7 @@ namespace Survey
 
                 //Debug.Log(surveyQuestionList[int.Parse(g.name)].QuestionId +
                 //" is question id");
-                //Debug.Log(surveyQuestionList[int.Parse(g.name)].QuestionType +
+                //Debug.Log(surveyQuestionList[int.Parse(g.name)].Type +
                 //" is question type");
 
                 switch (temp.QuestionType)
@@ -54,7 +54,7 @@ namespace Survey
                         break;
                     //special cases bellow
                     case "Debrief":
-                        MultipleGetAnswer(g, ref temp);
+                        Debrief(g, ref temp);
                         //Debug.Log("Debrief");
                         StartCoroutine(UploadPreferredLvlOfAutonomy(temp));
                         break;
@@ -134,6 +134,30 @@ namespace Survey
             //          " is in Multiple");
             var toggles = go.transform.GetChild(1).GetChild(0)
                 .GetComponentsInChildren<Toggle>().ToList();
+            Debug.Log("Toggle count = "+ toggles.Count);
+            for (var i = 0; i < toggles.Count; ++i)
+            {
+                Debug.Log(i + " = i,good");
+
+                if (toggles[i].isOn)
+                {
+                    Debug.Log(i + " = i,good");
+                    questionDetails.SelectedAnswer =
+                        questionDetails.OfferedAnswerList[i];
+                    return;
+                }
+            }
+
+            questionDetails.SelectedAnswer = "Not Answered";
+        }
+
+        private static void Debrief(GameObject go,
+            ref QuestionDetails questionDetails)
+        {
+            //Debug.Log(go.transform.GetChild(1).GetChild(0).name +
+            //          " is in Multiple");
+            var toggles = go.transform.GetChild(1).GetChild(1)
+                .GetComponentsInChildren<Toggle>().ToList();
             for (var i = 0; i < toggles.Count; ++i)
                 if (toggles[i].isOn)
                 {
@@ -143,7 +167,7 @@ namespace Survey
                     return;
                 }
 
-            questionDetails.SelectedAnswer = "Not Answered";
+            questionDetails.SelectedAnswer = questionDetails.OfferedAnswerList[0];
         }
 
         //tested
@@ -270,7 +294,7 @@ namespace Survey
         {
             var lvlOfAuto = 0;
             for (;
-                lvlOfAuto < questionDetail.OfferedAnswerList.Count;
+                lvlOfAuto < questionDetail.OfferedAnswerList.Count - 1;
                 ++lvlOfAuto)
                 if (questionDetail.OfferedAnswerList[lvlOfAuto] ==
                     questionDetail.SelectedAnswer)

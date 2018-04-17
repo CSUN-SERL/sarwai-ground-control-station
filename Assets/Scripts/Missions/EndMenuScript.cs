@@ -43,9 +43,9 @@ namespace Mission
 
             _popup = gameObject.transform.GetChild(0).gameObject;
             _popup.SetActive(true);
-            _popup.transform.position = new Vector3(Screen.width / 2.0F,
-                Screen.height / 2.0F);
-            _popup.transform.localScale = new Vector3(2.0F, 2.0F);
+            //_popup.transform.position = new Vector3(Screen.width / 2.0F,
+            //    Screen.height / 2.0F);
+            //_popup.transform.localScale = new Vector3(2.0F, 2.0F);
             ContinueButton.interactable = false;
             double i = 0;
             for (; i < 1000000000; ++i) ;

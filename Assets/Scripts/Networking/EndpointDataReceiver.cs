@@ -51,7 +51,6 @@ namespace Networking
                         Confidence = data["confidence"].AsFloat,
                         QueryId = data["query_id"].AsInt,
                         RobotId = data["robot_id"].AsInt,
-                        UserId = ParticipantBehavior.Participant.CurrentMission,
                         ImageFileName = data["file_path"]
                     };
                     break;
@@ -63,7 +62,6 @@ namespace Networking
                         Confidence = data["confidence"].AsFloat,
                         QueryId = data["query_id"].AsInt,
                         RobotId = data["robot_id"].AsInt,
-                        UserId = ParticipantBehavior.Participant.CurrentMission,
                         AudioFileName = data["file_path"]
                     };
                     break;

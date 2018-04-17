@@ -29,6 +29,9 @@ namespace Mission
             Debug.Log("Query received event triggered.");
             var handler = QueryRecieved;
             if (handler != null)
+                query.ArrivalTime = MissionTimer.CurrentTime;
+                query.UIArrivalTime = MissionTimer.CurrentTime;
+                Debug.Log(query.ArrivalTime);
                 handler(null, new QueryEventArgs {Query = query});
         }
 
@@ -84,6 +87,16 @@ namespace Mission
             if (QueryGenerated != null)
                 QueryGenerated.Invoke(data, EventArgs.Empty);
             Debug.Log("Triggered: OnQueryGenerated " + data);
+        }
+
+        // Handle Autonomous Query Event.  Used for Q-Autonmous Counter.
+        public static event SocketEvent<string> AutonomousQuery;
+
+        public static void OnAutonomousQuery(string data)
+        {
+            if (AutonomousQuery != null)
+                AutonomousQuery.Invoke(data, EventArgs.Empty);
+            Debug.Log("Triggered: OnAutonomousQuery. ");
         }
     }
 }

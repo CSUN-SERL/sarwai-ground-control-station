@@ -13,11 +13,11 @@ namespace Survey
         {
             ParticipantBehavior.Participant = new Participant.Participant
             {
+               
                 Data = new ParticipantData
                 {
                     Group = 3
-                },
-                CurrentSurvey= SurveyNumber
+                }
             };
 
             EventManager.OnLoad(SurveyNumber);

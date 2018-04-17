@@ -2,15 +2,19 @@
 {
     public class ServerURL
     {
-        // Main URLs and Ports for servers.
-        //private const string URL =
-        //    "http://ec2-52-24-126-225.us-west-2.compute.amazonaws.com";
+		// Main URLs and Ports for servers.
+		//private const string URL =
+		//    "http://ec2-52-24-126-225.us-west-2.compute.amazonaws.com";
 
-        public const string URL = "http://192.168.1.11";
+		public const string URL = "http://192.168.1.11"; // "http://52.24.126.225";
 
-        //private const int PORT = 81;
-        public const int PORT = 8000;
+		//private const int PORT = 81;
+		public const int PORT = 8000;
 
+        public const string ROSBRIDGE_URL = "ws:ubuntu@192.168.1.43";
+        public const int ROSBRIDGE_PORT = 9090;
+
+        public const string MISSED_DETECTION_TOPIC = "/coffee";
 
         private const string STATION_1_URL = "192.168.1.161";
         private const int STATION_1_PORT = 8080;
@@ -48,6 +52,9 @@
         public const string QUERY_RECEIVED = "gcs-query-received";
         public const string NOTIFICATION_RECEIVED = "gcs-notification-received";
         public const string SEND_ANSWER_QUERY = "gcs-query-answers";
+
+        public const string AUTONOMOUS_QUERY = "gcs-automated-query";
+        public const string GENERATED_QUERY = "gcs-generated-query";
 
         public const string TOGGLE_MANUAL_CONTROL = "cm-toggle-manual-control";
 
@@ -150,11 +157,11 @@
         {
             if (robot_id == 1 || robot_id == 2)
                 return string.Format(
-                    "http://{0}:{1}/snapshot?topic=/robot{2}/camera/rgb/image_raw",
+                    "http://{0}:{1}/snapshot?topic=/robot{2}/camera/rgb/image_boxed",
                     STATION_4_URL, STATION_1_PORT, robot_id);
             if (robot_id == 3 || robot_id == 4)
                 return string.Format(
-                    "http://{0}:{1}/snapshot?topic=/robot{2}/camera/rgb/image_raw",
+                    "http://{0}:{1}/snapshot?topic=/robot{2}/camera/rgb/image_boxed",
                     STATION_4_URL, STATION_4_PORT, robot_id);
             return null;
         }
