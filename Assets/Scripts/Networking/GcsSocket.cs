@@ -109,24 +109,23 @@ namespace Networking
                     EventManager.OnInitialized();
                 });
 
-                _socket.On(ServerURL.AUTONOMOUS_QUERY, data =>
-                {
-                    Debug.Log("Autonomous Query Socket");
-                    SocketEventManager.OnAutonomousQuery(data.ToString());
-                });
+            _socket.On(ServerURL.AUTONOMOUS_QUERY, data =>
+            {
+                Debug.Log("Autonomous Query Socket");
+                SocketEventManager.OnAutonomousQuery(data.ToString());
+            });
             _socket.On(MissionLifeCycleController.MISSION_STARTED, data =>
             {
                 EventManager.OnStarted();
                 Debug.Log("Mission Started Event Received.");
             });
 
-                _socket.On(ServerURL.GENERATED_QUERY, data =>
-                {
-                    Debug.Log("Generated Query Socket");
-                    SocketEventManager.OnQueryGenerated(data.ToString());
-                });
+            _socket.On(ServerURL.GENERATED_QUERY, data =>
+            {
+                Debug.Log("Generated Query Socket");
+                SocketEventManager.OnQueryGenerated(data.ToString());
+            });
 
-            }
             _socket.On(MissionLifeCycleController.MISSION_STOPPED, data =>
             {
                 EventManager.OnStopped();
