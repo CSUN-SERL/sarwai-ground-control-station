@@ -35,7 +35,7 @@ namespace Networking
             if (Instance == null)
             {
                 Instance = this;
-                StartCoroutine(EnsureConnection());
+                ConnectToSocket();
             }
             else if (Instance != this)
             {

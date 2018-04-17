@@ -167,7 +167,7 @@ namespace Participant
             else
             {
                 var result = JSON.Parse(www.downloadHandler.text);
-
+                Debug.Log(result);
                 if (result["failed"].AsBool)
                     SceneFlowController.LoadErrorScene();
                 else
@@ -182,9 +182,10 @@ namespace Participant
                 };
 
                 Debug.Log(string.Format(
-                    "New Participant Made: Transparency={0} Adaptive={1} Proctor={2}",
+                    "New Participant Made: Transparency={0} Adaptive={1} Proctor={2}, ID={3}",
                     Participant.Data.Transparent, Participant.Data.Adaptive,
-                    Participant.Data.ProctorName));
+                    Participant.Data.ProctorName,
+                    Participant.Data.Id));
                 EventManager.OnNewParticipantMade();
             }
         }

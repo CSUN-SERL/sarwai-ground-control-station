@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using FeedScreen.Experiment;
 using FeedScreen.Experiment.Missions.Broadcasts.Events;
+using MediaDownload;
 using Mission;
+using Mission.Queries.QueryTypes;
 using Mission.Queries.QueryTypes.Audio;
 using Mission.Queries.QueryTypes.Visual;
 using Networking;
@@ -24,16 +26,16 @@ namespace TransparencyIrisToOperator
     {
         private AnswerButton _backButton;
         private List<GameObject> _go;
+        private List<GameObject> _display;
         private AnswerButton _nextButton;
 
         private int _questionIndex = 0;
-        private List<Query> _queryList;
+        private List<JToken> _queryList;
+        private List<Guid> _dataDownloadId;
 
-        public GameObject MessegePrefab;
-        public GameObject DisplayPrefab;
         private bool _queryListMutex = false;
 
-        private int hardcodedQueryNumber = 5;
+        private int hardcodedQueryNumber = 0;
 
         private int nLoadedQueries = 0;
 
@@ -43,8 +45,10 @@ namespace TransparencyIrisToOperator
         /// <returns></returns>
         public IEnumerator StartUp()
         {
-            _queryList = new List<Query>();
+            _queryList = new List<JToken>();
             _go = new List<GameObject>();
+            _dataDownloadId = new List<Guid>();
+            _display = new List<GameObject>();
 
             AddIntro();
 
@@ -62,18 +66,57 @@ namespace TransparencyIrisToOperator
             _queryListMutex = true;
             StartCoroutine(GetQueries());
             while (_queryListMutex) yield return null;
-            
-
-            while (_queryList.Count < hardcodedQueryNumber) yield return null;
-
-            for (int i = 0; i < hardcodedQueryNumber; ++i)
+            foreach (var query in _queryList)
             {
-                var tempPrefab = MessegeSetup(_queryList[i]);
-                tempPrefab.transform.SetParent(gameObject.transform);
+                var tempPrefab = MessegeSetup(query);
+                //tempPrefab.transform.SetParent(gameObject.transform);
                 _go.Add(tempPrefab);
                 _go.Last().SetActive(false);
 
             }
+
+            for (int i = 0; i < _queryList.Count; ++i)
+            {
+                if (_queryList[i]["type"].ToString() == AudioDetectionQuery.QueryType)
+                {
+                    _dataDownloadId.Add(Guid.NewGuid());
+                    MediaDownload.EventManager.OnDownloadMedia(new DownloadMediaEventArgs
+                    {
+                        DownloadGuid = _dataDownloadId[_dataDownloadId.Count-1],
+                        FileName = _queryList[i]["file_path"].ToString(),
+                        MediaType = MediaDownloader.AudioClipType
+                    });
+
+                    /*
+                    MediaDownload.EventManager.OnDownloadMedia(new Dow)
+                    var temp = new AudioDetectionQuery();
+                    temp.AudioFileName = _queryList[i]["file_path"].ToString();
+                    temp.QueryId =int.Parse(_queryList[i]["query_id"].ToString());
+                    temp.Arrive();
+                    _dataDownload.Add(temp);
+                    */
+                } else
+                {
+                    _dataDownloadId.Add(Guid.NewGuid());
+                    MediaDownload.EventManager.OnDownloadMedia(new DownloadMediaEventArgs
+                    {
+                        DownloadGuid = _dataDownloadId[_dataDownloadId.Count-1],
+                        FileName = _queryList[i]["file_path"].ToString(),
+                        MediaType = MediaDownloader.ImageType
+                    });
+                    /*
+                    var temp = new VisualQuery();
+                    temp.ImageFileName = _queryList[i]["file_path"].ToString();
+                    temp.QueryId = int.Parse(_queryList[i]["query_id"].ToString());
+                    temp.Arrive();
+                    _dataDownloadId.Add(temp);
+                    */
+                }
+
+            }
+
+            while (_queryList.Count < hardcodedQueryNumber) yield return null;
+            
 
             SocketEventManager.QueryRecieved -= OnArrive;
             _backButton.gameObject.SetActive(true);
@@ -89,8 +132,8 @@ namespace TransparencyIrisToOperator
         private void AddIntro()
         {
             var messege =
-                "Iris has used your feedback to improve your experience in the next mission. " +
-                "Please click 'Begin' to see how this will affects you.";
+                "Iris has used your previous query responses to improve your experience in the next mission. " +
+                "Please click 'Begin' to see how this will affect you.";
             var tempPrefab = InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),messege);
             tempPrefab.transform.SetParent(gameObject.transform);
             _go.Add(tempPrefab);
@@ -104,7 +147,7 @@ namespace TransparencyIrisToOperator
         private void AddOutro()
         {
             var messege =
-                "Iris has used your feedback to improve your experience in the next mission. " +
+                "Iris has used your previous query responses to improve your experience in the next mission. " +
                 "Please click 'Continue' to go on to your next mission.";
             var tempPrefab = InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"), messege);
             tempPrefab.transform.SetParent(gameObject.transform);
@@ -133,17 +176,51 @@ namespace TransparencyIrisToOperator
             EventManager.Load += OnLoad;
             SocketEventManager.QueryRecieved += OnArrive;
             Survey.EventManager.ChangeQuestion += OnChangeQuestion;
+            MediaDownload.EventManager.TextureDownloaded += OnDownloadedImage;
+            MediaDownload.EventManager.AudioClipDownloaded += OnDownloadedAudio;
+        }
+        /*
+            display.AddComponent<RawImage>();
+            display.AddComponent<AudioSource>(); 
+         */
+        private void OnDownloadedAudio(object sender, DownloadAudioClipEventArgs e)
+        {
+            Debug.Log("Audio Downloaded");
+            int index = indexOfGuid(e.DownloadGuid);
+            _display[index].AddComponent<AudioSource>();
+            var eventArgs = e as DownloadAudioClipEventArgs;
+            _display[index].GetComponent<AudioSource>().clip = eventArgs.Clip;
+        }
+        private int indexOfGuid(Guid guidid)
+        {
+            for (int i = 0; i < _dataDownloadId.Count; ++i)
+            {
+                if (guidid == _dataDownloadId[i])
+                    return i;
+            }
+            throw new IndexOutOfRangeException (string.Format("no guid found in transparency {0}",guidid.ToString()));
+        }
+
+        private void OnDownloadedImage(object sender, DownloadTextureEventArgs e)
+        {
+            Debug.Log("Image Downloaded");
+            int index = indexOfGuid(e.DownloadGuid);
+            _display[index].AddComponent<RawImage>();
+            var eventArgs = e as DownloadTextureEventArgs;
+            _display[index].GetComponent<RawImage>().texture = eventArgs.ImageTexture;
         }
 
         private void OnDisable()
         {
             EventManager.Load -= OnLoad;
             Survey.EventManager.ChangeQuestion -= OnChangeQuestion;
+            MediaDownload.EventManager.TextureDownloaded -= OnDownloadedImage;
+            MediaDownload.EventManager.AudioClipDownloaded -= OnDownloadedAudio;
         }
 
         private void OnArrive(object sender, QueryEventArgs e)
         {
-            _queryList.Add(e.Query);
+            //_queryList.Add(e.Query as ConfidenceQuery);
             ++nLoadedQueries;
         }
 
@@ -158,7 +235,7 @@ namespace TransparencyIrisToOperator
         /// <returns></returns>
         public bool HasNextQuestion()
         {
-            return _questionIndex + 1 < _queryList.Count;
+            return _questionIndex + 1 < _go.Count;
         }
 
         public bool HasPreviousQuestion()
@@ -241,9 +318,9 @@ namespace TransparencyIrisToOperator
 
                     foreach (var query in result["data"])
                     {
-                        var temp = JsonToQuery(query);
-                        temp.Arrive();
-                        _queryList.Add(temp);
+                        _queryList.Add(query);
+                        ++hardcodedQueryNumber;
+
                     }
 
                     _queryListMutex = false;
@@ -252,7 +329,7 @@ namespace TransparencyIrisToOperator
                 }
             }
         }
-
+        /*
         private static Query JsonToQuery(JToken queryJson)
         {
             if (queryJson["type"].ToString() == VisualDetectionQuery.QueryType)
@@ -276,7 +353,7 @@ namespace TransparencyIrisToOperator
                 var temp= new AudioDetectionQuery();
                 temp.AudioFileName= queryJson["file_path"].ToString();
                 temp.QueryId = int.Parse(queryJson["query_id"].ToString());
-                //query.RobotId = int.Parse(queryJson["robot_id"].ToString());
+                temp.RobotId = int.Parse(queryJson["robot_id"].ToString());
                 temp.PreferredLevelOfAutonomy = int.Parse(queryJson["preferred_level_of_autonomy"].ToString());
                 Debug.Log(temp.PreferredLevelOfAutonomy);
                 temp.LevelOfAutonomy = int.Parse(queryJson["level_of_autonomy"].ToString());
@@ -293,7 +370,7 @@ namespace TransparencyIrisToOperator
             {
                 return null;
             }
-        }
+        }*/
 
         private static GameObject InstatiatePrefabAndPopulateMessege(
             GameObject tempPrefab, string question)
@@ -305,60 +382,79 @@ namespace TransparencyIrisToOperator
         }
 
 
-        private GameObject MessegeSetup(Query query)
+        private GameObject MessegeSetup(JToken query)
         {
-            Debug.Log(string.Format("Query_id {0} Lvl_autonomy {1}", query.QueryId, query.PreferredLevelOfAutonomy));
+            Debug.Log(string.Format("Query_id {0} Lvl_autonomy {1}", query["query_id"].ToString(), query["level_of_autonomy"].ToString()));
 
-            string autoString = "autonomous";
-            if (query.PreferredLevelOfAutonomy  == 0)
+
+            var type = "saw";
+            if (query["type"].ToString() == AudioDetectionQuery.QueryType)
+                type = "heard";
+
+            string autoString = "Iris has decided to continue to handle" +
+              " this type of query in the next mission.";//autonomous
+
+            if (query["preferred_level_of_autonomy"].ToString() == "0")
             {
-                autoString = "non-autonomous";
+                autoString = "Iris has decided that you will handle" + 
+                  " this type of query in the next mission.";//non-autonomous
             }
-            var messege =
-                string.Format(
-                    "This {0} query is set to {1}, based on your given preferences.",query.GetDisplayName(),autoString);
+           
+            var messege ="Rover {0} incorrectly identified a human, " +
+              "with {1}% confidence, where there wasn't a human. " +
+              "In this case, Rover {0}'s mistake was based on what it {2}. " +
+              "However, based on the query responses in the previous mission " +
+              autoString;
+            if ("1" == query["true_response"].ToString())
+            {
+     
+                messege ="Rover {0} correctly identified a human, " +
+                  "with {1}% confidence. " +
+                  "Based on the query responses in the previous mission, " +
+                  autoString;
+
+
+            }
+            double confidence =( Math.Round(double.Parse(query["confidence"].ToString()) * 100 * 100)) / 100;
+            messege = string.Format(
+                    messege,query["robot_id"].ToString(), confidence , type);
             var tempPrefab =
-                InstatiatePrefabAndPopulateMessege(MessegePrefab,
+                InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),
                     messege);
+            tempPrefab.transform.SetParent(transform);
+           
             var display = new GameObject();
-            display.AddComponent<RawImage>();
-            display.AddComponent<AudioSource>();
-
-            try
-            {
-                var q = query as VisualDetectionQuery;
-                display.GetComponent<RawImage>().texture = q.Texture;
-
-            }
-            catch(Exception e)
-            {
-                Debug.Log(e.Message);
-                try
-                {
-                    var q = query as AudioDetectionQuery;
-                    display.GetComponent<AudioSource>().clip = q.Audio;
-                }
-                catch (Exception e2)
-                {
-                    Debug.Log(e2.Message);
-                    throw;
-                }
-            }
-
-            display.transform.SetParent(tempPrefab.transform.GetChild(0));
+            
+            display.transform.SetParent(tempPrefab.transform.GetChild(0),true);
+            
+            _display.Add(display);
+           
             return tempPrefab;
         }
         
-
+        
+        /// <summary>
+        ///     Displays the current question.
+        /// </summary>
         private void ReloadPrefab()
         {
              _go[_questionIndex].SetActive(true);
         }
+        /*
+         * Well replay the audio clip.
+        private void FlashData()
+        {
+            _display[_questionIndex - 1].getComponent<AudioSource>()
+        }
+        */
 
-
+        /// <summary>
+        ///     Refreshes the question, once the next or back button is pressed.
+        /// </summary>
         private void UpdateLiveFeed()
         {
-            if (_questionIndex == _queryList.Count+ 2)
+            Debug.Log(_queryList.Count + " =_queryList.Count:Index = " + _questionIndex);
+            if (_questionIndex == _queryList.Count + 2)
             {
                 GoToNextScene();
             }
@@ -376,7 +472,7 @@ namespace TransparencyIrisToOperator
                     _nextButton.GetComponentInChildren<Text>().text = "Begin";
                 }
 
-                Debug.Log(_go.Count + " = Count:Index = " + _questionIndex);
+                Debug.Log(_go.Count + " = _go.Count:Index = " + _questionIndex);
 
                 if (_go.Count <= _questionIndex)
                 {
