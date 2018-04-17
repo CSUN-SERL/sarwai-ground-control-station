@@ -3,6 +3,7 @@ using System.Collections;
 using FeedScreen.Experiment.Missions.Broadcasts.Events;
 using LiveFeedScreen.ROSBridgeLib;
 using LiveFeedScreen.ROSBridgeLib.std_msgs.std_msgs;
+using Mission;
 using Mission.Lifecycle;
 using UnityEngine;
 
@@ -12,11 +13,17 @@ namespace Networking
     {
         public static RosbridgeSocket Instance;
 
+        public bool Connected { get; set; }
+
         private ROSBridgeWebSocketConnection _rosA;
 
         private void Awake()
         {
-            if (Instance == null) Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+                StartCoroutine(EnsureConnection());
+            }
             else if (Instance != this) Destroy(gameObject);
         }
 
@@ -32,9 +39,15 @@ namespace Networking
             EventManager.Completed -= OnCompleted;
         }
 
-        IEnumerable EnsureConnection()
+        IEnumerator EnsureConnection()
         {
-
+            Debug.Log(Connected);
+            Debug.Log(MissionLifeCycleController.Instance.Running);
+            if (!Connected && MissionLifeCycleController.Instance.Running)
+            {
+                Connect();
+            }
+            yield return new WaitForSecondsRealtime(1);
         }
 
         private void OnInitialize(object sender, IntEventArgs e)
@@ -54,6 +67,7 @@ namespace Networking
             _rosA = new ROSBridgeWebSocketConnection(ServerURL.ROSBRIDGE_URL, ServerURL.ROSBRIDGE_PORT);
             _rosA.AddPublisher(typeof(CoffeePublisher));
             _rosA.Connect();
+
             Debug.Log("Rosbridge Connected.");
         }
 
