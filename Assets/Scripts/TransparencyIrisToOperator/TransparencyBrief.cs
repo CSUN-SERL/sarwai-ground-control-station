@@ -422,40 +422,21 @@ namespace TransparencyIrisToOperator
             var tempPrefab =
                 InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),
                     messege);
-            Debug.Log(tempPrefab.name);
-            Debug.Log(tempPrefab.transform.name);
-            Debug.Log(tempPrefab.transform.GetChild(0).name);
+            Debug.Log("tempPrefab made.");
+            Debug.Log("MessegePrefab making" + tempPrefab.name );
+            Debug.Log("MessegePrefab making" + tempPrefab.transform.GetChild(0).name);
             var display =Instantiate(new GameObject(name="display"));
-            
-            /*
-            try
-            {
-                Debug.Log("Not trying to get images");
-                var q = _dataDownloadId.Add(temp) as VisualDetectionQuery;
-                //var q = query as VisualQuery;
-                //display.GetComponent<RawImage>().texture = q.Texture;
-
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e.Message);
-                try
-                {
-                    Debug.Log("Not trying to get audio");
-
-                    //var q = query as AudioDetectionQuery;
-                    //display.GetComponent<AudioSource>().clip = q.Audio;
-                }
-                catch (Exception e2)
-                {
-                    Debug.Log(e2.Message);
-                    throw;
-                }
-            }*/
-            
-
+            Debug.Log("display instantiated.");
+            Debug.Log("MessegePrefab making" + tempPrefab.name);
+            Debug.Log("MessegePrefab making" + tempPrefab.transform.GetChild(0).name);
             display.transform.SetParent(tempPrefab.transform.GetChild(0));
+            Debug.Log("display parent set.");
+            Debug.Log("MessegePrefab making" + tempPrefab.name);
+            Debug.Log("MessegePrefab making" + tempPrefab.transform.GetChild(0).name);
             _display.Add(display);
+            Debug.Log("_display added.");
+            Debug.Log("MessegePrefab making" + tempPrefab.name);
+            Debug.Log("MessegePrefab making" + tempPrefab.transform.GetChild(0).name);
             return tempPrefab;
         }
         
