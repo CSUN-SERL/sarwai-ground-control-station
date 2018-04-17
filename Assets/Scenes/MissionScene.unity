@@ -1501,7 +1501,6 @@ Transform:
   m_Children:
   - {fileID: 1567231908}
   - {fileID: 610204319}
-  - {fileID: 1207281512}
   - {fileID: 1402881983}
   - {fileID: 1207281512}
   m_Father: {fileID: 0}
@@ -1559,7 +1558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552a7fabe838de044be73321a0e1e4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Source: {fileID: 0}
+  Source: {fileID: 305346848}
 --- !u!114 &305346847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1572,7 +1571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4117cf35d9f8e04fb0633371fda79ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultImage: {fileID: 0}
+  DefaultImage: {fileID: 2800000, guid: 4c716c0ab3c5d4b219e985176676d946, type: 3}
 --- !u!82 &305346848
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7703,7 +7702,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 418386427}
   m_HandleRect: {fileID: 418386426}
   m_Direction: 3
-  m_Value: 0
+  m_Value: 1
   m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8410,7 +8409,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.000013415273}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2136030231
