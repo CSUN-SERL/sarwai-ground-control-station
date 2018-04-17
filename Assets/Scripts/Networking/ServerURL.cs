@@ -11,6 +11,10 @@
 		//private const int PORT = 81;
 		public const int PORT = 8000;
 
+        public const string ROSBRIDGE_URL = "ws:ubuntu@192.168.1.43";
+        public const int ROSBRIDGE_PORT = 9090;
+
+        public const string MISSED_DETECTION_TOPIC = "/coffee";
 
         private const string STATION_1_URL = "192.168.1.161";
         private const int STATION_1_PORT = 8080;
@@ -48,6 +52,9 @@
         public const string QUERY_RECEIVED = "gcs-query-received";
         public const string NOTIFICATION_RECEIVED = "gcs-notification-received";
         public const string SEND_ANSWER_QUERY = "gcs-query-answers";
+
+        public const string AUTONOMOUS_QUERY = "gcs-automated-query";
+        public const string GENERATED_QUERY = "gcs-generated-query";
 
         public const string TOGGLE_MANUAL_CONTROL = "cm-toggle-manual-control";
 
