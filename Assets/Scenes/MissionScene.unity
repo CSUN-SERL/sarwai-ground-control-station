@@ -5186,7 +5186,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 290266712}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1207281513
 MonoBehaviour:
@@ -6029,6 +6029,7 @@ GameObject:
   - component: {fileID: 1402881986}
   - component: {fileID: 1402881985}
   - component: {fileID: 1402881984}
+  - component: {fileID: 1402881987}
   m_Layer: 0
   m_Name: Experiment Controller 1
   m_TagString: Untagged
@@ -6048,7 +6049,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 290266712}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1402881984
 MonoBehaviour:
@@ -6084,6 +6085,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbf234ee3aaeb6c4fa43b84f703a635d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1402881987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1402881982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227aedf1c142ad048a8b96409002d703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1432853124
@@ -7690,8 +7702,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 418386427}
   m_HandleRect: {fileID: 418386426}
   m_Direction: 3
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7792,7 +7804,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6392739}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8397,7 +8409,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000015261707}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2136030231
