@@ -33,8 +33,6 @@ namespace TransparencyIrisToOperator
         private List<JToken> _queryList;
         private List<Guid> _dataDownloadId;
 
-        public GameObject MessegePrefab;
-        public GameObject DisplayPrefab;
         private bool _queryListMutex = false;
 
         private int hardcodedQueryNumber = 0;
@@ -50,6 +48,7 @@ namespace TransparencyIrisToOperator
             _queryList = new List<JToken>();
             _go = new List<GameObject>();
             _dataDownloadId = new List<Guid>();
+            _display = new List<GameObject>();
 
             AddIntro();
 
@@ -70,7 +69,7 @@ namespace TransparencyIrisToOperator
             foreach (var query in _queryList)
             {
                 var tempPrefab = MessegeSetup(query);
-                tempPrefab.transform.SetParent(gameObject.transform);
+                //tempPrefab.transform.SetParent(gameObject.transform);
                 _go.Add(tempPrefab);
                 _go.Last().SetActive(false);
 
@@ -80,10 +79,10 @@ namespace TransparencyIrisToOperator
             {
                 if (_queryList[i]["type"].ToString() == AudioDetectionQuery.QueryType)
                 {
-                    _dataDownloadId[i] = Guid.NewGuid();
+                    _dataDownloadId.Add(Guid.NewGuid());
                     MediaDownload.EventManager.OnDownloadMedia(new DownloadMediaEventArgs
                     {
-                        DownloadGuid = _dataDownloadId[i],
+                        DownloadGuid = _dataDownloadId[_dataDownloadId.Count-1],
                         FileName = _queryList[i]["file_path"].ToString(),
                         MediaType = MediaDownloader.AudioClipType
                     });
@@ -133,8 +132,8 @@ namespace TransparencyIrisToOperator
         private void AddIntro()
         {
             var messege =
-                "Iris has used your feedback to improve your experience in the next mission. " +
-                "Please click 'Begin' to see how this will affects you.";
+                "Iris has used your previous query responses to improve your experience in the next mission. " +
+                "Please click 'Begin' to see how this will affect you.";
             var tempPrefab = InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),messege);
             tempPrefab.transform.SetParent(gameObject.transform);
             _go.Add(tempPrefab);
@@ -148,7 +147,7 @@ namespace TransparencyIrisToOperator
         private void AddOutro()
         {
             var messege =
-                "Iris has used your feedback to improve your experience in the next mission. " +
+                "Iris has used your previous query responses to improve your experience in the next mission. " +
                 "Please click 'Continue' to go on to your next mission.";
             var tempPrefab = InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"), messege);
             tempPrefab.transform.SetParent(gameObject.transform);
@@ -393,50 +392,43 @@ namespace TransparencyIrisToOperator
                 type = "heard";
 
             string autoString = "Iris has decided to continue to handle" +
-              " this type of query in the next mission";//autonomous
+              " this type of query in the next mission.";//autonomous
 
             if (query["preferred_level_of_autonomy"].ToString() == "0")
             {
                 autoString = "Iris has decided that you will handle" + 
-                  " this type of query in the next mission";//non-autonomous
+                  " this type of query in the next mission.";//non-autonomous
             }
            
             var messege ="Rover {0} incorrectly identified a human, " +
-              "with {1}% confidence, where there wasn't a human victim. " +
-              "In this case, Rover {0} mistake was based on what it {2}. " +
+              "with {1}% confidence, where there wasn't a human. " +
+              "In this case, Rover {0}'s mistake was based on what it {2}. " +
               "However, based on the query responses in the previous mission " +
               autoString;
             if ("1" == query["true_response"].ToString())
             {
      
                 messege ="Rover {0} correctly identified a human, " +
-                  "with {1}% confidence." +
-                  "Based on the query responses in the previous mission " +
+                  "with {1}% confidence. " +
+                  "Based on the query responses in the previous mission, " +
                   autoString;
 
 
             }
-
+            double confidence =( Math.Round(double.Parse(query["confidence"].ToString()) * 100 * 100)) / 100;
             messege = string.Format(
-                    messege,query["robot_id"].ToString(), query["confidence"].ToString(), type);
+                    messege,query["robot_id"].ToString(), confidence , type);
             var tempPrefab =
                 InstatiatePrefabAndPopulateMessege(Resources.Load<GameObject>("SurveyQuestion/Messege"),
                     messege);
-            Debug.Log("tempPrefab made.");
-            Debug.Log("MessegePrefab making" + tempPrefab.name );
-            Debug.Log("MessegePrefab making" + tempPrefab.transform.GetChild(0).name);
-            var display =Instantiate(new GameObject(name="display"));
-            Debug.Log("display instantiated.");
-            Debug.Log("MessegePrefab making" + tempPrefab.name);
-            Debug.Log("MessegePrefab making" + tempPrefab.transform.GetChild(0).name);
-            display.transform.SetParent(tempPrefab.transform.GetChild(0));
-            Debug.Log("display parent set.");
-            Debug.Log("MessegePrefab making" + tempPrefab.name);
-            Debug.Log("MessegePrefab making" + tempPrefab.transform.GetChild(0).name);
+            tempPrefab.transform.SetParent(transform);
+           
+            var display = new GameObject();
+            
+            display.transform.SetParent(tempPrefab.transform.GetChild(0),true);
+            
             _display.Add(display);
-            Debug.Log("_display added.");
-            Debug.Log("MessegePrefab making" + tempPrefab.name);
-            Debug.Log("MessegePrefab making" + tempPrefab.transform.GetChild(0).name);
+           
             return tempPrefab;
         }
         
