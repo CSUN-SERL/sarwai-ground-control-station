@@ -22,12 +22,12 @@ namespace Networking
 
         private void OnEnable()
         {
-            Mission.SocketEventManager.DisconnectSocket += OnDisconnectSocket;
+            SocketEventManager.DisconnectSocket += OnDisconnectSocket;
         }
 
         private void OnDisable()
         {
-            Mission.SocketEventManager.DisconnectSocket -= OnDisconnectSocket;
+            SocketEventManager.DisconnectSocket -= OnDisconnectSocket;
         }
 
         private void Awake()
@@ -50,14 +50,17 @@ namespace Networking
 
         IEnumerator EnsureConnection()
         {
-            if (!Alive || !Connected)
+            while (true)
             {
-                ConnectToSocket();
+                if (!Alive || !Connected)
+                {
+                    ConnectToSocket();
+                }
+                yield return new WaitForSecondsRealtime(1);
             }
-            yield return new WaitForSecondsRealtime(1);
         }
 
-        private void OnDestroy()
+        private void OnApplicationQuit()
         {
             if (_socket == null) return;
             _socket.Emit("testee", "GCS Disconnecting.");
@@ -66,60 +69,64 @@ namespace Networking
 
         public void ConnectToSocket()
         {
+
+            // If already connected, do nothing.
+            if (_socket != null) return;
+
+            // The socket is null.
+            Connected = false;
+
             _socket = IO.Socket(ServerURL.SOCKET_IO);
-            if (_socket != null)
+            _socket.On(Socket.EVENT_CONNECT, () =>
             {
-                _socket.On(Socket.EVENT_CONNECT, () =>
+                Debug.Log("Connected Event Received.");
+                _socket.Emit("testee", "GCS Connected.");
+                Connected = true;
+                SocketEventManager.OnSocketConnected();
+            });
+
+            _socket.On(Socket.EVENT_DISCONNECT, () =>
+            {
+                Debug.Log("Disconnect Event Received.");
+                DoClose();
+            });
+
+            // Add listener for test data.
+            _socket.On("tester",
+                data => { Debug.Log("Testing Data Received:" + data); });
+
+            _socket.On(ServerURL.QUERY_RECEIVED, data =>
+            {
+                Debug.Log(data);
+                SocketEventManager.OnDataRecieved(
+                    new StringEventArgs { StringArgs = data.ToString() });
+            });
+
+            _socket.On(MissionLifeCycleController.MISSION_INITIALIZED,
+                data =>
                 {
-                    Debug.Log("Connected Event Received.");
-                    _socket.Emit("testee", "GCS Connected.");
-                    Connected = true;
-                    Mission.SocketEventManager.OnSocketConnected();
+                    Debug.Log("Mission Initialized Event Received.");
+                    EventManager.OnInitialized();
                 });
 
-                _socket.On(Socket.EVENT_DISCONNECT, () =>
-                {
-                    Debug.Log("Disconnect Event Received.");
-                    Connected = false;
-                });
+            _socket.On(MissionLifeCycleController.MISSION_STARTED, data =>
+            {
+                EventManager.OnStarted();
+                Debug.Log("Mission Started Event Received.");
+            });
 
-                // Add listener for test data.
-                _socket.On("tester",
-                    data => { Debug.Log("Testing Data Received:" + data); });
+            _socket.On(MissionLifeCycleController.MISSION_STOPPED, data =>
+            {
+                EventManager.OnStopped();
+                Debug.Log("Mission Stopped Event Received.");
+            });
 
-                _socket.On(ServerURL.QUERY_RECEIVED, data =>
-                {
-                    Debug.Log(data);
-                    Mission.SocketEventManager.OnDataRecieved(
-                        new StringEventArgs {StringArgs = data.ToString()});
-                });
+            _socket.On(ServerURL.NOTIFICATION_RECEIVED, data =>
+            {
+                //EventManager.OnNotificationRecieved(new NotificationEventArgs { Notification = new Notification(data.ToString()) });
+                Debug.Log("Notification Event Reveicved.");
+            });
 
-                _socket.On(MissionLifeCycleController.MISSION_INITIALIZED,
-                    data =>
-                    {
-                        Debug.Log("Mission Initialized Event Received.");
-                        EventManager.OnInitialized();
-                    });
-
-                _socket.On(MissionLifeCycleController.MISSION_STARTED, data =>
-                {
-                    EventManager.OnStarted();
-                    Debug.Log("Mission Started Event Received.");
-                });
-
-                _socket.On(MissionLifeCycleController.MISSION_STOPPED, data =>
-                {
-                    EventManager.OnStopped();
-                    Debug.Log("Mission Stopped Event Received.");
-                });
-
-                _socket.On(ServerURL.NOTIFICATION_RECEIVED, data =>
-                {
-                    //EventManager.OnNotificationRecieved(new NotificationEventArgs { Notification = new Notification(data.ToString()) });
-                    Debug.Log("Notification Event Reveicved.");
-                });
-
-            }
         }
 
         public static void Emit(string socketEvent, string message)
@@ -136,9 +143,13 @@ namespace Networking
         private void OnDisconnectSocket(object sender, EventArgs e)
         {
             if (_socket == null) return;
-            _socket.Emit("testee", "GCS Disconnecting.");
+            DoClose();
+        }
+
+        void DoClose()
+        {
             _socket.Disconnect();
-            Mission.SocketEventManager.OnSocketDisconnected();
+            SocketEventManager.OnSocketDisconnected();
             _socket = null;
             Connected = false;
         }
