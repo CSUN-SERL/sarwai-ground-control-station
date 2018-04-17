@@ -41,13 +41,16 @@ namespace Networking
 
         IEnumerator EnsureConnection()
         {
-            Debug.Log(Connected);
-            Debug.Log(MissionLifeCycleController.Instance.Running);
-            if (!Connected && MissionLifeCycleController.Instance.Running)
+            while (true)
             {
-                Connect();
+                Debug.Log(Connected);
+                Debug.Log(MissionLifeCycleController.Instance.Running);
+                if (!Connected && MissionLifeCycleController.Instance.Running)
+                {
+                    Connect();
+                }
+                yield return new WaitForSecondsRealtime(1);
             }
-            yield return new WaitForSecondsRealtime(1);
         }
 
         private void OnInitialize(object sender, IntEventArgs e)

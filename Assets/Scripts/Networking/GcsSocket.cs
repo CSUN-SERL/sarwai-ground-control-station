@@ -50,11 +50,14 @@ namespace Networking
 
         IEnumerator EnsureConnection()
         {
-            if (!Alive || !Connected)
+            while (true)
             {
-                ConnectToSocket();
+                if (!Alive || !Connected)
+                {
+                    ConnectToSocket();
+                }
+                yield return new WaitForSecondsRealtime(1);
             }
-            yield return new WaitForSecondsRealtime(1);
         }
 
         private void OnDestroy()
