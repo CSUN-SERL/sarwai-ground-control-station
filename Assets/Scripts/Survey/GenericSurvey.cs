@@ -657,7 +657,7 @@ namespace Survey
             // SceneManager.LoadScene(
             //    ParticipantBehavior.Instance.CurrentMission == 6
             //       ? "FinalScene"
-            //      : "MissionScene");
+            //      : "QueryScreen");
             //_nextButton.Disable();
         }
     }
