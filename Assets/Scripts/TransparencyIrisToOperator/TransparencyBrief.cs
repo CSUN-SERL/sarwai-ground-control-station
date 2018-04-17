@@ -358,7 +358,7 @@ namespace TransparencyIrisToOperator
 
         private void UpdateLiveFeed()
         {
-            if (_questionIndex == _queryList.Count)
+            if (_questionIndex == _queryList.Count+ 2)
             {
                 GoToNextScene();
             }
