@@ -6356,7 +6356,6 @@ GameObject:
   - component: {fileID: 1402881986}
   - component: {fileID: 1402881985}
   - component: {fileID: 1402881984}
-  - component: {fileID: 1402881987}
   m_Layer: 0
   m_Name: Experiment Controller 1
   m_TagString: Untagged
@@ -6412,17 +6411,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbf234ee3aaeb6c4fa43b84f703a635d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1402881987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1402881982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 227aedf1c142ad048a8b96409002d703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1432853124
@@ -7003,7 +6991,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1550995718}
   - component: {fileID: 1550995719}
-  - component: {fileID: 1550995720}
   m_Layer: 0
   m_Name: LifeCycleTest
   m_TagString: Untagged
@@ -7032,29 +7019,13 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1550995717}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a24f4a5c7a875ef47b321522d470c702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Automated: 0
   On: 1
---- !u!114 &1550995720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1550995717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c65465c1af29558438b84dbd9b010efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GroupNumber: 0
-  Id: 1288
-  MissionNumber: 1
-  On: 1
-  ProctorName: 
 --- !u!1 &1567231903
 GameObject:
   m_ObjectHideFlags: 0
@@ -8192,8 +8163,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6392741}
   m_HandleRect: {fileID: 6392739}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8798,7 +8769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2136030231

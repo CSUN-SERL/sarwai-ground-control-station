@@ -5,7 +5,6 @@ using Networking;
 using NUnit.Framework.Constraints;
 using Participant;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using EventManager = Mission.Lifecycle.EventManager;
 
 namespace Mission
@@ -27,7 +26,6 @@ namespace Mission
         //public const string MISSION_CLOSED = "gcs-mission-closed";
 
         public static MissionLifeCycleController Instance;
-
         public bool Initialized { get; private set; }
 
         public static bool Started { get; private set; }
@@ -44,6 +42,8 @@ namespace Mission
                 Instance = this;
             else if (Instance != this)
                 Destroy(this);
+
+            
         }
 
         private void OnEnable()
@@ -52,7 +52,8 @@ namespace Mission
             EventManager.Initialized += OnInitialized;
             //EventManager.Completed += OnCompleted;
             EventManager.Stopped += OnStopped;
-            SceneManager.sceneLoaded += OnLevelFinishedLoading;
+
+            InitializeMission();
         }
 
         private void OnDisable()
@@ -60,15 +61,6 @@ namespace Mission
             EventManager.Initialized -= OnInitialized;
             //EventManager.Completed -= OnCompleted;
             EventManager.Stopped -= OnStopped;
-            SceneManager.sceneLoaded -= OnLevelFinishedLoading;
-        }
-
-        private void OnLevelFinishedLoading(Scene scene, LoadSceneMode arg1)
-        {
-            Debug.Log(scene.name);
-            if (scene.name == SceneFlowController.MissionScene) {
-                InitializeMission();
-            }
         }
 
         /// <summary>
@@ -92,7 +84,7 @@ namespace Mission
 
             GcsSocket.Emit(INITIALIZE_MISSION, initializeMissionParameters);
 
-            EventManager.OnInitialize(ParticipantBehavior.Participant.CurrentMission);
+            Lifecycle.EventManager.OnInitialize(ParticipantBehavior.Participant.CurrentMission);
         }
 
         private void OnInitialized(object sender, EventArgs e)
