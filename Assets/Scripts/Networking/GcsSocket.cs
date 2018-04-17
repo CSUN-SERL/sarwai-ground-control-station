@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Mission;
 using Quobject.SocketIoClientDotNet.Client;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace Networking
             if (Instance == null)
             {
                 Instance = this;
-                ConnectToSocket();
+                StartCoroutine(EnsureConnection());
             }
             else if (Instance != this)
             {
@@ -45,6 +46,15 @@ namespace Networking
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
+        }
+
+        IEnumerator EnsureConnection()
+        {
+            if (!Alive || !Connected)
+            {
+                ConnectToSocket();
+            }
+            yield return new WaitForSecondsRealtime(1);
         }
 
         private void OnDestroy()
