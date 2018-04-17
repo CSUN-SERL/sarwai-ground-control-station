@@ -70,7 +70,7 @@ namespace NewSurveyArch
             {
                 Debug.Log("End of Questions");
                 EventManager.OnSurveyComplete(gameObject);
-                //SceneFlowController.LoadNextScene();
+                SceneFlowController.LoadNextScene();
             }
         }
 

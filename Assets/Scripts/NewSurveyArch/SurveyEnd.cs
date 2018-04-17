@@ -9,20 +9,16 @@ namespace NewSurveyArch
     /// </summary>
     public class SurveyEnd : MonoBehaviour
     {
-        private int events;
-
         public void OnEnable()
         {
-            EventManager.PushedSurvey += OnPushed;
-            EventManager.SurveyComplete += OnComplete;
+            EventManager.PushedSurvey += OnEnd;
         }
 
         public void OnDisable()
         {
-            EventManager.PushedSurvey -= OnPushed;
-            EventManager.SurveyComplete -= OnComplete;
+            EventManager.PushedSurvey -= OnEnd;
         }
-        
+
         /// <summary>
         ///     Singleton.
         /// </summary>
@@ -33,43 +29,18 @@ namespace NewSurveyArch
                 Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
-            events = 0;
                 
         }
 
 
         /// <summary>
-        ///     Marks pushed as true
+        ///     Ends the scene
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnPushed(object sender, EventArgs e)
+        private static void OnEnd(object sender, EventArgs e)
         {
-            Debug.Log("Survey was recognized as pushed by SurveyEnd");
-            Done();
+            SceneFlowController.LoadNextScene();
         }
-
-        /// <summary>
-        ///     Marks pushed as true
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnComplete(object sender, EventArgs e)
-        {
-            Debug.Log("Survey was recognized as complete by SurveyEnd");
-            Done();
-        }
-
-        private void Done()
-        {
-            ++events;
-            if (events == 2 )
-            {
-                Debug.Log("Survey was ended by SurveyEnd");
-                SceneFlowController.LoadNextScene();
-            }
-                
-        }
-            
     }
 }
