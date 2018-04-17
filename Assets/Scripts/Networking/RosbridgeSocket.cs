@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using FeedScreen.Experiment.Missions.Broadcasts.Events;
 using LiveFeedScreen.ROSBridgeLib;
 using LiveFeedScreen.ROSBridgeLib.std_msgs.std_msgs;
@@ -29,6 +30,11 @@ namespace Networking
         {
             EventManager.Initialize -= OnInitialize;
             EventManager.Completed -= OnCompleted;
+        }
+
+        IEnumerable EnsureConnection()
+        {
+
         }
 
         private void OnInitialize(object sender, IntEventArgs e)
