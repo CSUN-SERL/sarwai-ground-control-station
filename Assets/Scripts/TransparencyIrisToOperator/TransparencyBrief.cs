@@ -433,13 +433,24 @@ namespace TransparencyIrisToOperator
         }
         
         
-
+        /// <summary>
+        ///     Displays the current question.
+        /// </summary>
         private void ReloadPrefab()
         {
              _go[_questionIndex].SetActive(true);
         }
+        /*
+         * Well replay the audio clip.
+        private void FlashData()
+        {
+            _display[_questionIndex - 1].getComponent<AudioSource>()
+        }
+        */
 
-
+        /// <summary>
+        ///     Refreshes the question, once the next or back button is pressed.
+        /// </summary>
         private void UpdateLiveFeed()
         {
             Debug.Log(_queryList.Count + " =_queryList.Count:Index = " + _questionIndex);
