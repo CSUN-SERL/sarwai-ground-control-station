@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Mission;
 using Quobject.SocketIoClientDotNet.Client;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace Networking
             if (Instance == null)
             {
                 Instance = this;
-                ConnectToSocket();
+                StartCoroutine(EnsureConnection());
             }
             else if (Instance != this)
             {
@@ -45,6 +46,18 @@ namespace Networking
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
+        }
+
+        IEnumerator EnsureConnection()
+        {
+            while (true)
+            {
+                if (!Alive || !Connected)
+                {
+                    ConnectToSocket();
+                }
+                yield return new WaitForSecondsRealtime(1);
+            }
         }
 
         private void OnDestroy()
@@ -109,7 +122,20 @@ namespace Networking
                     Debug.Log("Notification Event Reveicved.");
                 });
 
+                // iris-generated-query means that a query was generated, data contains the robotID
+                _socket.On("gcs-generated-query", data =>
+                {
+                    Debug.Log("A query was generated. " + data.GetType());
+                    SocketEventManager.OnQueryGenerated((string)data);
+                });
+
+                _socket.On("gcs-automated-query", data =>
+                {
+                    Debug.Log("Q-Autonomous. " + data.GetType());
+                    SocketEventManager.OnAutonomousQuery((string)data);
+                });
             }
+
         }
 
         public static void Emit(string socketEvent, string message)
@@ -125,12 +151,17 @@ namespace Networking
 
         private void OnDisconnectSocket(object sender, EventArgs e)
         {
-            if (_socket == null) return;
-            _socket.Emit("testee", "GCS Disconnecting.");
-            _socket.Disconnect();
-            Mission.SocketEventManager.OnSocketDisconnected();
-            _socket = null;
-            Connected = false;
+
+
+            if (_socket != null)
+            {
+                _socket.Emit("testee", "GCS Disconnecting.");
+                _socket.Disconnect();
+                Mission.SocketEventManager.OnSocketDisconnected();
+                _socket = null;
+                Connected = false;
+            }
+            
         }
     }
 }

@@ -442,8 +442,7 @@ namespace TransparencyIrisToOperator
 
         private void UpdateLiveFeed()
         {
-            Debug.Log(_queryList.Count + " =_queryList.Count:Index = " + _questionIndex);
-            if (_questionIndex == _queryList.Count + 2)
+            if (_questionIndex == _queryList.Count+ 2)
             {
                 GoToNextScene();
             }
@@ -525,7 +524,7 @@ namespace TransparencyIrisToOperator
             // SceneManager.LoadScene(
             //    ParticipantBehavior.Instance.CurrentMission == 6
             //       ? "FinalScene"
-            //      : "QueryScreen");
+            //      : "MissionScene");
             //_nextButton.Disable();
         }
     }
