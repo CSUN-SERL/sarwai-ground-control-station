@@ -54,6 +54,9 @@
         public const string NOTIFICATION_RECEIVED = "gcs-notification-received";
         public const string SEND_ANSWER_QUERY = "gcs-query-answers";
 
+        public const string AUTONOMOUS_QUERY = "gcs-automated-query";
+        public const string GENERATED_QUERY = "gcs-generated-query";
+
         public const string TOGGLE_MANUAL_CONTROL = "cm-toggle-manual-control";
 
         public static string UPDATE_LVL_OF_AUTONOMY
