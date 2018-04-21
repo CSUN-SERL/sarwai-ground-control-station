@@ -6,12 +6,12 @@
 
         public bool Adaptive
         {
-            get { return Group == 1 || Group == 3; }
+            get { return Group == 1 || Group == 2; }
         }
 
         public bool Transparent
         {
-            get { return Group == 1 || Group == 2; }
+            get { return Group == 1; }
         }
 
         public int Group { get; set; }
