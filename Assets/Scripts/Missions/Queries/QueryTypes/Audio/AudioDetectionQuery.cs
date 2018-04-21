@@ -29,7 +29,8 @@ namespace Mission.Queries.QueryTypes.Audio
             base.Display();
             DisplayEventManager.OnDisplayAudioClip(Audio);
             DisplayEventManager.OnDisplayImage(Texture);
-            DisplayEventManager.OnDisplayQuestion("Can you hear a human?");
+            double confidence = (Math.Round(double.Parse(Confidence.ToString()) * 100 * 100)) / 100;
+            DisplayEventManager.OnDisplayQuestion(string.Format("I am {0}% confident this is a correct detection of a human in this audio clip. Can you please verify my detection?", confidence));
             DisplayEventManager.OnBoolQuestion(this);
         }
 
