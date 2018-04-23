@@ -1990,6 +1990,7 @@ GameObject:
   - component: {fileID: 374330514}
   - component: {fileID: 374330513}
   - component: {fileID: 374330512}
+  - component: {fileID: 374330515}
   m_Layer: 5
   m_Name: ActivityFeed
   m_TagString: Untagged
@@ -2023,7 +2024,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 374330510}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5556b960df8ef4727a2ae3ebd55d4023, type: 3}
   m_Name: 
@@ -2064,6 +2065,18 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 374330510}
+--- !u!114 &374330515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 374330510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69acb8c825877f54bb53f3e2d516f5d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robot_id: 0
 --- !u!1 &394377851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2498,6 +2511,7 @@ GameObject:
   - component: {fileID: 458763524}
   - component: {fileID: 458763523}
   - component: {fileID: 458763522}
+  - component: {fileID: 458763525}
   m_Layer: 5
   m_Name: ActivityFeed
   m_TagString: Untagged
@@ -2531,7 +2545,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 458763520}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5556b960df8ef4727a2ae3ebd55d4023, type: 3}
   m_Name: 
@@ -2572,6 +2586,17 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 458763520}
+--- !u!114 &458763525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 458763520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4440450331f32f47b15d7dde7449ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &470284072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,6 +2700,7 @@ GameObject:
   - component: {fileID: 477975137}
   - component: {fileID: 477975136}
   - component: {fileID: 477975135}
+  - component: {fileID: 477975138}
   m_Layer: 5
   m_Name: ActivityFeed
   m_TagString: Untagged
@@ -2708,7 +2734,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 477975133}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5556b960df8ef4727a2ae3ebd55d4023, type: 3}
   m_Name: 
@@ -2749,6 +2775,17 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 477975133}
+--- !u!114 &477975138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477975133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ada2bd00d8d6ad640b615f344f117de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &496013092
 GameObject:
   m_ObjectHideFlags: 0
@@ -3545,6 +3582,7 @@ GameObject:
   - component: {fileID: 695637622}
   - component: {fileID: 695637621}
   - component: {fileID: 695637620}
+  - component: {fileID: 695637623}
   m_Layer: 5
   m_Name: ActivityFeed
   m_TagString: Untagged
@@ -3578,7 +3616,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 695637618}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5556b960df8ef4727a2ae3ebd55d4023, type: 3}
   m_Name: 
@@ -3619,6 +3657,17 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 695637618}
+--- !u!114 &695637623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 695637618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524b8f10aa4c1423ebbf58836907454e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &696805769
 GameObject:
   m_ObjectHideFlags: 0
