@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+//using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using Tobii.Plugins;
@@ -42,6 +43,8 @@ namespace LiveFeedScreen.ROSBridgeLib
         private readonly List<Type> _subscribers; // our subscribers
         private readonly List<RenderTask> _taskQ = new List<RenderTask>();
         private WebSocket _ws;
+
+        bool printOnce = true;
 
         /**
          * Make a connection to a host/port. 
@@ -217,7 +220,21 @@ namespace LiveFeedScreen.ROSBridgeLib
             Debug.Log("Got a message " + s);
             if (s != null && !s.Equals(""))
             {
+                // Added some small debugging checks.
+                if (printOnce)
+                {
+                    Debug.Log(s);
+                    printOnce = false;
+                }
+
+                System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+                stopwatch.Start();
+
                 var node = JSONNode.Parse(s);
+
+                stopwatch.Stop();
+                Debug.Log(stopwatch.Elapsed.TotalSeconds);
+
                 Debug.Log("Parsed it");
                 string op = node["op"];
                 Debug.Log("Operation is " + op);

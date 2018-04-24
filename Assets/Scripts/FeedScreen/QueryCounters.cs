@@ -89,14 +89,14 @@ public class QueryCounters : MonoBehaviour
 
     public void Update()
     {
-        QA1.text = "QA: " + QACounter1;
-        QA2.text = "QA: " + QACounter2;
-        QA3.text = "QA: " + QACounter3;
-        QA4.text = "QA: " + QACounter4;
-
-        QS1.text = "QS: " + QSCounter1;
-        QS2.text = "QS: " + QSCounter2;
-        QS3.text = "QS: " + QSCounter3;
-        QS4.text = "QS: " + QSCounter4;
+        QA1.text = "Q-Autonomous: " + QACounter1;
+        QA2.text = "Q-Autonomous: " + QACounter2;
+        QA3.text = "Q-Autonomous: " + QACounter3;
+        QA4.text = "Q-Autonomous: " + QACounter4;
+                     
+        QS1.text = "Q-Stop: " + QSCounter1;
+        QS2.text = "Q-Stop: " + QSCounter2;
+        QS3.text = "Q-Stop: " + QSCounter3;
+        QS4.text = "Q-Stop: " + QSCounter4;
     }
 }
