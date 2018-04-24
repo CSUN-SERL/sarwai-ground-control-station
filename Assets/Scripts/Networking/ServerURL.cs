@@ -31,6 +31,9 @@
         private const string RETRIEVE_QUERY_IMAGE_ROUTE = "retrieve-query-images";
         private const string RETRIEVE_QUERY_FOR_TRANSPARENCY_ROUTE = "retrieve-query-images";
         private const string RETRIEVE_TRANSPARENCY_BRIEF_ROUTE = "retrieve-transparency-brief";
+        private const string RETRIEVE_TOTAL_VICTIMS_ROUTE = "get-total-victims";
+        private const string RETRIEVE_VICTIMS_IDENTIFIED_ROUTE = "get-victims-identified";
+
         //iris\retrieve-query-images
         //question_id
 
@@ -150,6 +153,21 @@
             {
                 return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
                     SQL_TEMP_ROUTE, INSERT_ROUTE);
+            }
+        }
+
+        public static string RETRIEVE_VICTIMS_IDENTIFIED {
+            get
+            {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_VICTIMS_IDENTIFIED_ROUTE);
+            }
+        }
+
+        public static string RETRIEVE_TOTAL_VICTIMS {
+            get {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_TOTAL_VICTIMS_ROUTE);
             }
         }
 

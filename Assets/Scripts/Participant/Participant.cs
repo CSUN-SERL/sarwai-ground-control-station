@@ -17,6 +17,7 @@ namespace Participant
         private const int NonAdaptiveTrust = 4;
         private const int AdaptiveTrust = 5;
         private const int Tlx = 6;
+        private const int PerformanceMetrics = 7;
         private const int EndofExperiment = 21;
         private const int EndTlx = 20;
         private const int EndScene = -2;
@@ -38,10 +39,10 @@ namespace Participant
                 Ipip,
                 InitialTrust,
                 MissionScene, AdaptiveTrust, Tlx,
-                Transparency, MissionScene, AdaptiveTrust, Tlx,
-                Transparency, MissionScene, AdaptiveTrust, Tlx,
-                Transparency, MissionScene, AdaptiveTrust, Tlx,
-                Transparency, MissionScene, AdaptiveTrust, Tlx,
+                Transparency, MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
+                Transparency, MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
+                Transparency, MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
+                Transparency, MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
                 EndTlx,
                 EndofExperiment,
                 EndScene
@@ -51,11 +52,11 @@ namespace Participant
                 DemographiSurvey,
                 Ipip,
                 InitialTrust,
-                MissionScene, AdaptiveTrust, Tlx,
-                MissionScene, AdaptiveTrust, Tlx,
-                MissionScene, AdaptiveTrust, Tlx,
-                MissionScene, AdaptiveTrust, Tlx,
-                MissionScene, AdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
                 EndTlx,
                 EndofExperiment,
                 EndScene
@@ -65,16 +66,15 @@ namespace Participant
                 DemographiSurvey,
                 Ipip,
                 InitialTrust,
-                MissionScene, NonAdaptiveTrust, Tlx,
-                MissionScene, NonAdaptiveTrust, Tlx,
-                MissionScene, NonAdaptiveTrust, Tlx,
-                MissionScene, NonAdaptiveTrust, Tlx,
-                MissionScene, NonAdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, NonAdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, NonAdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, NonAdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, NonAdaptiveTrust, Tlx,
+                MissionScene, PerformanceMetrics, NonAdaptiveTrust, Tlx,
                 EndTlx,
                 EndofExperiment,
                 EndScene
             }
-            //TODO: Change group select buttons for these groups.
         };
         
 
