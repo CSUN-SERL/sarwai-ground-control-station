@@ -135,7 +135,10 @@ namespace Participant
                     "New Participant Made: Transparency={0} Adaptive={1} Proctor={2}",
                     Participant.Data.Transparent, Participant.Data.Adaptive,
                     Participant.Data.ProctorName));
-                EventManager.OnNewParticipantMade();
+                EventManager.OnNewParticipantMade(new NewParticipantEventArgs
+                {
+                    Data = data
+                });
             }
         }
 
@@ -186,7 +189,10 @@ namespace Participant
                     Participant.Data.Transparent, Participant.Data.Adaptive,
                     Participant.Data.ProctorName,
                     Participant.Data.Id));
-                EventManager.OnNewParticipantMade();
+                EventManager.OnNewParticipantMade(new NewParticipantEventArgs
+                {
+                    Data = data
+                });
             }
         }
     }
