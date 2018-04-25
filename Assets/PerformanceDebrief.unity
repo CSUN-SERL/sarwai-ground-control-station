@@ -853,7 +853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f75bbefb0be540d4292b0ccc80db41a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParticipantId: 1549
+  ParticipantId: 1543
   MissionId: 1
 --- !u!1 &1721873196
 GameObject:
@@ -977,7 +977,7 @@ Prefab:
     - target: {fileID: 224896494507193360, guid: 3bfba42da4737cc43991663a6cd97b46,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224896494507193360, guid: 3bfba42da4737cc43991663a6cd97b46,
         type: 2}
@@ -987,7 +987,7 @@ Prefab:
     - target: {fileID: 224896494507193360, guid: 3bfba42da4737cc43991663a6cd97b46,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224896494507193360, guid: 3bfba42da4737cc43991663a6cd97b46,
         type: 2}

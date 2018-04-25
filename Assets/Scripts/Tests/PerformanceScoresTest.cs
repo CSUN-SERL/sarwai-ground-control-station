@@ -68,6 +68,7 @@ public class PerformanceScoresTest : MonoBehaviour {
             } else {
 
                 var result = JSON.Parse(www.downloadHandler.text);
+                Debug.Log(result["data"]);
                 _victimsIdentified = result["data"].AsInt;
             }
         }
@@ -75,8 +76,6 @@ public class PerformanceScoresTest : MonoBehaviour {
         // Get Total Missed Detections.
 
         // Get Missed Detections Captured.
-
-        Debug.Log("Done");
 
 
         EventManager.OnPerformanceMetricsFetched(new PerformanceScoreEventArgs {
