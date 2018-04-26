@@ -15,7 +15,7 @@ namespace FeedScreen.Experiment
         public const string Welcome = "Welcome";
         public const string GeneralSurvey = "NewSurvey";
         public const string TransparencyBrief = "TransparentBrief";
-        public const string QueryScreen = "QueryScreen";
+        public const string QueryScreen = "MissionScreen";
         public const string FinalScene = "FinalScene";
         public const string Error = "Error";
 
@@ -57,25 +57,28 @@ namespace FeedScreen.Experiment
                     SceneManager.LoadScene(Participant.Participant.Welcome);
                     break;
                 default:
+                {
+                        Debug.Log(Participant.Participant.Instance.CurrentScene);
+                    switch (Participant.Participant.Instance.CurrentScene)
                     {
-
-                        switch (Participant.Participant.Instance.CurrentScene)
-                        {
-                            case -2:
-                                SceneManager.LoadScene(Participant.Participant.FinalScene);
-                                break;
-                            case -1:
-                                SceneManager.LoadScene(Participant.Participant.TransparencyBrief);
-                                break;
-                            case 0:
-                                SceneManager.LoadScene(Participant.Participant.QueryScreen);
-                                break;
-                            default:
-                                SceneManager.LoadScene(Participant.Participant.SurveyScene);
-                                break;
-                        }
-                        break;
+                        case -2:
+                            SceneManager.LoadScene(Participant.Participant.FinalScene);
+                            break;
+                        case -1:
+                            SceneManager.LoadScene(Participant.Participant.TransparencyBrief);
+                            break;
+                        case 0:
+                            SceneManager.LoadScene(Participant.Participant.MissionScreen);
+                            break;
+                        case 7:
+                            SceneManager.LoadScene(Participant.Participant.PerformanceMetricsScene);
+                            break;
+                        default:
+                            SceneManager.LoadScene(Participant.Participant.SurveyScene);
+                            break;
                     }
+                    break;
+                }
             }
         }
 

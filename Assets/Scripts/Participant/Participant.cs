@@ -27,7 +27,8 @@ namespace Participant
         public const string Welcome = "Welcome";
         public const string SurveyScene = "SurveyScene";
         public const string TransparencyBrief = "TransparentBrief";
-        public const string QueryScreen = "MissionScene";
+        public const string MissionScreen = "MissionScene";
+        public const string PerformanceMetricsScene = "PerformanceDebrief";
         public const string FinalScene = "FinalScene";
         public const string Error = "Error";
 
@@ -38,7 +39,7 @@ namespace Participant
                 DemographiSurvey,
                 Ipip,
                 InitialTrust,
-                MissionScene, AdaptiveTrust, Tlx,
+                              MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
                 Transparency, MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
                 Transparency, MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
                 Transparency, MissionScene, PerformanceMetrics, AdaptiveTrust, Tlx,
@@ -145,5 +146,7 @@ namespace Participant
                 "Participant Current Timeline incremented from {0} to {1}",
                 Instance.CurrentTimeline - 1, Instance.CurrentTimeline));
         }
+
+
     }
 }

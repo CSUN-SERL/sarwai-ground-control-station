@@ -21,16 +21,16 @@ EditorBuildSettings:
     path: Assets/Scenes/MissionScene.unity
     guid: 248feb107352ff8469b06209766d4e74
   - enabled: 0
-    path: Assets/Scenes/QueryScreen.unity
+    path: 
     guid: 5ff9ef6f6d916d34cb785463cce0a145
   - enabled: 0
-    path: Assets/Scenes/GeneralSurvey.unity
+    path: 
     guid: d0b4d3b509610564abff6a3f5a93c1fb
   - enabled: 0
-    path: Assets/Scenes/FeedScreen.unity
+    path: 
     guid: db5c88dd61977af4d8e834660b62333b
   - enabled: 0
-    path: Assets/Scenes/FeedScreen.unity
+    path: 
     guid: db5c88dd61977af4d8e834660b62333b
   - enabled: 1
     path: Assets/Scenes/FinalScene.unity
@@ -44,3 +44,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SurveyScene.unity
     guid: 0cf8a5f831175804e9d5da1d3be831f6
+  - enabled: 1
+    path: Assets/PerformanceDebrief.unity
+    guid: d592a9d9b75c0ab45bdcb6fe3942c130
