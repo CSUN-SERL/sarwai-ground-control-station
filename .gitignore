@@ -10,3 +10,4 @@ GCS_Data/*
 Temp/
 obj/
 .vs/
+UnityPackageManager/manifest\.json

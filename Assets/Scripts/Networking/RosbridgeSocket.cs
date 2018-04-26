@@ -43,12 +43,19 @@ namespace Networking
         {
             while (true)
             {
-                Debug.Log(Connected);
-                Debug.Log(MissionLifeCycleController.Instance.Running);
-                if (!Connected && MissionLifeCycleController.Instance.Running)
+                Debug.Log("Rosbringe is " + (Connected? "Connected" : "Not Connected"));
+                try
                 {
-                    Connect();
+                    Debug.Log(MissionLifeCycleController.Instance.Running);
+                    if (!Connected && MissionLifeCycleController.Instance.Running)
+                    {
+                        Connect();
+                    }
+                } catch(NullReferenceException e)
+                {
+                    Debug.Log(e.Message);
                 }
+               
                 yield return new WaitForSecondsRealtime(1);
             }
         }
