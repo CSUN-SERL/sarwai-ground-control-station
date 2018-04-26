@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Participant;
 using System;
-using UnityEngine.Experimental.UIElements;
+using UnityEngine.UI;
 
 public class WaitForParticipantCreation : MonoBehaviour {
 
@@ -30,8 +30,8 @@ public class WaitForParticipantCreation : MonoBehaviour {
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    public void OnNewParticipantMade(object sender, EventArgs e) {
-        transform.GetChild(0).gameObject.SetActive(true);
-        Debug.Log("button enabled");
+    public void OnNewParticipantMade(object sender, EventArgs e)
+    {
+        GetComponent<Button>().interactable = true;
     }
 }

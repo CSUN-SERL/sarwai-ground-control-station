@@ -112,14 +112,7 @@ namespace NewSurveyArch
                 form))
             {
                 Debug.Log("fetching...");
-                var temp = www.SendWebRequest();
-                while (!temp.isDone)
-                {
-                    Debug.Log("Download Stat: " + temp.progress);
-
-                    //Wait each frame in each loop OR Unity would freeze
-                    yield return null;
-                }
+                yield return www.SendWebRequest();
 
                 Debug.Log("fetching...breakpoint");
                 if (www.isNetworkError || www.isHttpError)

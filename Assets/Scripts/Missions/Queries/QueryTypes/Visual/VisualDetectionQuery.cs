@@ -12,7 +12,8 @@ namespace Mission.Queries.QueryTypes.Visual
         {
             base.Display();
             DisplayEventManager.OnBoolQuestion(this);
-            DisplayEventManager.OnDisplayQuestion("Do you see a victim?");
+            double confidence = (Math.Round(double.Parse(Confidence.ToString()) * 100 * 100)) / 100;
+            DisplayEventManager.OnDisplayQuestion(string.Format("I am {0}% confident this is a correct detection of a human in the bounding box. Can you please verify my detection?", confidence));
         }
 
         public static void Download()
