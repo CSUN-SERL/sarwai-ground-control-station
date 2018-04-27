@@ -51,10 +51,16 @@ namespace FeedScreen.Experiment
 
         private void OnNewParticipantMade(object sender, NewParticipantEventArgs e)
         {
-            // Initialize Participant Timeline.
+            // Initialize Participant Timeline
             Timeline.Add(
                 new SceneNode {
                     SceneName = ProctorSetup
+                });
+
+            // Welcome Screen
+            Timeline.Add(
+                new SceneNode {
+                    SceneName = Welcome
                 });
 
             // Initial Surveys
