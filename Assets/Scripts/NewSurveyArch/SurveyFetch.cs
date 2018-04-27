@@ -107,6 +107,7 @@ namespace NewSurveyArch
             var form = new WWWForm();
             form.AddField("survey_id", surveyNumber);
 
+            Debug.Log("Survey Number: " + surveyNumber);
 
             using (var www = UnityWebRequest.Post(ServerURL.RETRIEVE_SURVEY,
                 form))

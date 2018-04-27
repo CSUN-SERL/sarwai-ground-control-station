@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Participant;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace FeedScreen.Experiment
@@ -12,13 +14,18 @@ namespace FeedScreen.Experiment
 
         // Names of all of the scenes.
         public const string ProctorSetup = "ProctorSetup";
+
         public const string Welcome = "Welcome";
-        public const string GeneralSurvey = "NewSurvey";
+        public const string GeneralSurvey = "SurveyScene";
         public const string TransparencyBrief = "TransparentBrief";
-        public const string QueryScreen = "MissionScreen";
+        public const string MissionScene = "MissionScene";
         public const string FinalScene = "FinalScene";
         public const string Error = "Error";
 
+        private int _numMissions = 5;
+        
+        private readonly List<SceneNode> Timeline = new List<SceneNode>();
+        private int CurrentScene;
 
         // Instance for the singleton.
         public static SceneFlowController Instance;
@@ -31,6 +38,119 @@ namespace FeedScreen.Experiment
             if (Instance == null) Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
+        }
+
+        private void OnEnable()
+        {
+            EventManager.NewParticipantMade += OnNewParticipantMade;
+        }
+
+        private void OnDisable() {
+            EventManager.NewParticipantMade -= OnNewParticipantMade;
+        }
+
+        private void OnNewParticipantMade(object sender, NewParticipantEventArgs e)
+        {
+            // Initialize Participant Timeline
+            Timeline.Add(
+                new SceneNode {
+                    SceneName = ProctorSetup
+                });
+
+            // Welcome Screen
+            Timeline.Add(
+                new SceneNode {
+                    SceneName = Welcome
+                });
+
+            // Initial Surveys
+            Timeline.Add(
+                new SurveyScene {
+                    SceneName = GeneralSurvey,
+                    SurveyName = "DemographicSurvey",
+                    SurveyId = 1
+                });
+            Timeline.Add(
+                new SurveyScene {
+                    SceneName = GeneralSurvey,
+                    SurveyName = "Ipip",
+                    SurveyId = 2
+                });
+            Timeline.Add(
+                new SurveyScene {
+                    SceneName = GeneralSurvey,
+                    SurveyName = "InitialTrust",
+                    SurveyId = 3
+                });
+
+
+            // Mission Loop
+            for (int i = 1; i < _numMissions + 1; i++) {
+
+                // Add transparency briefs to transparent participant and
+                if (ParticipantBehavior.Participant.Data.Transparent && i != 1) {
+                    Timeline.Add(
+                        new SceneNode {
+                            SceneName = TransparencyBrief
+                        });
+                }
+
+                // Add Mission
+                Timeline.Add(
+                    new MissionScene {
+                        SceneName = MissionScene,
+                        MissionId = i
+                    });
+
+
+                // Add Adaptive Trust or Non Adaptive Trust.
+                if (!ParticipantBehavior.Participant.Data.Adaptive)
+                {
+                    Timeline.Add(
+                        new SurveyScene {
+                            SceneName = GeneralSurvey,
+                            SurveyName = "NonAdaptiveTrust",
+                            SurveyId = 4
+                        });
+                }
+                else
+                {
+                    Timeline.Add(
+                        new SurveyScene {
+                            SceneName = GeneralSurvey,
+                            SurveyName = "AdaptiveTrust",
+                            SurveyId = 5
+                        });
+                }
+
+                Timeline.Add(
+                    new SurveyScene {
+                        SceneName = GeneralSurvey,
+                        SurveyName = "Tlx",
+                        SurveyId = 6
+                    });
+            }
+
+            Timeline.Add(
+                new SurveyScene {
+                    SceneName = GeneralSurvey,
+                    SurveyName = "EndTlx",
+                    SurveyId = 20
+                });
+
+            Timeline.Add(
+                new SurveyScene {
+                    SceneName = GeneralSurvey,
+                    SurveyName = "EndOfExperiment",
+                    SurveyId = 21
+                });
+
+            Timeline.Add(
+                    new SceneNode {
+                        SceneName = FinalScene
+                    });
+
+            CurrentScene = 0;
         }
 
         /// <summary>
@@ -47,39 +167,8 @@ namespace FeedScreen.Experiment
         /// </summary>
         public static void LoadNextScene()
         {
-            var scene = SceneManager.GetActiveScene();
-            var currentScene = scene.name;
-
-            Debug.Log(currentScene);
-            switch (currentScene)
-            {
-                case Participant.Participant.ProctorSetup:
-                    SceneManager.LoadScene(Participant.Participant.Welcome);
-                    break;
-                default:
-                {
-                        Debug.Log(Participant.Participant.Instance.CurrentScene);
-                    switch (Participant.Participant.Instance.CurrentScene)
-                    {
-                        case -2:
-                            SceneManager.LoadScene(Participant.Participant.FinalScene);
-                            break;
-                        case -1:
-                            SceneManager.LoadScene(Participant.Participant.TransparencyBrief);
-                            break;
-                        case 0:
-                            SceneManager.LoadScene(Participant.Participant.MissionScreen);
-                            break;
-                        case 7:
-                            SceneManager.LoadScene(Participant.Participant.PerformanceMetricsScene);
-                            break;
-                        default:
-                            SceneManager.LoadScene(Participant.Participant.SurveyScene);
-                            break;
-                    }
-                    break;
-                }
-            }
+            Instance.CurrentScene++;
+            Instance.Timeline[Instance.CurrentScene].LoadScene();
         }
 
 
@@ -88,9 +177,8 @@ namespace FeedScreen.Experiment
         /// </summary>
         public static void LoadErrorScene()
         {
-            SceneManager.LoadScene(Participant.Participant.Error);
+            SceneManager.LoadScene(Error);
         }
-
 
         /// <summary>
         /// This is a wrapper for gameobjects in unity to go to the next mission.
@@ -98,6 +186,38 @@ namespace FeedScreen.Experiment
         public void LoadNextSceneWrapper()
         {
             LoadNextScene();
+        }
+    }
+
+    public class SceneNode
+    {
+        public string SceneName;
+
+        public virtual void LoadScene()
+        {
+            SceneManager.LoadScene(SceneName);
+        }
+    }
+
+    public class MissionScene : SceneNode
+    {
+        public int MissionId { get; set; }
+
+        public override void LoadScene()
+        {
+            base.LoadScene();
+            ParticipantBehavior.Participant.CurrentMission = MissionId;
+        }
+    }
+
+    public class SurveyScene : SceneNode
+    {
+        public int SurveyId { get; set; }
+        public string SurveyName { get; set; }
+
+        public override void LoadScene() {
+            base.LoadScene();
+            ParticipantBehavior.Participant.CurrentSurvey = SurveyId;
         }
     }
 }

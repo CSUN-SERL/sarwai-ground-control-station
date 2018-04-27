@@ -11,6 +11,7 @@ using Mission.Queries.QueryTypes.Audio;
 using Mission.Queries.QueryTypes.Visual;
 using Networking;
 using Newtonsoft.Json.Linq;
+using Participant;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -79,7 +80,7 @@ namespace Survey
         private void Start()
         {
             //Debug.Log("GenericSurvey Start");
-            StartCoroutine(StartUp(Participant.Participant.Instance.CurrentScene));
+            StartCoroutine(StartUp(ParticipantBehavior.Participant.CurrentSurvey));
         }
 
         private void OnEnable()
