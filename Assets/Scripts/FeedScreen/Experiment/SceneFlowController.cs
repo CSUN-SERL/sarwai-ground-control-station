@@ -19,6 +19,7 @@ namespace FeedScreen.Experiment
         public const string GeneralSurvey = "SurveyScene";
         public const string TransparencyBrief = "TransparentBrief";
         public const string MissionScene = "MissionScene";
+        public const string PerformanceDebrief = "PerformanceDebrief";
         public const string FinalScene = "FinalScene";
         public const string Error = "Error";
 
@@ -102,6 +103,10 @@ namespace FeedScreen.Experiment
                         MissionId = i
                     });
 
+                Timeline.Add(
+                    new SceneNode {
+                        SceneName = PerformanceDebrief
+                    });
 
                 // Add Adaptive Trust or Non Adaptive Trust.
                 if (!ParticipantBehavior.Participant.Data.Adaptive)
