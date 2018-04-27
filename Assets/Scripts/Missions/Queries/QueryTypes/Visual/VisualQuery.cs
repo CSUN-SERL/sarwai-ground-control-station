@@ -38,7 +38,7 @@ namespace Mission.Queries.QueryTypes.Visual
 
         public override string GetDisplayName()
         {
-            return "Visual Query";
+            return "Visual Detection";
         }
 
         public override void OnMediaDownloaded(object sender, DownloadMediaEventArgs e)
