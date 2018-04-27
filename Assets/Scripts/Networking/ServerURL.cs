@@ -31,12 +31,74 @@
         private const string RETRIEVE_QUERY_IMAGE_ROUTE = "retrieve-query-images";
         private const string RETRIEVE_QUERY_FOR_TRANSPARENCY_ROUTE = "retrieve-query-images";
         private const string RETRIEVE_TRANSPARENCY_BRIEF_ROUTE = "retrieve-transparency-brief";
+
+        // Victims identified performance metric.
         private const string RETRIEVE_TOTAL_VICTIMS_ROUTE = "get-total-victims";
         private const string RETRIEVE_VICTIMS_IDENTIFIED_ROUTE = "get-victims-identified";
 
-        //iris\retrieve-query-images
-        //question_id
+        public static string RETRIEVE_VICTIMS_IDENTIFIED {
+            get {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_VICTIMS_IDENTIFIED_ROUTE);
+            }
+        }
+        public static string RETRIEVE_TOTAL_VICTIMS {
+            get {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_TOTAL_VICTIMS_ROUTE);
+            }
+        }
 
+        // Missed detection performance metric.
+        private const string RETRIEVE_MISSED_DETECTIONS_CAPTURED_ROUTE = "get-missed-detections-captured";
+        private const string RETRIEVE_TOTAL_MISSED_DETECTIONS_ROUTE = "get-total-missed-detections";
+
+        public static string RETRIEVE_MISSED_DETECTIONS_CAPTURED {
+            get {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_MISSED_DETECTIONS_CAPTURED_ROUTE);
+            }
+        }
+        public static string RETRIEVE_TOTAL_MISSED_DETECTIONS {
+            get {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_TOTAL_MISSED_DETECTIONS_ROUTE);
+            }
+        }
+
+        // Iris accuracy performance metric.
+        private const string RETRIEVE_IRIS_CORRECT_ROUTE = "get-iris-correct";
+        private const string RETRIEVE_IRIS_HANDLED_ROUTE = "get-iris-handled";
+
+        public static string RETRIEVE_IRIS_CORRECT {
+            get {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_IRIS_CORRECT_ROUTE);
+            }
+        }
+        public static string RETRIEVE_IRIS_HANDLED {
+            get {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_IRIS_HANDLED_ROUTE);
+            }
+        }
+
+        // Adaptation effectiveness performance metric.
+        private const string RETRIEVE_FP_SENT_TO_GCS_ROUTE = "get-fp-sent-to-gcs";
+        private const string RETRIEVE_TOTAL_FP_ROUTE = "get-total-fp";
+
+        public static string RETRIEVE_FP_SENT_TO_GCS {
+            get {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_FP_SENT_TO_GCS_ROUTE);
+            }
+        }
+        public static string RETRIEVE_TOTAL_FP {
+            get {
+                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                    GCS_ROUTE, RETRIEVE_TOTAL_FP_ROUTE);
+            }
+        }
 
         private const string PHYSIOLOGICAL_DATA_ROUTE =
             "insert-physiological-data";
@@ -55,11 +117,11 @@
         public const string QUERY_RECEIVED = "gcs-query-received";
         public const string NOTIFICATION_RECEIVED = "gcs-notification-received";
         public const string SEND_ANSWER_QUERY = "gcs-query-answers";
-
         public const string AUTONOMOUS_QUERY = "gcs-automated-query";
         public const string GENERATED_QUERY = "gcs-generated-query";
-
         public const string TOGGLE_MANUAL_CONTROL = "cm-toggle-manual-control";
+
+
 
         public static string UPDATE_LVL_OF_AUTONOMY
         {
@@ -153,21 +215,6 @@
             {
                 return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
                     SQL_TEMP_ROUTE, INSERT_ROUTE);
-            }
-        }
-
-        public static string RETRIEVE_VICTIMS_IDENTIFIED {
-            get
-            {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
-                    GCS_ROUTE, RETRIEVE_VICTIMS_IDENTIFIED_ROUTE);
-            }
-        }
-
-        public static string RETRIEVE_TOTAL_VICTIMS {
-            get {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
-                    GCS_ROUTE, RETRIEVE_TOTAL_VICTIMS_ROUTE);
             }
         }
 
