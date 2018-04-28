@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Participant;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ public class PerformanceScoreController : MonoBehaviour
 {
 
 	public StatisticCircle CircleBar;
-
+    public GameObject FailedGameObject;
 	
 	void OnEnable () {
 
@@ -20,12 +21,15 @@ public class PerformanceScoreController : MonoBehaviour
 		// Set up listener for when scores have been fetched.
 		EventManager.PerformanceMetricsFetched += OnPerformanceMetricsFetched;
 
-		// Fetch all performance Measures
-		EventManager.OnFetchPerformanceMetrics(ParticipantBehavior.Participant);
+        // Set up listener for when score fetching failed.
+	    EventManager.PerformanceMetricsFetchFailed += OnPerformanceMetricsFetchFailed;
+
+        // Fetch all performance Measures
+        EventManager.OnFetchPerformanceMetrics(ParticipantBehavior.Participant);
 
 	}
 
-	private void OnPerformanceMetricsFetched(object sender, PerformanceScoreEventArgs e)
+    private void OnPerformanceMetricsFetched(object sender, PerformanceScoreEventArgs e)
 	{
 
 		// Instantiate a circle for every performance metric.
@@ -40,4 +44,11 @@ public class PerformanceScoreController : MonoBehaviour
 		}
 	}
 
+    private void OnPerformanceMetricsFetchFailed(object sender, EventArgs e)
+    {
+
+        var failedGameObject = Instantiate(FailedGameObject, transform);
+        failedGameObject.transform.SetParent(transform, false);
+        Debug.Log("Failed");
+    }
 }

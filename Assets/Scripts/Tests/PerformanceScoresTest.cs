@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using FeedScreen.Experiment;
 using Networking;
 using Participant;
 using Tobii.Plugins;
@@ -18,16 +20,24 @@ public class PerformanceScoresTest : MonoBehaviour {
 	private int _totalFp;
 	
 
-	public int ParticipantId;
-	public int MissionId;
-	public int Group;
+	private int ParticipantId;
+	private int MissionId;
+	private int Group;
 
 	// Use this for initialization
 	void Start () {
-		StartCoroutine(FetchPerformanceScores());
+	    try {
+	        ParticipantId = ParticipantBehavior.Participant.Data.Id;
+	        MissionId = ParticipantBehavior.Participant.CurrentMission;
+	        Group = ParticipantBehavior.Participant.Data.Group;
+	        StartCoroutine(FetchPerformanceScores());
+        }
+	    catch (NullReferenceException e)
+	    {
+	        EventManager.OnPerformanceMetricsFetchFailed();
+	    }
 	}
-
-
+    
 
 	public IEnumerator FetchPerformanceScores()
 	{
@@ -213,10 +223,6 @@ public class PerformanceScoresTest : MonoBehaviour {
 				}
 			});
 		}
-
-
-		
-
 		Debug.Log("Done");
 	}
 }

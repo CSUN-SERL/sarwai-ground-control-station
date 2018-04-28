@@ -41,5 +41,14 @@ namespace Participant
             var handler = PerformanceMetricsFetched;
             if (handler != null) handler(null, e);
         }
+
+        // Something went wrong with fetching the performance metrics.
+        public static event EventHandler<EventArgs> PerformanceMetricsFetchFailed;
+
+        public static void OnPerformanceMetricsFetchFailed()
+        {
+            var handler = PerformanceMetricsFetchFailed;
+            if (handler != null) handler(null, EventArgs.Empty);
+        }
     }
 }
