@@ -42,6 +42,7 @@ namespace Assets.Scripts.DataCollection.Physiological
             _dataTable.Columns.Add("emotion");
             _dataTable.Columns.Add("gaze_x");
             _dataTable.Columns.Add("gaze_y");
+            _dataTable.Columns.Add("attention_id");
 
             Mission.Lifecycle.EventManager.Started += BeginLogging;
             Mission.Lifecycle.EventManager.Completed += EndLogging;
@@ -73,6 +74,7 @@ namespace Assets.Scripts.DataCollection.Physiological
                 newRow["emotion"] = _emotionClassification.GetSensorValue();
                 newRow["gaze_x"] = _gazeTracker.GetSensorValue().x;
                 newRow["gaze_y"] = _gazeTracker.GetSensorValue().y;
+                newRow["attention_id"] = _gazeTracker.GetSensorValue().z;
                 _dataTable.Rows.Add(newRow);
             }
         }
