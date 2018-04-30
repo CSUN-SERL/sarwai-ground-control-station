@@ -1,4 +1,5 @@
 ﻿using System;
+using FeedScreen.Experiment.Missions.Broadcasts.Events;
 using MediaDownload;
 using Mission;
 using UnityEngine;
@@ -109,6 +110,41 @@ namespace Mission
             if (ClearDisplay == null) return;
             ClearDisplay(null, System.EventArgs.Empty);
             //Debug.Log("Clear");
+        }
+
+        // Starts the live feed for given robot id.
+        public static event EventHandler<IntEventArgs> PlayLiveFeed;
+
+        public static void OnPlayLiveFeed(int robot_id)
+        {
+            var handler = PlayLiveFeed;
+            if (handler != null) handler(null, new IntEventArgs
+            {
+                intField = robot_id
+            });
+        }
+
+
+        // Live feed stops.
+        public static event EventHandler<IntEventArgs> StopLiveFeed;
+
+        public static void OnStopLiveFeed(int robot_id)
+        {
+            var handler = StopLiveFeed;
+            if (handler != null) handler(null, new IntEventArgs {
+                intField = robot_id
+            });
+        }
+
+        // Pauses Live Feed.
+        public static event EventHandler<IntEventArgs> PauseLiveFeed;
+
+        public static void OnPauseLiveFeed(int robot_id)
+        {
+            var handler = PauseLiveFeed;
+            if (handler != null) handler(null, new IntEventArgs {
+                intField = robot_id
+            });
         }
     }
 }

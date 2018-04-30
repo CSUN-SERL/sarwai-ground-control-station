@@ -8,7 +8,7 @@ namespace Menu_Navigation.Mission
 {
     public class StartMenuScript : MonoBehaviour
     {
-        private GameObject _popup;
+        public GameObject _popup;
         public Text DescriptionText;
         public Text MissionNumberText;
 
