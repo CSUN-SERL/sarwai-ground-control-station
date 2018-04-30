@@ -44,7 +44,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnPushed(object sender, EventArgs e)
         {
-            Debug.Log("Survey was recognized as pushed by SurveyEnd");
+            //Debug.Log("Survey was recognized as pushed by SurveyEnd");
             Done();
         }
 
@@ -55,7 +55,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnComplete(object sender, EventArgs e)
         {
-            Debug.Log("Survey was recognized as complete by SurveyEnd");
+            //Debug.Log("Survey was recognized as complete by SurveyEnd");
             Done();
         }
 
