@@ -21,15 +21,18 @@ public class IpCameraStream : MonoBehaviour {
     private Rect rect = new Rect(0, 0, 640, 480);
     private Vector2 vect = new Vector2(0, 0);
 
-    private Coroutine _streamCoroutine;
+    public bool On { get; set; }
 
-    void OnEnable()
-    {
-        
-    }
+    private Coroutine _streamCoroutine;
 
     public void PlayLiveFeed()
     {
+        // If the stream is alread on do not attempt to make another.
+        if (On) return;
+
+        // Turn on camera.
+        On = true;
+
         // Set up stream
         _texture = new Texture2D(2, 2);
 
@@ -49,11 +52,6 @@ public class IpCameraStream : MonoBehaviour {
         _streamCoroutine = StartCoroutine(GetFrame());
     }
 
-    public void PauseLiveFeed()
-    {
-        StopCoroutine(_streamCoroutine);
-    }
-
     public void StopLiveFeed()
     {
         if (_streamCoroutine == null) return;
@@ -62,6 +60,8 @@ public class IpCameraStream : MonoBehaviour {
 
         if (_stream == null) return;
         _stream.Close();
+
+        On = false;
     }
 
     IEnumerator GetFrame() {

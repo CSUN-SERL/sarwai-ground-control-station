@@ -99,6 +99,8 @@ namespace Networking
             // By this point, the socket is null.
             Connected = false;
 
+
+            Debug.Log("Creating Socket.");
             //Create the socket instance.
             _socket = IO.Socket(ServerURL.SOCKET_IO);
 
