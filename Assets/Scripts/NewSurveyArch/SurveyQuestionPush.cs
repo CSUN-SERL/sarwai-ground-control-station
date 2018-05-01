@@ -60,8 +60,8 @@ namespace NewSurveyArch
         {
             var messege = GatherAnswer(e.surveyQuestionObject,
                 e.surveyQuestionIndex);
-            //Debug.Log(e.surveyQuestionIndex + " == " +
-            //          (_surveyQuestionList.Count - 2));
+            Debug.Log(e.surveyQuestionIndex + " == " +
+                      (_surveyQuestionList.Count - 2));
             if (e.surveyQuestionIndex == _surveyQuestionList.Count - 2)
                 EventManager.OnPushedSurvey();
             EventManager.OnUploadedQuestion(messege);
@@ -111,10 +111,10 @@ namespace NewSurveyArch
         /// <returns></returns>
         public string GatherAnswer(GameObject g, int questionNumber)
         {
-            //Debug.Log(AnswerMessege + " = AnswerMessege");
+            Debug.Log(AnswerMessege + " = AnswerMessege");
 
             var temp = _surveyQuestionList[questionNumber];
-            //Debug.Log(temp.type + temp.question_text + " in answer gather");
+            Debug.Log(temp.type + temp.question_text + " in answer gather");
             switch (temp.type)
             {
                 case "FreeResponse":
@@ -341,7 +341,7 @@ namespace NewSurveyArch
                 questionDetails.offered_answer_id,
                 questionDetails.offered_answer,
                 particiapantId);
-            //Debug.Log("Nope just a Tide Ad " + sqlQuery);
+            Debug.Log("Nope just a Tide Ad " + sqlQuery);
             StartCoroutine(UploadQueryEnumerator(sqlQuery));
             yield return null;
         }

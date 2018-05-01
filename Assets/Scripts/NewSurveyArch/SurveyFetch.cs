@@ -86,14 +86,14 @@ namespace NewSurveyArch
 
             foreach (var question in questionsJToken)
             {
-                //Debug.Log(question.ToString());
+                Debug.Log(question.ToString());
                 var q = SurveyQuestion.CreateFromJson(question);
                 surveyList.Add(q);
             }
 
-            //Debug.Log("List begins");
-            //Debug.Log(surveyList);
-            //Debug.Log("List of size " + surveyList.Count);
+            Debug.Log("List begins");
+            Debug.Log(surveyList);
+            Debug.Log("List of size " + surveyList.Count);
             return surveyList;
         }
 
@@ -112,10 +112,10 @@ namespace NewSurveyArch
             using (var www = UnityWebRequest.Post(ServerURL.RETRIEVE_SURVEY,
                 form))
             {
-                //Debug.Log("fetching...");
+                Debug.Log("fetching...");
                 yield return www.SendWebRequest();
 
-                //Debug.Log("fetching...breakpoint");
+                Debug.Log("fetching...breakpoint");
                 if (www.isNetworkError || www.isHttpError)
                 {
                     Debug.Log(www.error);
@@ -123,7 +123,7 @@ namespace NewSurveyArch
                 else
                 {
                     var result = JObject.Parse(www.downloadHandler.text);
-                    //Debug.Log(result["response"] + " is result");
+                    Debug.Log(result["response"] + " is result");
 
                     if (result["response"].ToString() != "True")
                     {
@@ -134,7 +134,7 @@ namespace NewSurveyArch
                     {
                         var temp2 = JTokenToQuestionDetailList(result["data"]);
                         EventManager.OnFetchedSurvey(temp2);
-                        //Debug.Log("Event Called");
+                        Debug.Log("Event Called");
                     }
                 }
             }
@@ -147,7 +147,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnFetch(object sender, IntEventArgs e)
         {
-            //Debug.Log("FetchStarted");
+            Debug.Log("FetchStarted");
             try
             {
                 StartCoroutine(Fetching(ParticipantBehavior.Participant
@@ -157,7 +157,7 @@ namespace NewSurveyArch
             {
                 Debug.Log(exception.Message);
                 Debug.Log(
-                    "Using default survey 1, because the participant has not been made.");
+                    "Using defaunlt survey 1, because the participant has not been made.");
                 StartCoroutine(Fetching(TestFetchingSurvey));
             }
         }

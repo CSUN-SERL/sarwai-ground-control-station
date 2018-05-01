@@ -25,7 +25,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void OnLoad(object sender, SurveyListEventArgs e)
         {
-            //Debug.Log("Event started");
+            Debug.Log("Event started");
             Loading(e.QuestionsList);
         }
 

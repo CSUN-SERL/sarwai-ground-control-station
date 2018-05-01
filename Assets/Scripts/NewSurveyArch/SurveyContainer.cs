@@ -61,7 +61,7 @@ namespace NewSurveyArch
         /// <param name="e"></param>
         private void NextQuestion(object sender, EventArgs e)
         {
-            //Debug.Log("NextQuestion");
+            Debug.Log("NextQuestion");
             if (DisplayNumber < Total)
             {
                 Upload();
@@ -104,8 +104,8 @@ namespace NewSurveyArch
                 gameObject.transform.GetChild(DisplayNumber);
             if (currentChildQuestion.childCount > 1)
             {
-                //Debug.Log(currentChildQuestion.childCount);
-                //Debug.Log(currentChildQuestion.name);
+                Debug.Log(currentChildQuestion.childCount);
+                Debug.Log(currentChildQuestion.name);
                 EventManager.OnUploadQuestion(
                         currentChildQuestion.gameObject, DisplayNumber);                
             }
@@ -119,14 +119,14 @@ namespace NewSurveyArch
         {
             if (messege == SurveyQuestionPush.AnswerMessege)
             {
-                //Debug.Log("Question answered.");
+                Debug.Log("Question answered.");
                 DisplayOff();
                 ++DisplayNumber;
                 DisplayOn();
             }
             else if (messege == SurveyQuestionPush.NoAnswerMessege)
             {
-                //Debug.Log("Question not answered");
+                Debug.Log("Question not answered");
                 ButtonEventManager.OnQuestionNotComplete();
             }
         }
