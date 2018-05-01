@@ -39,11 +39,11 @@ namespace Assets.Scripts.DataCollection.Physiological
                     dataRow["participant_id"], dataRow["mission_number"],
                     dataRow["mission_time"], dataRow["heart_rate"],
                     dataRow["galvanic_skin_response"], dataRow["emotion"],
-                    dataRow["gaze_x"], dataRow["gaze_y"]);
+                    dataRow["gaze_x"], dataRow["gaze_y"], dataRow["attention_id"]);
 
 
             var sql = string.Format(
-                "INSERT INTO dbexperiment.physiological_data (participant_id, mission_number, mission_time, heart_rate, galvanic_skin_response, emotion, gaze_x, gaze_y) VALUES{0}",
+                "INSERT INTO dbexperiment.physiological_data (participant_id, mission_number, mission_time, heart_rate, galvanic_skin_response, emotion, gaze_x, gaze_y, attention_id) VALUES{0}",
                 string.Join(",", values.ToList().ToArray()));
 
             Debug.Log(sql);

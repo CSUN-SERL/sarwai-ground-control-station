@@ -29,25 +29,4 @@ namespace Assets.Scripts.DataCollection.Physiological.Sensors
             return new Vector2(-1F, -1F);
         }
     }
-
-    /// <summary>
-    ///     Gathers the name of a gameObject attached with <see cref="UIGazeAware"/>, based on gaze position relative to screen.
-    /// </summary>
-    public class GazeAttention : PhysiologicalMonoBehaviour<string>
-    {
-        public override string GetSensorFailureValue()
-        {
-            return "none";
-        }
-
-        public override IEnumerator Log()
-        {
-            while(true)
-            {
-                yield return new WaitForSeconds(0F);
-                _sensorValue = TobiiAPI.GetFocusedObject().name.ToString();
-            }
-            
-        }
-    }
 }

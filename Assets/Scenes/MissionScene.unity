@@ -3661,7 +3661,7 @@ GameObject:
   - component: {fileID: 696805776}
   - component: {fileID: 696805777}
   m_Layer: 5
-  m_Name: ScrollPanel (1)
+  m_Name: Notification Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5350,7 +5350,7 @@ GameObject:
   - component: {fileID: 1211416978}
   - component: {fileID: 1211416979}
   m_Layer: 5
-  m_Name: ScrollPanel
+  m_Name: Query Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7746,7 +7746,7 @@ GameObject:
   - component: {fileID: 1920718389}
   - component: {fileID: 1920718388}
   m_Layer: 5
-  m_Name: Scrollbar (1)
+  m_Name: Notification Scrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7867,7 +7867,7 @@ GameObject:
   - component: {fileID: 1982250545}
   - component: {fileID: 1982250544}
   m_Layer: 5
-  m_Name: Scrollbar
+  m_Name: Query Scrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8530,7 +8530,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000000008310245}
+  m_AnchoredPosition: {x: 0, y: -0.0000000012846427}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2136030231

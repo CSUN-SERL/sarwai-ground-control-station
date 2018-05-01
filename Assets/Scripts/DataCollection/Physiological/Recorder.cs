@@ -13,6 +13,7 @@ namespace Assets.Scripts.DataCollection.Physiological
     [RequireComponent(typeof(HeartRate))]
     [RequireComponent(typeof(GalvanicSkinResponse))]
     [RequireComponent(typeof(GazeTracking))]
+    [RequireComponent(typeof(GazeAttention))]
     [RequireComponent(typeof(EmotionClassification))]
     public class Recorder : MonoBehaviour
     {
@@ -21,12 +22,14 @@ namespace Assets.Scripts.DataCollection.Physiological
         private GalvanicSkinResponse _galvanicSkinResponse;
 
         private GazeTracking _gazeTracker;
+        private GazeAttention _gazeAttention;
         private HeartRate _heartRate;
         public float Rate;
 
         private void OnEnable()
         {
             _gazeTracker = gameObject.GetComponent<GazeTracking>();
+            _gazeAttention = gameObject.GetComponent<GazeAttention>();
             _heartRate = gameObject.GetComponent<HeartRate>();
             _galvanicSkinResponse =
                 gameObject.GetComponent<GalvanicSkinResponse>();
@@ -74,7 +77,7 @@ namespace Assets.Scripts.DataCollection.Physiological
                 newRow["emotion"] = _emotionClassification.GetSensorValue();
                 newRow["gaze_x"] = _gazeTracker.GetSensorValue().x;
                 newRow["gaze_y"] = _gazeTracker.GetSensorValue().y;
-                newRow["attention_id"] = _gazeTracker.GetSensorValue().z;
+                newRow["attention_id"] = _gazeAttention.GetSensorValue();
                 _dataTable.Rows.Add(newRow);
             }
         }
