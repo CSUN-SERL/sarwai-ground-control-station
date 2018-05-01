@@ -22,6 +22,13 @@ public class RobotDisplay : MonoBehaviour
 
     public IpCameraStream LiveFeed;
 
+    void Awake()
+    {
+        RobotId = gameObject.transform.GetSiblingIndex()+1;
+        print(RobotId);
+        ++_numDisplays;
+        MissedDetectionButton.onClick.AddListener(OnMissedDetectionButtonClicked);
+    }
 
     public void OnEnable() {
 
@@ -32,6 +39,13 @@ public class RobotDisplay : MonoBehaviour
 
         DescriptionText.text = string.Format("Robot {0} Live Feed", RobotId);
         LiveFeed.sourceUrl = ServerURL.GetRobotLiveStream(RobotId);
+    }
+
+    void Start()
+    {
+        RectTransform parentRect = gameObject.transform.parent.GetComponent<RectTransform>();
+        GridLayoutGroup gridLayout = gameObject.GetComponentInParent<GridLayoutGroup>();
+        gridLayout.cellSize = new Vector2(parentRect.rect.width / (_numDisplays/2), parentRect.rect.height / (_numDisplays/2));
     }
 
     public void OnDisable() {
@@ -47,12 +61,6 @@ public class RobotDisplay : MonoBehaviour
     private void OnMissionStopped(object sender, EventArgs e)
     {
         LiveFeed.StopLiveFeed();   
-    }
-
-    void Awake()
-    {
-        RobotId = ++_numDisplays;
-        MissedDetectionButton.onClick.AddListener(OnMissedDetectionButtonClicked);
     }
 
     void OnMissedDetectionButtonClicked() {

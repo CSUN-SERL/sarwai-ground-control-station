@@ -161,11 +161,11 @@
 			if (robot_id == 1 || robot_id == 2)
 				return string.Format(
 					"http://{0}:{1}/stream?topic=/robot{2}/camera/rgb/image_boxed",
-					ROBOT_LIVE_FEED_URLS[robot_id], ROBOT_LIVE_FEED_PORTS[robot_id], robot_id);
+					ROBOT_LIVE_FEED_URLS[robot_id-1], ROBOT_LIVE_FEED_PORTS[robot_id-1], robot_id);
 			if (robot_id == 3 || robot_id == 4)
 				return string.Format(
 					"http://{0}:{1}/stream?topic=/robot{2}/camera/rgb/image_boxed",
-					ROBOT_LIVE_FEED_URLS[robot_id], ROBOT_LIVE_FEED_PORTS[robot_id], robot_id);
+					ROBOT_LIVE_FEED_URLS[robot_id-1], ROBOT_LIVE_FEED_PORTS[robot_id-1], robot_id);
 			return null;
 		}
 
