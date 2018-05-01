@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Net;
 using System.IO;
+using DataCollection;
 using Mission;
 using Mission.Lifecycle;
 using Networking;
@@ -69,7 +70,7 @@ public class IpCameraStream : MonoBehaviour {
 
         while (true) {
             int bytesToRead = FindLength(_stream);
-            print(bytesToRead);
+            DataCounter.OnDataDownloaded(bytesToRead);
             if (bytesToRead == -1) {
                 print("End of stream");
                 yield break;
