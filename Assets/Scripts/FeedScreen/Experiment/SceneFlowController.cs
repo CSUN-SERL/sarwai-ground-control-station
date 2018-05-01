@@ -13,6 +13,8 @@ namespace FeedScreen.Experiment
     {
 
         // Names of all of the scenes.
+
+        public const string ServerSelect = "ServerSelect";
         public const string ProctorSetup = "ProctorSetup";
 
         public const string Welcome = "Welcome";
@@ -38,20 +40,13 @@ namespace FeedScreen.Experiment
             if (Instance == null) Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
-        }
 
-        private void OnEnable()
-        {
-            EventManager.NewParticipantMade += OnNewParticipantMade;
-        }
-
-        private void OnDisable() {
-            EventManager.NewParticipantMade -= OnNewParticipantMade;
-        }
-
-        private void OnNewParticipantMade(object sender, NewParticipantEventArgs e)
-        {
             // Initialize Participant Timeline
+            Timeline.Add(
+                new SceneNode {
+                    SceneName = ServerSelect
+                });
+
             Timeline.Add(
                 new SceneNode {
                     SceneName = ProctorSetup
@@ -82,8 +77,20 @@ namespace FeedScreen.Experiment
                     SurveyName = "InitialTrust",
                     SurveyId = 3
                 });
+        }
 
+        private void OnEnable()
+        {
+            EventManager.NewParticipantMade += OnNewParticipantMade;
+        }
 
+        private void OnDisable() {
+            EventManager.NewParticipantMade -= OnNewParticipantMade;
+        }
+
+        private void OnNewParticipantMade(object sender, NewParticipantEventArgs e)
+        {
+            
             // Mission Loop
             for (int i = 1; i < _numMissions + 1; i++) {
 
@@ -168,6 +175,7 @@ namespace FeedScreen.Experiment
         public static void LoadNextScene()
         {
             Instance.CurrentScene++;
+            print(Instance.CurrentScene);
             Instance.Timeline[Instance.CurrentScene].LoadScene();
         }
 

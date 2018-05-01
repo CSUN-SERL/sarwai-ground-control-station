@@ -43,7 +43,6 @@ namespace Networking
         {
             while (true)
             {
-                Debug.Log("Rosbridge is " + (Connected? "Connected" : "Not Connected"));
                 try
                 {
                     Debug.Log(MissionLifeCycleController.Instance.Running);
