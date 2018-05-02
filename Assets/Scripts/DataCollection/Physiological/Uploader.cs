@@ -35,7 +35,7 @@ namespace Assets.Scripts.DataCollection.Physiological
             form.AddField("database", "dbexperiment");
 
             var values = from DataRow dataRow in dataTable.Rows
-                select string.Format("({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})",
+                select string.Format("({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, '{8}')",
                     dataRow["participant_id"], dataRow["mission_number"],
                     dataRow["mission_time"], dataRow["heart_rate"],
                     dataRow["galvanic_skin_response"], dataRow["emotion"],
