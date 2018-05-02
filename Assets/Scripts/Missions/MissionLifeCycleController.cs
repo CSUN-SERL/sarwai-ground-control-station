@@ -68,12 +68,6 @@ namespace Mission
         /// </summary>
         public static void InitializeMission()
         {
-            if (!GcsSocket.Alive)
-            {
-                Debug.Log("Error: Socket connection could not be established.");
-                SceneFlowController.LoadErrorScene();
-            };
-
             var initializeMissionParameters = string.Format("mission{0}-{1}-{2}-{3}",
                 ParticipantBehavior.Participant.CurrentMission,
                 ParticipantBehavior.Participant.Data.Adaptive ? "true" : "false",
@@ -95,11 +89,6 @@ namespace Mission
         public static void StartMission()
         {
 
-            if (!GcsSocket.Alive) {
-                Debug.Log("Error: Socket connection could not be established.");
-                SceneFlowController.LoadErrorScene();
-            }
-
             GcsSocket.Emit(START_MISSION,
                 ParticipantBehavior.Participant.CurrentMission);
             Started = true;
@@ -113,12 +102,6 @@ namespace Mission
 
         public static void StopMission()
         {
-
-            if (!GcsSocket.Alive) {
-                Debug.Log("Error: Socket connection could not be established.");
-                SceneFlowController.LoadErrorScene();
-            }
-            
             GcsSocket.Emit(STOP_MISSION,
                 ParticipantBehavior.Participant.CurrentMission);
         }

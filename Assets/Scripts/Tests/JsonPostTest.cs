@@ -23,7 +23,7 @@ namespace Tests
             Debug.Log(json_dic);
             var form = new WWWForm();
             form.AddField("json", json_dic);
-            using (var www = UnityWebRequest.Post(string.Format("{0}:{1}/test/testing", ServerURL.URL, ServerURL.PORT), form))
+            using (var www = UnityWebRequest.Post(string.Format("{0}:{1}/test/testing", ServerConnectionBehavior.Instance.EndPoint.Address, ServerConnectionBehavior.Instance.EndPoint.Address), form))
             {
                 yield return www.SendWebRequest();
 

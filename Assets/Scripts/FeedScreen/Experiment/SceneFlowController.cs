@@ -26,8 +26,8 @@ namespace FeedScreen.Experiment
 
         private int _numMissions = 5;
         
-        private readonly List<SceneNode> Timeline = new List<SceneNode>();
-        private int CurrentScene;
+        private readonly LinkedList<SceneNode> Timeline = new LinkedList<SceneNode>();
+        private static LinkedListNode<SceneNode> _currentScene;
 
         // Instance for the singleton.
         public static SceneFlowController Instance;
@@ -41,42 +41,47 @@ namespace FeedScreen.Experiment
             else if (Instance != this)
                 Destroy(gameObject);
 
+
+            print("ReInitializing");
+
             // Initialize Participant Timeline
-            Timeline.Add(
+            Timeline.AddLast(
                 new SceneNode {
                     SceneName = ServerSelect
                 });
 
-            Timeline.Add(
+            Timeline.AddLast(
                 new SceneNode {
                     SceneName = ProctorSetup
                 });
 
             // Welcome Screen
-            Timeline.Add(
+            Timeline.AddLast(
                 new SceneNode {
                     SceneName = Welcome
                 });
 
             // Initial Surveys
-            Timeline.Add(
+            Timeline.AddLast(
                 new SurveyScene {
                     SceneName = GeneralSurvey,
                     SurveyName = "DemographicSurvey",
                     SurveyId = 1
                 });
-            Timeline.Add(
+            Timeline.AddLast(
                 new SurveyScene {
                     SceneName = GeneralSurvey,
                     SurveyName = "Ipip",
                     SurveyId = 2
                 });
-            Timeline.Add(
+            Timeline.AddLast(
                 new SurveyScene {
                     SceneName = GeneralSurvey,
                     SurveyName = "InitialTrust",
                     SurveyId = 3
                 });
+
+            _currentScene = Instance.Timeline.First;
         }
 
         private void OnEnable()
@@ -96,24 +101,24 @@ namespace FeedScreen.Experiment
 
                 // Add transparency briefs to transparent participant and
                 if (ParticipantBehavior.Participant.Data.Transparent && i != 1) {
-                    Timeline.Add(
+                    Timeline.AddLast(
                         new SceneNode {
                             SceneName = TransparencyBrief
                         });
                 }
 
                 // Add Mission
-                Timeline.Add(
+                Timeline.AddLast(
                     new MissionScene {
                         SceneName = MissionScene,
                         MissionId = i
                     });
 
 
-                // Add Adaptive Trust or Non Adaptive Trust.
+                // AddLast Adaptive Trust or Non Adaptive Trust.
                 if (!ParticipantBehavior.Participant.Data.Adaptive)
                 {
-                    Timeline.Add(
+                    Timeline.AddLast(
                         new SurveyScene {
                             SceneName = GeneralSurvey,
                             SurveyName = "NonAdaptiveTrust",
@@ -122,7 +127,7 @@ namespace FeedScreen.Experiment
                 }
                 else
                 {
-                    Timeline.Add(
+                    Timeline.AddLast(
                         new SurveyScene {
                             SceneName = GeneralSurvey,
                             SurveyName = "AdaptiveTrust",
@@ -130,7 +135,7 @@ namespace FeedScreen.Experiment
                         });
                 }
 
-                Timeline.Add(
+                Timeline.AddLast(
                     new SurveyScene {
                         SceneName = GeneralSurvey,
                         SurveyName = "Tlx",
@@ -138,26 +143,24 @@ namespace FeedScreen.Experiment
                     });
             }
 
-            Timeline.Add(
+            Timeline.AddLast(
                 new SurveyScene {
                     SceneName = GeneralSurvey,
                     SurveyName = "EndTlx",
                     SurveyId = 20
                 });
 
-            Timeline.Add(
+            Timeline.AddLast(
                 new SurveyScene {
                     SceneName = GeneralSurvey,
                     SurveyName = "EndOfExperiment",
                     SurveyId = 21
                 });
 
-            Timeline.Add(
+            Timeline.AddLast(
                     new SceneNode {
                         SceneName = FinalScene
                     });
-
-            CurrentScene = 0;
         }
 
         /// <summary>
@@ -174,9 +177,9 @@ namespace FeedScreen.Experiment
         /// </summary>
         public static void LoadNextScene()
         {
-            Instance.CurrentScene++;
-            print(Instance.CurrentScene);
-            Instance.Timeline[Instance.CurrentScene].LoadScene();
+            _currentScene = _currentScene.Next;
+            print(string.Format("Scene transition from {0} to {1}", _currentScene.Value.SceneName, _currentScene.Value.SceneName));
+            _currentScene.Value.LoadScene();
         }
 
 

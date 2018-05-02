@@ -47,7 +47,7 @@ namespace Networking
 
             Debug.Log(responseJson);
 
-            GcsSocket.Emit(ServerURL.SEND_ANSWER_QUERY,
+            GcsSocket.Emit(GcsSocket.SendAnswerQuery,
                 responseJson);
         }
     }

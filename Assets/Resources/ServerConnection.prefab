@@ -19,9 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4958414589737850}
-  - component: {fileID: 114792368179201222}
-  - component: {fileID: 114874056149674726}
   - component: {fileID: 114006932509302954}
+  - component: {fileID: 114724910867067690}
   m_Layer: 0
   m_Name: ServerConnection
   m_TagString: Untagged
@@ -53,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2946afdd0000fc540b3046f5c6b868d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114792368179201222
+--- !u!114 &114724910867067690
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -61,17 +60,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1776549751592374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 450335fb14442d5499a129adf221e43f, type: 3}
+  m_Script: {fileID: 11500000, guid: 49ff0f8385863cc4bad419c6ee107fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114874056149674726
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1776549751592374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 227aedf1c142ad048a8b96409002d703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _numAttempts: 5
+  timeoutTime: 1000

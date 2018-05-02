@@ -60,16 +60,16 @@ namespace Mission.ManualControl
                 _ros4.Disconnect();
 
             if (Isbot1.isOn && flag1 == false)
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     1);
             if (Isbot2.isOn && flag2 == false)
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     1);
             if (Isbot3.isOn && flag3 == false)
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     1);
             if (Isbot4.isOn && flag4 == false)
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     1);
         }
 
@@ -132,7 +132,7 @@ namespace Mission.ManualControl
             {
                 _topic = "/robot1/cmd_vel";
                 _ros = _ros1;
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     1);
                 flag1 = false;
             }
@@ -140,7 +140,7 @@ namespace Mission.ManualControl
             {
                 _topic = "/robot2/cmd_vel";
                 _ros = _ros1;
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     2);
                 flag2 = false;
             }
@@ -148,7 +148,7 @@ namespace Mission.ManualControl
             {
                 _topic = "/robot3/cmd_vel";
                 _ros = _ros4;
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     3);
                 flag3 = false;
             }
@@ -156,7 +156,7 @@ namespace Mission.ManualControl
             {
                 _topic = "/robot4/cmd_vel";
                 _ros = _ros4;
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     4);
                 flag4 = false;
             }
@@ -164,25 +164,25 @@ namespace Mission.ManualControl
             // turn waypoints back on
             if (!Isbot1.isOn && flag1 == false)
             {
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     1);
                 flag1 = true;
             }
             else if (!Isbot2.isOn && flag2 == false)
             {
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     2);
                 flag2 = true;
             }
             else if (!Isbot3.isOn && flag3 == false)
             {
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     3);
                 flag3 = true;
             }
             else if (!Isbot4.isOn && flag4 == false)
             {
-                GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL,
+                GcsSocket.Emit(GcsSocket.ToggleManualControl,
                     4);
                 flag4 = true;
             }
@@ -194,7 +194,7 @@ namespace Mission.ManualControl
         {
             _topic = "";
             CurrentRobot = -1;
-            GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL, CurrentRobot);
+            GcsSocket.Emit(GcsSocket.ToggleManualControl, CurrentRobot);
             Debug.Log(robotId);
             Debug.Log(CurrentRobot);
             Debug.Log(_topic);
@@ -207,11 +207,11 @@ namespace Mission.ManualControl
         // If there is a robot selected, turn off manual control
         if (CurrentRobot <= 1)
         {
-            GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL, CurrentRobot);
+            GcsSocket.Emit(GcsSocket.ToggleManualControl, CurrentRobot);
         }
 
         CurrentRobot = robotId;
-        GcsSocket.Emit(ServerURL.TOGGLE_MANUAL_CONTROL, CurrentRobot);
+        GcsSocket.Emit(GcsSocket.ToggleManualControl, CurrentRobot);
         _topic = string.Format("/robot{0}/cmd_vel", CurrentRobot);
         _ros = _ros4;
 

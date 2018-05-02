@@ -26,6 +26,10 @@ public class GroupButton : MonoBehaviour
         _button = GetComponent<Button>();
         _button.onClick.AddListener(MakeNewParticipant);
 
+
+        // Reset
+        n_buttons = 0;
+
         // Assign group number to button.
         group_num = ++n_buttons;
         _button.GetComponentInChildren<Text>().text = groups[group_num];

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Net;
 using FeedScreen.Experiment.Missions.Broadcasts.Events;
 using LiveFeedScreen.ROSBridgeLib;
 using LiveFeedScreen.ROSBridgeLib.std_msgs.std_msgs;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace Networking
 {
-    public class RosbridgeSocket : MonoBehaviour
+    public class RosbridgeSocket
     {
         public static RosbridgeSocket Instance;
 
@@ -17,70 +18,76 @@ namespace Networking
 
         private ROSBridgeWebSocketConnection _rosA;
 
-        private void Awake()
+        private IPEndPoint _endPoint;
+
+
+        public RosbridgeSocket(IPEndPoint endPoint)
         {
-            if (Instance == null)
-            {
-                Instance = this;
-                StartCoroutine(EnsureConnection());
-            }
-            else if (Instance != this) Destroy(gameObject);
+            _endPoint = endPoint;
         }
 
-        private void OnEnable()
-        {
-            EventManager.Initialize += OnInitialize;
-            EventManager.Completed += OnCompleted;
-        }
+        //private void Awake()
+        //{
+        //    if (Instance == null)
+        //    {
+        //        Instance = this;
+        //    }
+        //    else if (Instance != this) Destroy(gameObject);
+        //}
 
-        private void OnDisable()
-        {
-            EventManager.Initialize -= OnInitialize;
-            EventManager.Completed -= OnCompleted;
-        }
+        //private void OnEnable()
+        //{
+        //    Mission.Lifecycle.EventManager.Initialize += OnInitialize;
+        //    Mission.Lifecycle.EventManager.Completed += OnCompleted;
+        //}
 
-        IEnumerator EnsureConnection()
-        {
-            while (true)
-            {
-                try
-                {
-                    Debug.Log(MissionLifeCycleController.Instance.Running);
-                    if (!Connected && MissionLifeCycleController.Instance.Running)
-                    {
-                        Connect();
-                    }
-                } catch(NullReferenceException e)
-                {
-                    Debug.Log(e.Message);
-                }
+        //private void OnDisable()
+        //{
+        //    Mission.Lifecycle.EventManager.Initialize -= OnInitialize;
+        //    Mission.Lifecycle.EventManager.Completed -= OnCompleted;
+        //}
+
+        //IEnumerator EnsureConnection()
+        //{
+        //    while (true)
+        //    {
+        //        try
+        //        {
+        //            if (!Connected && MissionLifeCycleController.Instance.Running)
+        //            {
+        //                ConnectToSocket();
+        //            }
+        //        } catch(NullReferenceException e)
+        //        {
+                    
+        //        }
                
-                yield return new WaitForSecondsRealtime(1);
-            }
-        }
+        //        yield return new WaitForSecondsRealtime(1);
+        //    }
+        //}
 
-        private void OnInitialize(object sender, IntEventArgs e)
-        {
-            Connect();
-        }
+        //private void OnInitialize(object sender, IntEventArgs e)
+        //{
+        //    ConnectToSocket();
+        //}
 
-        private void OnCompleted(object sender, EventArgs e)
-        {
-            Disconnect();
-        }
+        //private void OnCompleted(object sender, EventArgs e)
+        //{
+        //    Disconnect();
+        //}
 
-        private void Connect()
+        public void ConnectToSocket()
         {
             if (_rosA != null) return;
             Debug.Log("Rosbridge Connecting...");
-            _rosA = new ROSBridgeWebSocketConnection(ServerURL.ROSBRIDGE_URL, ServerURL.ROSBRIDGE_PORT);
+            _rosA = new ROSBridgeWebSocketConnection(_endPoint.Address.ToString(), _endPoint.Port);
             _rosA.AddPublisher(typeof(CoffeePublisher));
             _rosA.Connect();
 
             Debug.Log("Rosbridge Connected.");
         }
 
-        private void Disconnect()
+        public void Disconnect()
         {
             if (_rosA == null) return;
             Debug.Log("Rosbridge Disconnecting...");
@@ -93,7 +100,7 @@ namespace Networking
         {
             if (Instance._rosA == null)
             {
-                Instance.Connect();
+                Instance.ConnectToSocket();
             }
 
             Debug.Log(string.Format("RosBridge: Sending {0} on {1}", message, topic));

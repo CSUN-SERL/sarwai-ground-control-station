@@ -1,93 +1,73 @@
-﻿namespace Networking
+﻿using System.Net;
+
+namespace Networking
 {
     public class ServerURL
     {
-		// Main URLs and Ports for servers.
-		//private const string URL =
-		//    "http://ec2-52-24-126-225.us-west-2.compute.amazonaws.com";
 
-		public const string URL = "http://192.168.1.11"; // "http://52.24.126.225";
+        public ServerURL(IPEndPoint endpoint)
+        {
+            _endpoint = endpoint;
+        }
 
-		//private const int PORT = 81;
-		public const int PORT = 8000;
+        private static IPEndPoint _endpoint;
 
-        public const string ROSBRIDGE_URL = "ws:ubuntu@192.168.1.43";
-        public const int ROSBRIDGE_PORT = 9090;
+        // Extensions
+        public static string ROSBRIDGE_URL = "ws:ubuntu@192.168.1.43";
+        public static int ROSBRIDGE_PORT = 9090;
 
-        public const string MISSED_DETECTION_TOPIC = "/coffee";
+        public static string MISSED_DETECTION_TOPIC = "/coffee";
 
-        private const string STATION_1_URL = "192.168.1.161";
-        private const int STATION_1_PORT = 8080;
+        private static string STATION_1_URL = "192.168.1.161";
+        private static readonly int STATION_1_PORT = 8080;
 
-        private const string STATION_4_URL = "192.168.1.43";
-        private const int STATION_4_PORT = 8080;
+        private static readonly string STATION_4_URL = "192.168.1.43";
+        private static readonly int STATION_4_PORT = 8080;
 
         // Extension routes.
-        private const string GCS_ROUTE = "gcs";
-        private const string SURVEY_ROUTE = "survey";
-        private const string SOCKET_IO_ROUTE = "socket.io";
-        private const string INSERT_PARTICIPANT_ROUTE = "make-new-participant";
-        private const string RETRIEVE_SURVEY_QUESTIONS_ROUTE = "retrieve-survey-questions";
-        private const string RETRIEVE_QUERY_IMAGE_ROUTE = "retrieve-query-images";
-        private const string RETRIEVE_QUERY_FOR_TRANSPARENCY_ROUTE = "retrieve-query-images";
-        private const string RETRIEVE_TRANSPARENCY_BRIEF_ROUTE = "retrieve-transparency-brief";
-        //iris\retrieve-query-images
-        //question_id
+        private static readonly string GCS_ROUTE = "gcs";
+        private static readonly string SURVEY_ROUTE = "survey";
+        private static readonly string SOCKET_IO_ROUTE = "socket.io";
+        private static readonly string INSERT_PARTICIPANT_ROUTE = "make-new-participant";
+        private static readonly string RETRIEVE_SURVEY_QUESTIONS_ROUTE = "retrieve-survey-questions";
+        private static readonly string RETRIEVE_QUERY_IMAGE_ROUTE = "retrieve-query-images";
+        private static readonly string RETRIEVE_QUERY_FOR_TRANSPARENCY_ROUTE = "retrieve-query-images";
 
+        private static readonly string RETRIEVE_TRANSPARENCY_BRIEF_ROUTE = "retrieve-transparency-brief";
 
-        private const string PHYSIOLOGICAL_DATA_ROUTE =
+        private static readonly string PHYSIOLOGICAL_DATA_ROUTE =
             "insert-physiological-data";
 
-        private const string LOAD_MISSION_ROUTE = "load-mission";
-        private const string SQL_TEMP_ROUTE = "sql-temp";
-        private const string INSERT_ROUTE = "insert";
+        private static readonly string LOAD_MISSION_ROUTE = "load-mission";
+        private static readonly string SQL_TEMP_ROUTE = "sql-temp";
+        private static readonly string INSERT_ROUTE = "insert";
 
-        private const string UPLOAD_LVL_OF_AUTONOMY_ROUTE = "upload-level-of-autonomy";
+        private static readonly string UPLOAD_LVL_OF_AUTONOMY_ROUTE = "upload-level-of-autonomy";
 
-        private const string QUERY_TRAPSPARENCY_ROUTE = "upload-level-of-autonomy";
+        private static readonly string QUERY_TRAPSPARENCY_ROUTE = "upload-level-of-autonomy";
 
-
-
-        // Socket Event Names
-        public const string QUERY_RECEIVED = "gcs-query-received";
-        public const string NOTIFICATION_RECEIVED = "gcs-notification-received";
-        public const string SEND_ANSWER_QUERY = "gcs-query-answers";
-
-        public const string AUTONOMOUS_QUERY = "gcs-automated-query";
-        public const string GENERATED_QUERY = "gcs-generated-query";
-
-        public const string TOGGLE_MANUAL_CONTROL = "cm-toggle-manual-control";
 
         public static string UPDATE_LVL_OF_AUTONOMY
         {
-            get
-            {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT, SURVEY_ROUTE, UPLOAD_LVL_OF_AUTONOMY_ROUTE);
-            }
+            get { return string.Format("http://{0}:{1}/{2}/{3}", _endpoint.Address, _endpoint.Port, SURVEY_ROUTE, UPLOAD_LVL_OF_AUTONOMY_ROUTE); }
         }
 
         public static string JSON_TEST
         {
-            get
-            {
-                return string.Format("{0}:{1}/{2}", URL, PORT, UPLOAD_LVL_OF_AUTONOMY_ROUTE);
-            }
+            get { return string.Format("http://{0}:{1}/{2}", _endpoint.Address, _endpoint.Port, UPLOAD_LVL_OF_AUTONOMY_ROUTE); }
         }
 
         // Accessors for other objects.
         public static string SOCKET_IO
         {
-            get
-            {
-                return string.Format("{0}:{1}/{2}", URL, PORT, SOCKET_IO_ROUTE);
-            }
+            get { return string.Format("http://{0}:{1}/{2}", _endpoint.Address, _endpoint.Port, SOCKET_IO_ROUTE); }
         }
 
         public static string INSERT_PARTICIPANT
         {
             get
             {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT, GCS_ROUTE,
+                return string.Format("http://{0}:{1}/{2}/{3}", _endpoint.Address, _endpoint.Port, GCS_ROUTE,
                     INSERT_PARTICIPANT_ROUTE);
             }
         }
@@ -96,7 +76,7 @@
         {
             get
             {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT, SURVEY_ROUTE,
+                return string.Format("http://{0}:{1}/{2}/{3}", _endpoint.Address, _endpoint.Port, SURVEY_ROUTE,
                     RETRIEVE_SURVEY_QUESTIONS_ROUTE);
             }
         }
@@ -105,7 +85,7 @@
         {
             get
             {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT, SURVEY_ROUTE,
+                return string.Format("http://{0}:{1}/{2}/{3}", _endpoint.Address, _endpoint.Port, SURVEY_ROUTE,
                     RETRIEVE_QUERY_IMAGE_ROUTE);
             }
         }
@@ -114,14 +94,16 @@
         {
             get
             {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT, QUERY_TRAPSPARENCY_ROUTE,
+                return string.Format("http://{0}:{1}/{2}/{3}", _endpoint.Address, _endpoint.Port, QUERY_TRAPSPARENCY_ROUTE,
                     RETRIEVE_QUERY_FOR_TRANSPARENCY_ROUTE);
             }
         }
 
-        public static string RETRIEVE_TRANSPARENCY_BRIEF {
-            get {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT, GCS_ROUTE,
+        public static string RETRIEVE_TRANSPARENCY_BRIEF
+        {
+            get
+            {
+                return string.Format("http://{0}:{1}/{2}/{3}", _endpoint.Address, _endpoint.Port, GCS_ROUTE,
                     RETRIEVE_TRANSPARENCY_BRIEF_ROUTE);
             }
         }
@@ -130,7 +112,7 @@
         {
             get
             {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT, GCS_ROUTE,
+                return string.Format("http://{0}:{1}/{2}/{3}", _endpoint.Address, _endpoint.Port, GCS_ROUTE,
                     PHYSIOLOGICAL_DATA_ROUTE);
             }
         }
@@ -139,7 +121,7 @@
         {
             get
             {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT, GCS_ROUTE,
+                return string.Format("http://{0}:{1}/{2}/{3}", _endpoint.Address, _endpoint.Port, GCS_ROUTE,
                     LOAD_MISSION_ROUTE);
             }
         }
@@ -148,7 +130,7 @@
         {
             get
             {
-                return string.Format("{0}:{1}/{2}/{3}", URL, PORT,
+                return string.Format("http://{0}:{1}/{2}/{3}", _endpoint.Address, _endpoint.Port,
                     SQL_TEMP_ROUTE, INSERT_ROUTE);
             }
         }
@@ -168,10 +150,8 @@
 
         public static string DownloadMediaUrl(string fileName)
         {
-            return string.Format("{0}:{1}/file/download/{2}", URL, PORT,
+            return string.Format("http://{0}:{1}/file/download/{2}", _endpoint.Address, _endpoint.Port,
                 fileName);
         }
-
-
     }
 }
