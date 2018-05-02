@@ -42,21 +42,6 @@ namespace Participant
             DontDestroyOnLoad(gameObject);
         }
 
-
-        //public void OnEnable()
-        //{
-        //    EventManager.NewParticipantMade += OnNewParticipantMade;
-        //}
-
-        //public void OnDisable()
-        //{
-        //    EventManager.NewParticipantMade -= OnNewParticipantMade;
-        //}
-
-        //private void OnNewParticipantMade(object sender, EventArgs e)
-        //{
-        //    SceneFlowController.LoadNextScene();
-        //}
         /// <summary>
         /// This is a wrapper for the NewParticipantRequest coroutine
         /// </summary>
@@ -127,7 +112,6 @@ namespace Participant
                 Participant = new Participant
                 {
                     Data = data,
-                    CurrentTimeline = currentTimeline,
                     CurrentMission = currentMission
                 };
 
@@ -180,8 +164,8 @@ namespace Participant
                 Participant = new Participant
                 {
                     Data = data,
-                    CurrentTimeline = 0,
-                    CurrentMission = 1
+                    CurrentMission = 1,
+                    CurrentSurvey = 1
                 };
 
                 Debug.Log(string.Format(
