@@ -33,9 +33,6 @@ namespace Networking
                 FailedTextGameObject.SetActive(false);
             }
 
-            // Disable Continue Button.
-            ContinueButton.interactable = false;
-
             // Populate Connection list.
             foreach (var server in _serverList) {
                 print(server.Value.AddressFamily);
@@ -46,22 +43,24 @@ namespace Networking
 
             EventManager.ConnectionFailed += OnConnectionFailed;
             EventManager.Connect += OnConnect;
+            EventManager.Connected += OnConnected;
+        }
+
+        private void OnConnected(object sender, ConnectEventArgs e)
+        {
+            SceneFlowController.Instance.LoadNextSceneWrapper();
         }
 
         void OnDisable()
         {
             EventManager.ConnectionFailed -= OnConnectionFailed;
             EventManager.Connect -= OnConnect;
+            EventManager.Connected -= OnConnected;
         }
 
         private void OnConnect(object sender, ConnectEventArgs e)
         {
-            // Disable Continue Button.
-            ContinueButton.interactable = false;
-
-            if (FailedTextGameObject != null) {
-                FailedTextGameObject.SetActive(false);
-            }
+            
         }
 
         

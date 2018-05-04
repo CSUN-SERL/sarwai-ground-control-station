@@ -7,7 +7,8 @@ namespace Networking
     public class ServerConnectionBehavior : MonoBehaviour {
         // Sockets that are needed for connecting to server.
         private GcsSocket _gcsSocket;
-        private RosbridgeSocket _rosbridgeSocket;
+
+        private ServerURL _serverUrl;
 
         public IPEndPoint EndPoint { get; set; }
 
@@ -25,6 +26,7 @@ namespace Networking
             // Singleton
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
 
         public void Connect(IPEndPoint endPoint)
@@ -43,6 +45,7 @@ namespace Networking
 
             // Create Sockets.
             _gcsSocket = new GcsSocket(EndPoint);
+            _serverUrl = new ServerURL(EndPoint);
 
             if (_gcsSocket == null) {
                 EventManager.OnConnectionFailed();
@@ -52,17 +55,19 @@ namespace Networking
             // Attempt connection.
             for (int i = 0; i < _numAttempts; i++) {
                 _gcsSocket.ConnectToSocket();
-                yield return new WaitForSecondsRealtime(timeoutTime);
                 if (_gcsSocket.Connected)
                 {
                     Debug.Log("Connected");
-                    EventManager.OnConnected(EndPoint);
+                    
                     yield break;
                 }
                 else
                 {
                     Debug.Log("Could not connect. Retrying...");
                 }
+
+                EventManager.OnConnected(EndPoint);
+                yield return new WaitForSecondsRealtime(timeoutTime);
             }
 
             // Connection was unsuccessful.

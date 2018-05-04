@@ -31,7 +31,8 @@ public class ServerSelect : MonoBehaviour
         {
             _server = value;
             IpPortText.text = string.Format("{0}:{1}", value.Address, value.Port);
-            CheckConnection();
+            //CheckConnection();
+            ConnectButton.interactable = true;
         }
     }
 
@@ -62,6 +63,8 @@ public class ServerSelect : MonoBehaviour
 
         // Attempt connection.
         ServerConnectionBehavior.Instance.Connect(Server);
+
+        
     }
 
     private void OnConnectionFailed(object sender, EventArgs e)
@@ -105,7 +108,6 @@ public class ServerSelect : MonoBehaviour
     {
         // Connect the GCS Socket.
         Debug.Log(string.Format("Connecting to Socket {0}:{1}", Server.Address, Server.Port));
-
         EventManager.OnConnect(Server);
     }
 }

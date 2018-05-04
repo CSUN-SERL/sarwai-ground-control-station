@@ -37,6 +37,7 @@ namespace Networking
         {
             _endpoint = endpoint;
             Debug.Log(endpoint);
+            Instance = this;
         }
 
         //public static bool Alive
@@ -97,6 +98,8 @@ namespace Networking
             // If already connected, disconnect from socket and reconnect.
             if (_socket != null || Connected)
                 Disconnect();
+
+            Debug.Log("Creating Socket");
 
             //Create the socket instance.
             _socket = IO.Socket(string.Format("http://{0}:{1}/socket.io", _endpoint.Address, _endpoint.Port));
