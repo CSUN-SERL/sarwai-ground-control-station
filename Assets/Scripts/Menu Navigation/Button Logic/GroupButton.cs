@@ -28,7 +28,7 @@ public class GroupButton : MonoBehaviour
 
         // Assign group number to button.
         group_num = ++n_buttons;
-        _button.GetComponentInChildren<Text>().text = groups[group_num];
+        _button.GetComponentInChildren<Text>().text = groups[(groups.Count+1) - group_num];
     }
 
     public void OnDestroy()
